@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Daily Feed vom 20.04.2026">
+  <meta name="theme-color" content="#10201b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Daily Feed">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <title>Daily Feed - 2026-04-20</title>
+  <style>
+:root {
+  color-scheme: light;
+  --bg: #f6f7f8;
+  --paper: #ffffff;
+  --ink: #18211d;
+  --muted: #617068;
+  --line: #d6ddd9;
+  --accent: #126c56;
+  --accent-strong: #0b4739;
+  --wash: #e7eee8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  color: var(--accent-strong);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .85rem max(1rem, calc((100vw - 900px) / 2));
+  background: rgba(255, 255, 255, .94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: .8rem;
+  font-size: .95rem;
+}
+
+nav a,
+.actions a {
+  text-decoration: none;
+}
+
+.page {
+  width: min(900px, calc(100vw - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 4rem;
+}
+
+.report-header {
+  padding: 2rem 0 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.report-header.compact {
+  padding-bottom: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 .45rem;
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 3.4rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.date {
+  margin: .9rem 0 0;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 1.25rem;
+}
+
+.actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.35rem;
+  padding: .5rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.digest {
+  padding-top: 1.5rem;
+}
+
+.digest h2 {
+  margin: 2.2rem 0 .85rem;
+  padding-top: .3rem;
+  font-size: 1.45rem;
+  line-height: 1.15;
+}
+
+.digest h3 {
+  margin: 1.6rem 0 .65rem;
+  color: var(--accent-strong);
+  font-size: 1.12rem;
+}
+
+.digest p,
+.digest li {
+  font-size: 1.03rem;
+}
+
+.digest ul {
+  margin: .6rem 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.digest li {
+  margin: .55rem 0;
+}
+
+.digest details {
+  margin: 1.2rem 0 1.5rem;
+  padding: .9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.digest summary {
+  cursor: pointer;
+  color: var(--accent-strong);
+  font-weight: 800;
+}
+
+.digest details ul {
+  margin-bottom: .2rem;
+}
+
+code {
+  padding: .1rem .3rem;
+  border-radius: 4px;
+  background: var(--wash);
+  font-size: .92em;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.archive-list {
+  list-style: none;
+  display: grid;
+  gap: .75rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+}
+
+.archive-list a {
+  display: grid;
+  gap: .2rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.archive-list span {
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.archive-list strong {
+  font-size: 1.05rem;
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .45rem;
+  }
+
+  .page {
+    width: min(100vw - 1.2rem, 900px);
+    padding-top: .75rem;
+  }
+
+  .report-header {
+    padding-top: 1.3rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="../index.html">Daily Feed</a>
+  <nav>
+    <a href="../index.html">Heute</a>
+    <a href="../archive/">Archiv</a>
+  </nav>
+</header>
+<main class="page">
+  <section class="report-header">
+    <p class="eyebrow">Archiv</p>
+    <h1>Daily News Digest - 2026-04-20</h1>
+    <p class="date">20.04.2026</p>
+    <div class="actions">
+      <a href="../archive/">Zum Archiv</a>
+      <a href="../archive/2026-04-19.html">Vorheriger</a>
+      <a href="../archive/2026-04-21.html">Naechster</a>
+    </div>
+  </section>
+  <article class="digest">
+    <h2>Daily News Digest - 2026-04-20</h2>
+<h3>Top-Themen</h3>
+<ul>
+<li>Iran-Krieg und Energiekrise: Friedensgespräche scheitern, US-Marine ergreift iranische Schiffe, BDI streicht Wachstumsprognose.</li>
+<li>Geopolitische Eskalation: Russland droht deutschen Rüstungsfirmen, deutsche Marine bereitet sich auf Einsatz in der Straße von Hormus vor.</li>
+<li>KI und Wissenschaft: Automatisierte Alignment-Forschung, HiFloat4-Architektur und Forderungen nach akademischer Reform.</li>
+<li>Innere Sicherheit und Gesellschaft: Kriminalstatistik zeigt weniger Straftaten, aber mehr Schwerverbrechen; Gesundheitsreform kritisiert.</li>
+</ul>
+<h3>Themenfelder</h3>
+<h4>Geopolitik &amp; Energiekrise</h4>
+<ul>
+<li>Der Iran hat die Teilnahme an neuen Friedensverhandlungen mit den USA abgesagt, nachdem die US-Marine ein iranisches Frachtschiff im Golf von Oman gewaltsam unter Kontrolle gebracht hat <a href="https://www.deutschlandfunk.de/iran-sagt-neue-verhandlungsrunde-mit-usa-ab-104.html" rel="noopener noreferrer">Iran sagt neue Verhandlungsrunde mit USA ab</a>.</li>
+<li>Die Bundesregierung beruft den Nationalen Sicherheitsrat ein, um die Versorgungssicherheit angesichts steigender Ölpreise und möglicher Engpässe zu sichern <a href="https://www.deutschlandfunk.de/versorgungssicherheit-hat-hoechste-prioritaet-merz-kuendigt-sitzung-des-nationalen-sicherheitsrats-a-106.html" rel="noopener noreferrer">Kanzler Merz kündigt zeitnahe Sitzung des Nationalen Sicherheitsrats an</a>.</li>
+<li>Der BDI hat seine Wachstumsprognose für Deutschland gestrichen und rechnet nun allenfalls mit Stagnation aufgrund des Iran-Kriegs, hoher Zölle und gestiegener Kosten <a href="https://www.deutschlandfunk.de/bdi-streicht-wachstumsprognose-allenfalls-stagnation-erwartet-100.html" rel="noopener noreferrer">BDI streicht Wachstumsprognose</a>.</li>
+</ul>
+<h4>Sicherheit &amp; Rüstung</h4>
+<ul>
+<li>Das Auswärtige Amt hat den russischen Botschafter einbestellt, da Moskau deutsche Rüstungsfirmen wegen Lieferungen von Drohnen an die Ukraine bedroht <a href="https://www.deutschlandfunk.de/moskaus-botschafter-wegen-drohungen-russlands-gegen-ziele-in-deutschland-einbestellt-100.html" rel="noopener noreferrer">Moskaus Botschafter wegen &quot;Drohungen Russlands gegen Ziele in Deutschland&quot; einbestellt</a>.</li>
+<li>Verteidigungsminister Pistorius bestätigte, dass sich die deutsche Marine bereits auf einen möglichen Einsatz in der Straße von Hormus vorbereitet <a href="https://www.deutschlandfunk.de/pistorius-zu-strasse-von-hormus-deutsche-marine-bereitet-sich-bereits-auf-moeglichen-einsatz-vor-102.html" rel="noopener noreferrer">Pistorius zu Straße von Hormus: Deutsche Marine bereitet sich bereits auf möglichen Einsatz vor</a>.</li>
+<li>Die Ukraine führte einen Drohnenangriff auf den russischen Schwarzmeerhafen Tuapse durch, wobei ein Toter zu beklagen ist <a href="https://www.deutschlandfunk.de/ukrainischer-gegenangriff-auf-russischen-schwarzmeerhafen-ein-toter-100.html" rel="noopener noreferrer">Ukrainischer Gegenangriff auf russischen Schwarzmeerhafen - ein Toter</a>.</li>
+</ul>
+<h4>KI &amp; Wissenschaft</h4>
+<ul>
+<li>Jack Clark berichtet über Huawei HiFloat4, das MXFP4 auf Ascend-NPUs übertrifft, sowie über autonome KI-Agenten bei Anthropic, die menschliche Forscher in der Alignment-Forschung übertreffen <a href="https://jack-clark.net/2026/04/20/import-ai-454-automating-alignment-research-safety-study-of-a-chinese-model-hifloat4/" rel="noopener noreferrer">Jack Clark</a>.</li>
+<li>Alex Tabarrok fordert acht Regeln zur Wiederherstellung des öffentlichen Vertrauens in die Wissenschaft, darunter politische Neutralität und Fokus auf nützliches Wissen <a href="https://feeds.feedblitz.com/~/954092465/0/marginalrevolution~Eight-Rules-to-Regain-Public-Trust-in-Academia.html" rel="noopener noreferrer">Marginal Revolution</a>.</li>
+<li>Marginal Revolution hebt die Rolle von KI bei der Entwicklung eines mRNA-basierten Pankreaskrebs-Impfstoffs hervor, der als Durchbruch gewertet wird <a href="https://feeds.feedblitz.com/~/954107108/0/marginalrevolution~Monday-assorted-links.html" rel="noopener noreferrer">Marginal Revolution</a>.</li>
+</ul>
+<h4>Innere Sicherheit &amp; Gesellschaft</h4>
+<ul>
+<li>Die Polizeiliche Kriminalstatistik 2025 zeigt einen Rückgang der Gesamtzahl registrierter Straftaten um 5,6 Prozent, jedoch eine steigende Zahl an Schwerverbrechen <a href="https://www.deutschlandfunk.de/weniger-registrierte-straftaten-mehr-schwere-delikte-100.html" rel="noopener noreferrer">Weniger registrierte Straftaten, mehr schwere Delikte</a>.</li>
+<li>Kassenärzte-Chef Gassen kritisiert die Gesundheitsreform von Bundesministerin Warken und warnt vor Verschlechterungen der Patientenversorgung <a href="https://www.deutschlandfunk.de/kritik-an-plaenen-von-warken-haelt-an-102.html" rel="noopener noreferrer">Gesundheitsreform - Kritik an Plänen von Warken hält an</a>.</li>
+<li>Die Türkische Gemeinde in Deutschland wirft Innenminister Dobrindt vor, die Kriminalstatistik zur Stimmungsmache gegen Migranten zu nutzen <a href="https://www.deutschlandfunk.de/tuerkische-gemeinde-wirft-dobrindt-stimmungsmache-gegen-migranten-vor-102.html" rel="noopener noreferrer">Türkische Gemeinde wirft Dobrindt Stimmungsmache gegen Migranten vor</a>.</li>
+</ul>
+<h3>Warum das wichtig ist</h3>
+<ul>
+<li>Die Eskalation im Iran-Konflikt und die Vorbereitung der deutschen Marine auf einen Einsatz in der Straße von Hormus deuten auf eine direkte militärische Einbindung Deutschlands in globale Konflikte hin.</li>
+<li>Die gestrichene Wachstumsprognose des BDI und die drohende Energiekrise markieren einen signifikanten Stimmungswandel und unterstreichen die wirtschaftliche Belastung Deutschlands durch externe Schocks.</li>
+<li>Die Debatte um akademische Integrität und die Kritik an der Gesundheitsreform spiegeln tiefere gesellschaftliche Polarisierungen und institutionelle Vertrauensverluste wider.</li>
+<li>Die technologischen Durchbrüche in der KI-Forschung (Alignment, HiFloat4) stehen im Kontrast zu den geopolitischen Unsicherheiten und könnten langfristige strategische Vorteile verschaffen.</li>
+</ul>
+<h3>Report-Metadaten</h3>
+<ul>
+<li>Zeitzone: <code>Europe/Berlin</code></li>
+<li>Digest-Tag: <code>2026-04-20</code></li>
+<li>Auswahlbasis: <code>extracted_items.published_at</code></li>
+<li>Auswahlmodus: zuerst Quellenvielfalt innerhalb eines Typs, danach Zusatzitems derselben Quelle</li>
+<li>Quellen mit geeigneten Items an diesem Tag: 9</li>
+<li>Quellen im finalen Digest: 9</li>
+<li>Beruecksichtigte Items im finalen Digest: 110</li>
+<li>Modell: <code>llama-cli (Qwen3.6-35B-A3B-UD-Q5_K_XL.gguf)</code></li>
+</ul>
+  </article>
+</main>
+
+</body>
+</html>
