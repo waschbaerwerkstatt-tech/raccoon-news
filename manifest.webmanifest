@@ -1,6 +1,6 @@
 {
-  "name": "Daily Feed",
-  "short_name": "Daily Feed",
+  "name": "Raccoon News",
+  "short_name": "Raccoon News",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
