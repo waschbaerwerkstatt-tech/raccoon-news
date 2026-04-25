@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Raccoon News vom 23.04.2026">
+  <meta name="theme-color" content="#10201b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Raccoon News">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <title>Raccoon News - 2026-04-23</title>
+  <style>
+:root {
+  color-scheme: light;
+  --bg: #f6f7f8;
+  --paper: #ffffff;
+  --ink: #18211d;
+  --muted: #617068;
+  --line: #d6ddd9;
+  --accent: #126c56;
+  --accent-strong: #0b4739;
+  --wash: #e7eee8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  color: var(--accent-strong);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .85rem max(1rem, calc((100vw - 900px) / 2));
+  background: rgba(255, 255, 255, .94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: .8rem;
+  font-size: .95rem;
+}
+
+nav a,
+.actions a {
+  text-decoration: none;
+}
+
+.page {
+  width: min(900px, calc(100vw - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 4rem;
+}
+
+.report-header {
+  padding: 2rem 0 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.report-header.compact {
+  padding-bottom: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 .45rem;
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 3.4rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.date {
+  margin: .9rem 0 0;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 1.25rem;
+}
+
+.actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.35rem;
+  padding: .5rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.digest {
+  padding-top: 1.5rem;
+}
+
+.digest h2 {
+  margin: 2.2rem 0 .85rem;
+  padding-top: .3rem;
+  font-size: 1.45rem;
+  line-height: 1.15;
+}
+
+.digest h3 {
+  margin: 1.6rem 0 .65rem;
+  color: var(--accent-strong);
+  font-size: 1.12rem;
+}
+
+.digest p,
+.digest li {
+  font-size: 1.03rem;
+}
+
+.digest ul {
+  margin: .6rem 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.digest li {
+  margin: .55rem 0;
+}
+
+code {
+  padding: .1rem .3rem;
+  border-radius: 4px;
+  background: var(--wash);
+  font-size: .92em;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.archive-list {
+  list-style: none;
+  display: grid;
+  gap: .75rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+}
+
+.archive-list a {
+  display: grid;
+  gap: .2rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.archive-list span {
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.archive-list strong {
+  font-size: 1.05rem;
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .45rem;
+  }
+
+  .page {
+    width: min(100vw - 1.2rem, 900px);
+    padding-top: .75rem;
+  }
+
+  .report-header {
+    padding-top: 1.3rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="../index.html">Raccoon News</a>
+  <nav>
+    <a href="../index.html">Heute</a>
+    <a href="../archive/">Archiv</a>
+  </nav>
+</header>
+<main class="page">
+  <section class="report-header">
+    <p class="eyebrow">Aktuellster Report</p>
+    <h1>Kombinierter Digest - 2026-04-23</h1>
+    <p class="date">23.04.2026</p>
+    <div class="actions">
+      <a href="../archive/">Zum Archiv</a>
+      <a href="../archive/2026-04-22.html">Vorheriger</a>
+      
+    </div>
+  </section>
+  <article class="digest">
+    <h2>Kombinierter Digest - 2026-04-23</h2>
+<h3>Daily News Digest</h3>
+<h3>Top-Themen</h3>
+<ul>
+<li>Geopolitische Eskalation: Israel bereitet Fortsetzung des Iran-Kriegs vor, China fordert Wiedereröffnung der Straße von Hormus.</li>
+<li>KI-Integration in den Staat: UAE plant Umstellung von 50% der Regierungsprozesse auf Agentic AI innerhalb von zwei Jahren.</li>
+<li>Deutsche Steuerpolitik: Reform zielt primär auf Entlastung von Einkommen bis 3.000 Euro, was soziale Ungleichheit adressieren soll.</li>
+<li>KI-Evaluation: Größere Modelle (397B) übertreffen kleinere (27B) bei komplexen Aufgaben, trotz schlechterer Benchmark-Werte.</li>
+</ul>
+<h3>Themenfelder</h3>
+<h4>Geopolitik &amp; Sicherheit</h4>
+<ul>
+<li>Israel ist bereit, den Krieg gegen den Iran fortzusetzen, und wartet auf das &quot;grüne Licht&quot; der USA; der US-Militär beschlagnahmte einen Tanker mit iranischem Öl im Indischen Ozean <a href="https://www.tagesschau.de/newsticker/liveblog-iran-donnerstag-112.html" rel="noopener noreferrer">Israel bereit für Fortsetzung des Iran-Kriegs</a>.</li>
+<li>Chinas Präsident Xi Jinping fordert die Wiedereröffnung der Straße von Hormuz; zudem wird eine interzedierte iranische Schiffsladung mit möglichen Raketenvorstufen aus China diskutiert <a href="https://sinocism.com/p/xi-wants-the-strait-of-hormuz-reopened" rel="noopener noreferrer">Xi Wants the Strait of Hormuz Reopened</a>.</li>
+<li>Signal-Messenger, oft von Politikern genutzt, ist Ziel von Phishing-Angriffen geworden; auch Bundestagspräsidentin Klöckner sei betroffen <a href="https://www.tagesschau.de/inland/kloeckner-signal-phishing-100.html" rel="noopener noreferrer">Cyberangriffe - Warum der Signal-Messenger für die Politik zum Problem wird</a>.</li>
+</ul>
+<h4>KI &amp; Technologie</h4>
+<ul>
+<li>Die UAE plant, innerhalb von zwei Jahren 50% der Regierungssektoren und -dienstleistungen auf Agentic AI umzustellen, um Effizienz und Entscheidungsgeschwindigkeit zu steigern <a href="https://feeds.feedblitz.com/~/954347987/0/marginalrevolution~From-the-UAE.html" rel="noopener noreferrer">From the UAE</a>.</li>
+<li>China soll US-KI-Modelle durch &quot;Distillationsangriffe&quot; reverse-engineern, was die Notwendigkeit von Chip-Exportkontrollen unterstreicht <a href="https://www.astralcodexten.com/p/links-for-april-2026" rel="noopener noreferrer">Links For April 2026</a>.</li>
+<li>Community-Diskussion zeigt, dass größere Modelle (397B) trotz schlechterer Benchmarks bei logischer Kohärenz und Weltwissen überlegen sind, während kleinere Modelle (27B) in spezifischen Tests besser abschneiden <a href="https://reddit.com/r/LocalLLaMA/comments/1st11lp/forgive_my_ignorance_but_how_is_a_27B_model/" rel="noopener noreferrer">Forgive my ignorance but how is a 27B model better than 397B?</a></li>
+</ul>
+<h4>Wirtschaft &amp; Gesellschaft</h4>
+<ul>
+<li>Bundesfinanzminister Klingbeil konkretisiert die Steuerreform als vorrangige Entlastung für Einkommen bis 3.000 Euro <a href="https://www.deutschlandfunk.de/bundesfinanzminister-klingbeil-steuerreform-vor-allem-fuer-einkommen-bis-3-000-euro-102.html" rel="noopener noreferrer">Bundesfinanzminister Klingbeil: Steuerreform vor allem für Einkommen bis 3.000 Euro</a>.</li>
+<li>Argentiniens Wirtschaft schrumpfte im Februar um 2,6%, die stärkste monatliche Kontraktion seit Amtsantritt von Präsident Milei <a href="https://feeds.feedblitz.com/~/954352670/0/marginalrevolution~Thursday-assorted-links.html" rel="noopener noreferrer">Thursday assorted links</a>.</li>
+<li>Adam Tooze diskutiert die Bildung eines Kartells von Ölimportländern als strategische Antwort auf US-Handelspolitik <a href="https://adamtooze.substack.com/p/top-links-1081-time-for-a-cartel" rel="noopener noreferrer">Top Links 1081 Time for a cartel of oil-importers?</a></li>
+</ul>
+<h4>Management &amp; Kommunikation</h4>
+<ul>
+<li>Jefferson Fisher rät zu direkter Kommunikation bei Kündigungen oder schlechten Nachrichten, um Fight-or-Flight-Reaktionen zu vermeiden und Unsicherheit zu reduzieren <a href="https://www.youtube.com/watch?v=bG2b7_HwXw0" rel="noopener noreferrer">This Firing Mistake Triggers Instant PANIC! (Do This Instead)</a>.</li>
+</ul>
+<h3>Warum das wichtig ist</h3>
+<ul>
+<li>Die Eskalation im Nahen Osten und Chinas Forderung nach Öffnung der Straße von Hormuz deuten auf eine Verlagerung der geopolitischen Machtbalance und potenzielle Versorgungsrisiken für Öl hin.</li>
+<li>Die UAE-Initiative markiert einen historischen Schritt zur Integration autonomer KI-Systeme in die staatliche Exekutive, was globale Maßstäbe für digitale Governance setzen könnte.</li>
+<li>Die Diskrepanz zwischen KI-Benchmarks und realer Leistung bei komplexen Aufgaben stellt die Validität aktueller Evaluierungsstandards in Frage.</li>
+<li>Die Fokussierung der deutschen Steuerreform auf untere Einkommensgruppen spiegelt politische Prioritäten wider, die soziale Ungleichheit adressieren sollen, aber die fiskalischen Auswirkungen noch offen lassen.</li>
+</ul>
+<h3>Report-Metadaten</h3>
+<ul>
+<li>Zeitzone: <code>Europe/Berlin</code></li>
+<li>Digest-Tag: <code>2026-04-23</code></li>
+<li>Auswahlbasis: <code>extracted_items.published_at</code></li>
+<li>Auswahlmodus: zuerst Quellenvielfalt innerhalb eines Typs, danach Zusatzitems derselben Quelle</li>
+<li>Quellen mit geeigneten Items an diesem Tag: 9</li>
+<li>Quellen in der Kandidatenauswahl: 9</li>
+<li>Vorausgewaehlte Kandidaten fuer den Daily-Digest: 101</li>
+<li>Modell: <code>llama-cli (Qwen3.6-35B-A3B-UD-Q6_K.gguf)</code></li>
+</ul>
+<h3>Quellen-Rundown (Nicht-News-Quellen)</h3>
+<h3>Quellen</h3>
+<h4>adam_tooze_substack</h4>
+<ul>
+<li>12:55 CEST: <a href="https://adamtooze.substack.com/p/top-links-1081-time-for-a-cartel" rel="noopener noreferrer">Top Links 1081 Time for a cartel of oil-importers? The US as roving bandit. Modern illiteracy. Far-right France.</a>. Autor: Adam Tooze. Adam Tooze diskutiert in diesem Beitrag die strategische Überlegung, einen Kartellverbund ölimportierender Nationen zu etablieren, um die marktbeherrschende Position der USA als „wandernden Räuber“ zu kontern. Die Kernthese besteht darin, dass eine koordinierte Nachfragepolitik der Importeure notwendig ist, um sich von der unilateralen US-Ölpolitik zu emanzipieren und geopolitische Abhängigkeiten zu reduzieren. Diese Analyse bietet wertvolle Einsichten in die Zukunft der globalen Energiegeopolitik und die möglichen Antworten der westlichen Welt auf amerikanische Hegemonie. Quelle: adamtooze.substack.com.</li>
+</ul>
+<h4>astral_codex_ten</h4>
+<ul>
+<li>19:33 CEST: <a href="https://www.astralcodexten.com/p/links-for-april-2026" rel="noopener noreferrer">Links For April 2026</a>. Autor: Scott Alexander. Scott Alexander präsentiert eine kuratierte Auswahl an Links aus dem April 2026, die ein breites Spektrum an Themen von KI-Fortschritt und -Sicherheit über politische Ökonomie bis hin zu kulturellen Phänomenen abdeckt. Die Zusammenstellung verdeutlicht, wie sich die Debatte um künstliche Intelligenz zunehmend auf gesellschaftliche Strukturen, ethische Implikationen und geopolitische Wettbewerbsvorteile ausweitet. Für den Leser bietet dies einen effizienten Zugang zu aktuellen, oft kontroversen Diskursen und empirischen Analysen, die das Verständnis der aktuellen technologischen und politischen Landschaft vertiefen. Quelle: astralcodexten.com.</li>
+</ul>
+<h4>jeffersonfisher_yt</h4>
+<ul>
+<li>16:01 CEST: <a href="https://www.youtube.com/watch?v=bG2b7_HwXw0" rel="noopener noreferrer">This Firing Mistake Triggers Instant PANIC! (Do This Instead)</a>. Autor: Jefferson Fisher. Der Beitrag erläutert, wie das bewusste Einrahmen und die direkte Benennung schwieriger Gespräche, etwa bei Kündigungen, die Angst und Unsicherheit der Gesprächspartner reduzieren. Die Kernthese ist, dass das schnelle, ehrliche Ansprechen des Themas ohne vorangehendes Smalltalk psychologische Sicherheit schafft und die Beziehung trotz negativer Nachrichten respektiert. Dies ist relevant, da es eine konkrete Methode bietet, um vermeidbare Konflikte zu minimieren und professionelle sowie private Interaktionen effizienter und menschlicher zu gestalten. Quelle: youtube.com.</li>
+</ul>
+<h4>localllama_reddit</h4>
+<ul>
+<li>00:52 CEST: <a href="https://reddit.com/r/LocalLLaMA/comments/1st11lp/forgive_my_ignorance_but_how_is_a_27b_model/" rel="noopener noreferrer">Forgive my ignorance but how is a 27B model better than 397B?</a>. Autor: No_Conversation9561. Der Beitrag diskutiert die scheinbare Überlegenheit eines 27-Parameter-Modells gegenüber einem 397-Parameter-MoE-Modell und hinterfragt die Effizienz der zusätzlichen Experten. Die Kernthese liegt in der Frage, ob das kleinere dichte Modell inhärent leistungsfähiger ist als das größere Mixture-of-Experts-Architektur. Die Lektüre lohnt sich für ein tieferes Verständnis der architekturellen Vor- und Nachteile von Dichte versus MoE bei der Modellskalierung. Quelle: reddit.com.</li>
+</ul>
+<h4>marginalrevolution</h4>
+<ul>
+<li>18:06 CEST: <a href="https://feeds.feedblitz.com/~/954352670/0/marginalrevolution~Thursday-assorted-links.html" rel="noopener noreferrer">Thursday assorted links</a>. Autor: Tyler Cowen. Der Artikel präsentiert eine kuratierte Auswahl aktueller Themen, darunter den Aufstieg chinesischer Mikro-Dramen, historische Analysen zur Industrialisierung Roms und wirtschaftliche Einblicke in Argentiniens Schrumpfung unter Präsident Milei. Die Zusammenstellung verbindet kulturelle Phänomene mit ökonomischen und historischen Fragestellungen, um ein breites intellektuelles Spektrum abzudecken. Für Leser bietet dies einen effizienten Zugang zu vielfältigen Diskursen und dient als Ausgangspunkt für weiterführende Recherchen in spezifischen Interessensgebieten. Quelle: feeds.feedblitz.com.</li>
+<li>16:53 CEST: <a href="https://feeds.feedblitz.com/~/954347987/0/marginalrevolution~From-the-UAE.html" rel="noopener noreferrer">From the UAE</a>. Autor: Tyler Cowen. Der Beitrag thematisiert die Ankündigung der Vereinigten Arabischen Emirate, binnen zwei Jahren die Hälfte der staatlichen Verwaltung durch autonome Agentic-AI-Systeme zu ersetzen. Tyler Cowen argumentiert, dass diese Initiative trotz üblicher PR-Elemente ernst gemeint ist und die AI als ausführende Partnerin etabliert, anstatt sie nur als Werkzeug zu nutzen. Die Lektüre lohnt sich, um die realen Implikationen einer solchen radikalen staatlichen Automatisierung und die damit verbundene Umdeutung der Rolle der KI in der Governance zu verstehen. Quelle: feeds.feedblitz.com.</li>
+<li>08:53 CEST: <a href="https://feeds.feedblitz.com/~/954313790/0/marginalrevolution~Is-each-American-generation-doing-better.html" rel="noopener noreferrer">Is each American generation doing better?</a>. Autor: Tyler Cowen. Die Studie von Corrinth und Larrimore analysiert die reale Haushaltseinkommenentwicklung von fünf US-Generationen im Alter von 36 bis 40 Jahren und stellt fest, dass Millennials im Median 20 % mehr verdienen als ihre Vorgänger. Dieser Wachstumsschub verlangsamt sich jedoch im Vergleich zu früheren Generationen hauptsächlich aufgrund stagnierender Arbeitsstunden von Frauen, wobei jüngere Millennials unter 30 stark von elterlicher Unterstützung profitieren. Die Analyse ist relevant, da sie trotz höherer Bildungskosten nachweist, dass die langfristigen Einkommensgewinne für jüngere Generationen weiterhin positiv ausfallen und die wirtschaftliche Perspektive differenzierter betrachtet werden muss als oft angenommen. Quelle: feeds.feedblitz.com.</li>
+<li>06:50 CEST: <a href="https://feeds.feedblitz.com/~/954305960/0/marginalrevolution~Those-old-factory-sector-jobs.html" rel="noopener noreferrer">Those old factory sector jobs</a>. Autor: Tyler Cowen. Der Beitrag analysiert die aktuelle Knappheit an handwerklichen Fachkräften wie Schneidern, die durch den technologischen Wandel und den Rückgang traditioneller Ausbildungsberufe entstanden ist. Die Kernbeobachtung ist, dass diese physischen Jobs trotz ihrer Schwierigkeit für jüngere Generationen durch gezielte Apprenticeships und neue Trainingsprogramme wieder attraktiv werden und hohe Nachfrage bei Arbeitgebern verzeichnen. Dies ist relevant, um die gegenläufigen Effekte der Automatisierung zu verstehen, die nicht nur weiße Kragen ersetzt, sondern auch Mangel an spezialisierten manuellen Fähigkeiten schafft. Quelle: feeds.feedblitz.com.</li>
+</ul>
+<h4>nate_silver</h4>
+<ul>
+<li>19:02 CEST: <a href="https://www.natesilver.net/p/trump-approval-ratings-nate-silver-bulletin" rel="noopener noreferrer">How popular is Donald Trump?</a>. Autor: Nate Silver. Nate Silver analysiert die aktuellen Umfragewerte zur Beliebtheit von Donald Trump, die sich trotz des beginnenden Iran-Krieges und hoher Energiepreise stabil bei einem Netto-Wert von -16,6 einpendeln. Die Kernbeobachtung ist, dass die öffentliche Unterstützung für den Krieg und die wirtschaftliche Politik nahe historischen Tiefs liegen, während die Gesamtbewertung des Präsidenten überraschend widerstandsfähig bleibt. Für tieferes Lesen lohnt sich der Blick auf die methodische Gewichtung der Polls und den historischen Vergleich mit allen Präsidenten seit Truman, um die tatsächliche politische Verwundbarkeit einzuordnen. Quelle: natesilver.net.</li>
+<li>19:01 CEST: <a href="https://www.natesilver.net/p/iran-war-polls-popularity-approval" rel="noopener noreferrer">How popular is the Iran War?</a>. Autor: Nate Silver. Nate Silver analysiert die öffentliche Unterstützung für den Iran-Krieg durch eine aggregierte Auswertung aktueller Umfragedaten, wobei streng neutrale Fragestellungen gewichtet werden. Die Kernbeobachtung ist, dass die Netto-Unterstützung bei -14,9 liegt und sich trotz eines temporären Waffenstillstands und andauernder Spannungen nicht verändert hat. Diese datenbasierte Einordnung ist relevant, um die Diskrepanz zwischen der hohen militärischen Eskalation und der stagnierenden politischen Legitimation im öffentlichen Bewusstsein zu verstehen. Quelle: natesilver.net.</li>
+<li>19:00 CEST: <a href="https://www.natesilver.net/p/generic-ballot-average-2026-nate-silver-bulletin-congress-polls" rel="noopener noreferrer">Who’s ahead on the generic congressional ballot?</a>. Autor: Nate Silver. Der Beitrag analysiert den aktuellen Durchschnittswert der generischen Kongresswahlumfrage für die US-Midterms 2026, der bei einem Vorsprung von 5,6 Punkten für die Demokraten liegt. Die Kernbeobachtung ist, dass dieser Wert trotz erheblicher Schwankungen in Donald Trumps Zustimmungswerten seit Monaten stabil bleibt und historisch betrachtet einen soliden, wenn auch nicht überragenden, Vorteil für die Demokraten signalisiert. Die Lektüre ist insbesondere für Abonnenten relevant, die detaillierte methodische Einblicke in die Gewichtung von Umfragen, Anpassungen für systematische Fehler sowie länderspezifische Prognosen und historische Datenreihen bis 1994 nutzen möchten. Quelle: natesilver.net.</li>
+<li>02:32 CEST: <a href="https://www.natesilver.net/p/yes-virginia-redistricting-is-a-two" rel="noopener noreferrer">Yes, Virginia, redistricting is a two-player game</a>. Autor: Nate Silver. Nate Silver analysiert das Virginia-Referendum zur parteiischen Kontrolle der Neuziehung von Wahlkreisen als strategischen Schachzug im Rahmen der Spieltheorie. Er argumentiert, dass die Demokraten durch die Nutzung ihrer Mehrheitsverhältnisse in bevölkerungsreichen Bundesstaaten ein strategisches Gleichgewicht erreicht haben, das ihnen trotz unpopulärer Methoden einen signifikanten Sitzgewinn im Repräsentantenhaus sichert. Die Lektüre lohnt sich, um die zugrundeliegende rationale Logik hinter diesem taktischen Wandel und die daraus resultierenden Konsequenzen für die künftige politische Landschaft zu verstehen. Quelle: natesilver.net.</li>
+</ul>
+<h4>sinocism</h4>
+<ul>
+<li>11:00 CEST: <a href="https://sinocism.com/p/xi-wants-the-strait-of-hormuz-reopened" rel="noopener noreferrer">Xi Wants the Strait of Hormuz Reopened; Cakes and An E-Commerce Crackdown; The Next Stage of Decoupling; The MATCH Act in Congress</a>. Autor: Bill Bishop. Der Beitrag analysiert Chinas geopolitische Positionierung im Kontext des Iran-Kriegs, wobei der Fokus auf Pekins Forderung nach der Wiedereröffnung der Straße von Hormuz liegt. Die Kernthese besteht darin, dass China trotz interzifizierter Lieferungen von Raketenvorstufen eine strategische Balance wahrt, um seine wirtschaftlichen Interessen und die Stabilität der globalen Lieferketten zu sichern. Die Lektüre bietet wertvolle Einblicke in die komplexe Dynamik zwischen US-amerikanischen Sanktionen, chinesischer Exportpolitik und den sich verschärfenden technologischen Spannungen im Bereich Halbleiter. Quelle: sinocism.com.</li>
+</ul>
+<h3>Report-Metadaten</h3>
+<ul>
+<li>Zeitzone: <code>Europe/Berlin</code></li>
+<li>Digest-Tag: <code>2026-04-23</code></li>
+<li>Profil: quellen-sortierter Rundown ohne Synthese</li>
+<li>Auswahlbasis: alle geeigneten Tages-Items ausser konfigurierten News-Quellen</li>
+<li>Ausgeschlossene News-Quellen: tagesschau, deutschlandfunk</li>
+<li>Quellen im Rundown: 7</li>
+<li>Items im Rundown: 13</li>
+<li>Fallback-Summaries im Rundown: 0</li>
+</ul>
+  </article>
+</main>
+
+</body>
+</html>

@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Archiv der Raccoon News Reports">
+  <meta name="theme-color" content="#10201b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Raccoon News">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <title>Raccoon News - Archiv</title>
+  <style>
+:root {
+  color-scheme: light;
+  --bg: #f6f7f8;
+  --paper: #ffffff;
+  --ink: #18211d;
+  --muted: #617068;
+  --line: #d6ddd9;
+  --accent: #126c56;
+  --accent-strong: #0b4739;
+  --wash: #e7eee8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  color: var(--accent-strong);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .85rem max(1rem, calc((100vw - 900px) / 2));
+  background: rgba(255, 255, 255, .94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: .8rem;
+  font-size: .95rem;
+}
+
+nav a,
+.actions a {
+  text-decoration: none;
+}
+
+.page {
+  width: min(900px, calc(100vw - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 4rem;
+}
+
+.report-header {
+  padding: 2rem 0 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.report-header.compact {
+  padding-bottom: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 .45rem;
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 3.4rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.date {
+  margin: .9rem 0 0;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 1.25rem;
+}
+
+.actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.35rem;
+  padding: .5rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.digest {
+  padding-top: 1.5rem;
+}
+
+.digest h2 {
+  margin: 2.2rem 0 .85rem;
+  padding-top: .3rem;
+  font-size: 1.45rem;
+  line-height: 1.15;
+}
+
+.digest h3 {
+  margin: 1.6rem 0 .65rem;
+  color: var(--accent-strong);
+  font-size: 1.12rem;
+}
+
+.digest p,
+.digest li {
+  font-size: 1.03rem;
+}
+
+.digest ul {
+  margin: .6rem 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.digest li {
+  margin: .55rem 0;
+}
+
+code {
+  padding: .1rem .3rem;
+  border-radius: 4px;
+  background: var(--wash);
+  font-size: .92em;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.archive-list {
+  list-style: none;
+  display: grid;
+  gap: .75rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+}
+
+.archive-list a {
+  display: grid;
+  gap: .2rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.archive-list span {
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.archive-list strong {
+  font-size: 1.05rem;
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .45rem;
+  }
+
+  .page {
+    width: min(100vw - 1.2rem, 900px);
+    padding-top: .75rem;
+  }
+
+  .report-header {
+    padding-top: 1.3rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="../index.html">Raccoon News</a>
+  <nav>
+    <a href="../index.html">Heute</a>
+    <a href="./">Archiv</a>
+  </nav>
+</header>
+<main class="page">
+  <section class="report-header compact">
+    <p class="eyebrow">Archiv</p>
+    <h1>Alle Reports</h1>
+    <p class="date">Aktuellster Report: 23.04.2026</p>
+  </section>
+  <ol class="archive-list">
+    <li><a href="2026-04-23.html"><span>23.04.2026</span><strong>Kombinierter Digest - 2026-04-23</strong></a></li>
+<li><a href="2026-04-22.html"><span>22.04.2026</span><strong>Kombinierter Digest - 2026-04-22</strong></a></li>
+<li><a href="2026-04-21.html"><span>21.04.2026</span><strong>Kombinierter Digest - 2026-04-21</strong></a></li>
+  </ol>
+</main>
+
+</body>
+</html>

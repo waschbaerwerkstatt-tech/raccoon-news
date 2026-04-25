@@ -1,0 +1,9 @@
+{
+  "name": "Raccoon News",
+  "short_name": "Raccoon News",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f7f8",
+  "theme_color": "#10201b"
+}
