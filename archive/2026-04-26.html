@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Raccoon News vom 26.04.2026">
+  <meta name="theme-color" content="#10201b">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Raccoon News">
+  <link rel="manifest" href="../manifest.webmanifest">
+  <title>Raccoon News - 2026-04-26</title>
+  <style>
+:root {
+  color-scheme: light;
+  --bg: #f6f7f8;
+  --paper: #ffffff;
+  --ink: #18211d;
+  --muted: #617068;
+  --line: #d6ddd9;
+  --accent: #126c56;
+  --accent-strong: #0b4739;
+  --wash: #e7eee8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.55;
+}
+
+a {
+  color: var(--accent-strong);
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .85rem max(1rem, calc((100vw - 900px) / 2));
+  background: rgba(255, 255, 255, .94);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(16px);
+}
+
+.brand {
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: .8rem;
+  font-size: .95rem;
+}
+
+nav a,
+.actions a {
+  text-decoration: none;
+}
+
+.page {
+  width: min(900px, calc(100vw - 2rem));
+  margin: 0 auto;
+  padding: 1.5rem 0 4rem;
+}
+
+.report-header {
+  padding: 2rem 0 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.report-header.compact {
+  padding-bottom: 1.5rem;
+}
+
+.eyebrow {
+  margin: 0 0 .45rem;
+  color: var(--accent);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  font-size: 3.4rem;
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.date {
+  margin: .9rem 0 0;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+  margin-top: 1.25rem;
+}
+
+.actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.35rem;
+  padding: .5rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--paper);
+  color: var(--accent-strong);
+  font-weight: 700;
+}
+
+.digest {
+  padding-top: 1.5rem;
+}
+
+.digest h2 {
+  margin: 2.2rem 0 .85rem;
+  padding-top: .3rem;
+  font-size: 1.45rem;
+  line-height: 1.15;
+}
+
+.digest h3 {
+  margin: 1.6rem 0 .65rem;
+  color: var(--accent-strong);
+  font-size: 1.12rem;
+}
+
+.digest p,
+.digest li {
+  font-size: 1.03rem;
+}
+
+.digest ul {
+  margin: .6rem 0 1rem;
+  padding-left: 1.25rem;
+}
+
+.digest li {
+  margin: .55rem 0;
+}
+
+.digest details {
+  margin: 1.2rem 0 1.5rem;
+  padding: .9rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.digest summary {
+  cursor: pointer;
+  color: var(--accent-strong);
+  font-weight: 800;
+}
+
+.digest details ul {
+  margin-bottom: .2rem;
+}
+
+code {
+  padding: .1rem .3rem;
+  border-radius: 4px;
+  background: var(--wash);
+  font-size: .92em;
+}
+
+pre {
+  overflow-x: auto;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.archive-list {
+  list-style: none;
+  display: grid;
+  gap: .75rem;
+  margin: 1.4rem 0 0;
+  padding: 0;
+}
+
+.archive-list a {
+  display: grid;
+  gap: .2rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.archive-list span {
+  color: var(--muted);
+  font-size: .92rem;
+}
+
+.archive-list strong {
+  font-size: 1.05rem;
+}
+
+@media (max-width: 560px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .45rem;
+  }
+
+  .page {
+    width: min(100vw - 1.2rem, 900px);
+    padding-top: .75rem;
+  }
+
+  .report-header {
+    padding-top: 1.3rem;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+  }
+}
+  </style>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="../index.html">Raccoon News</a>
+  <nav>
+    <a href="../index.html">Heute</a>
+    <a href="../archive/">Archiv</a>
+  </nav>
+</header>
+<main class="page">
+  <section class="report-header">
+    <p class="eyebrow">Archiv</p>
+    <h1>Daily Digest - 2026-04-26</h1>
+    <p class="date">26.04.2026</p>
+    <div class="actions">
+      <a href="../archive/">Zum Archiv</a>
+      <a href="../archive/2026-04-25.html">Vorheriger</a>
+      <a href="../archive/2026-05-01.html">Naechster</a>
+    </div>
+  </section>
+  <article class="digest">
+    <h2>Nachrichtenlage</h2>
+<p><em> Digest-Tag: 2026-04-26; Primaerquellen: Deutschlandfunk + Tagesschau.</em></p>
+<h3>Was heute zaehlt</h3>
+<ul>
+<li><strong>Schüsse bei Gala mit US-Präsident Trump</strong>: Bei einer Gala mit US-Präsident Trump wurden Schüsse abgegeben, ein Wachmann verletzt. Die Umstände und das Motiv des Täters werden ermittelt. Quellen (Belege: <a href="https://www.tagesschau.de/ausland/amerika/usa-schuesse-korrespondentendinner-100.html" rel="noopener noreferrer">tagesschau</a> + <a href="https://www.tagesschau.de/ausland/amerika/trump-korrespondentendinner-100.html" rel="noopener noreferrer">tagesschau</a> + <a href="https://www.deutschlandfunk.de/bewaffneter-zwischenfall-bei-dinner-der-white-house-korrespondenten-mit-praesident-trump-taeter-wurd-100.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>Eskalation im Nahen Osten: Netanjahu ordnet Angriffe im Libanon an</strong>: Israels Premier Netanjahu hat neue massive Angriffe auf Hisbollah-Ziele im Libanon angeordnet. Parallel hat die US-Marine einen Frachter der iranischen Schattenflotte abgefangen. Quellen (Belege: <a href="https://www.tagesschau.de/newsticker/liveblog-iran-sonntag-112.html" rel="noopener noreferrer">tagesschau</a> + <a href="https://www.deutschlandfunk.de/netanjahu-ordnet-weitere-angriffe-auf-hisbollah-im-libanon-an-108.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>Ukraine-Krieg: Schwerer Angriff auf die Krim und gegenseitige Angriffe</strong>: In der Nacht kam es zu gegenseitigen Angriffen zwischen Russland und der Ukraine. Auf der annektierten Krim soll nach russischen Angaben einer der schwersten ukrainischen Angriffe erfolgt sein. Quellen (Belege: <a href="https://www.tagesschau.de/ausland/europa/ukraine-russland-angriffe-154.html" rel="noopener noreferrer">tagesschau</a>).</li>
+</ul>
+<h4>Ukraine-Krieg: Angriffe und Gedenken</h4>
+<ul>
+<li><strong>Todesopfer bei russischen Drohnenangriffen in der Ukraine</strong>: Nach Angaben des ukrainischen Militärs sind bei jüngsten russischen Drohnenangriffen mindestens drei Menschen getötet worden. Quellen (Belege: <a href="https://www.deutschlandfunk.de/drei-tote-bei-russischen-drohnenangriffen-100.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>40. Jahrestag Tschernobyl und ukrainische Vorwürfe</strong>: Zum 40. Jahrestag der Reaktorkatastrophe erinnert die Ukraine an die Opfer. Präsident Selenskyj nutzte den Anlass, um Russland nuklearen Terrorismus vorzuwerfen, während Experten in Deutschland vor einer Rückkehr zur Atomkraft warnen. Quellen (Belege: <a href="https://www.deutschlandfunk.de/gedenken-an-die-opfer-der-reaktorkatastrophe-in-tschernobyl-vor-40-jahren-selenskyj-wirft-russland-n-100.html" rel="noopener noreferrer">deutschlandfunk</a> + <a href="https://www.tagesschau.de/ausland/europa/tschernobyl-40-jahre-102.html" rel="noopener noreferrer">tagesschau</a>; Kontext: <a href="https://www.deutschlandfunk.de/energieexperte-quaschning-fordert-ausbau-der-erneuerbaren-statt-rueckkehr-der-atomenergie-100.html" rel="noopener noreferrer">deutschlandfunk</a> + <a href="https://www.tagesschau.de/inland/innenpolitik/atomkraft-deutschland-100.html" rel="noopener noreferrer">tagesschau</a>).</li>
+</ul>
+<h4>Weitere Einzelmeldungen</h4>
+<ul>
+<li><strong>Debatte um Sozialabbau und Schuldenbremse in Deutschland</strong>: Bundeskanzler Merz sichert stabile Renten zu, während die Union die SPD-Kritik an der Schuldenbremse im Krisenfall zurückweist. Parallel demonstrieren Tausende in Marburg gegen Kürzungspläne. Quellen (Belege: <a href="https://www.deutschlandfunk.de/merz-verspricht-keine-kuerzungen-der-gesetzlichen-renten-110.html" rel="noopener noreferrer">deutschlandfunk</a> + <a href="https://www.deutschlandfunk.de/union-weist-spd-vorstoss-zurueck-linnemann-cdu-ausdruck-politischer-faulheit-102.html" rel="noopener noreferrer">deutschlandfunk</a> + <a href="https://www.deutschlandfunk.de/mehrere-tausend-menschen-demonstrieren-gegen-sozialabbau-106.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>Bundesregierung sieht Russland hinter Cyberangriffen auf Politiker</strong>: Nach einer Welle von Signal-Angriffen auf Mobiltelefone deutscher Politikerinnen wird Russland als Urheber vermutet. Quellen (Belege: <a href="https://www.deutschlandfunk.de/regierungskreise-bundesregierung-sieht-russland-hinter-signal-angriffswelle-110.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>Orbán kündigt Ende seiner politischen Karriere an</strong>: Der ungarische Ministerpräsident Viktor Orbán wird im Mai sein Amt niederlegen und verzichtet nun auch auf sein Parlamentsmandat. Sein Nachfolger warnt vor Fluchtplänen. Quellen (Belege: <a href="https://www.tagesschau.de/ausland/europa/orban-parlamentsmandat-100.html" rel="noopener noreferrer">tagesschau</a>).</li>
+<li><strong>Bombenanschlag in Kolumbien: 14 Tote vor der Wahl</strong>: Bei einem Bombenanschlag im Westen Kolumbiens wurden mindestens 14 Menschen getötet. Präsident Petro spricht von Terror, wenige Wochen vor den Wahlen. Quellen (Belege: <a href="https://www.tagesschau.de/ausland/amerika/kolumbien-bombenanschlag-100.html" rel="noopener noreferrer">tagesschau</a> + <a href="https://www.deutschlandfunk.de/bombenanschlag-mit-vielen-toten-und-verletzten-106.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+</ul>
+<h3>Was weiterlaeuft</h3>
+<ul>
+<li>Keine laufenden Themen extrahiert.</li>
+</ul>
+<details>
+<summary>Weitere Meldungen: Krankenkassen-Reform | Pakistans Vermittlungsversuche zwischen USA und Iran stocken | Kommunalwahlen in den palästinensischen Gebieten | Ukraine vertieft Militärkooperation mit Aserbaidschan</summary>
+<ul>
+<li><strong>Iran-USA: Friedensgespräche vorerst gescheitert</strong>: Die diplomatischen Bemühungen zwischen den USA und dem Iran sind vorerst blockiert. Die US-Delegation reist nicht nach Pakistan, der iranische Außenminister ist bereits abgereist. Quellen (Belege: <a href="https://www.tagesschau.de/ausland/asien/iran-usa-diplomatie-100.html" rel="noopener noreferrer">tagesschau</a> + <a href="https://www.tagesschau.de/ausland/asien/islamabad-iran-gespraeche-100.html" rel="noopener noreferrer">tagesschau</a>; Kontext: <a href="https://www.tagesschau.de/newsticker/liveblog-iran-samstag-114.html" rel="noopener noreferrer">tagesschau</a>).</li>
+<li><strong>Krankenkassen-Reform: Hoffnung auf sinkende Beiträge</strong>: Bundesgesundheitsministerin Warken hofft durch Einsparungen die Zusatzbeiträge der Krankenkassen senken zu können. Die SPD kritisiert die soziale Schieflage der Reform. Quellen (Belege: <a href="https://www.deutschlandfunk.de/gesundheitsministerin-warken-hofft-auf-sinkende-zusatzbeitraege-spd-kritisiert-soziale-schieflage-100.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>Pakistans Vermittlungsversuche zwischen USA und Iran stocken</strong>: Die diplomatischen Bemühungen Pakistans, ein Treffen zwischen den USA und dem Iran zu organisieren, sind ins Stocken geraten. Quellen (Belege: <a href="https://www.deutschlandfunk.de/pakistans-diplomatie-zwischen-usa-und-iran-tritt-auf-der-stelle-106.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>Kommunalwahlen in den palästinensischen Gebieten</strong>: Zum ersten Mal seit 20 Jahren finden wieder Kommunalwahlen im Gazastreifen und Westjordanland statt. Quellen (Belege: <a href="https://www.deutschlandfunk.de/erste-kommunalwahl-im-gazastreifen-seit-20-jahren-auch-im-westjordanland-wurde-gewaehlt-100.html" rel="noopener noreferrer">deutschlandfunk</a> + <a href="https://www.deutschlandfunk.de/kommunalwahlen-im-westjordanland-und-im-gazastreifen-118.html" rel="noopener noreferrer">deutschlandfunk</a> + <a href="https://www.tagesschau.de/ausland/asien/kommunalwahl-westjordanland-100.html" rel="noopener noreferrer">tagesschau</a>).</li>
+<li><strong>AfD-Mitglied nach Hitler-Rede ausgeschlossen</strong>: Das AfD-Landesschiedsgericht NRW hat Alexander Eichwald aus der Partei ausgeschlossen, nachdem dieser eine Rede im Stil Hitels gehalten hatte. Quellen (Belege: <a href="https://www.deutschlandfunk.de/afd-landesschiedsgericht-schliesst-alexander-eichwald-nach-umstrittener-rede-aus-partei-aus-106.html" rel="noopener noreferrer">deutschlandfunk</a> + <a href="https://www.tagesschau.de/inland/regional/nordrheinwestfalen/afd-eichwald-parteiausschluss-100.html" rel="noopener noreferrer">tagesschau</a>).</li>
+<li><strong>Ukraine vertieft Militärkooperation mit Aserbaidschan</strong>: Ukraine und Aserbaidschan vereinbaren engere militär-technische Zusammenarbeit. Quellen (Belege: <a href="https://www.deutschlandfunk.de/ukraine-will-militaerkooperation-mit-aserbaidschan-vertiefen-106.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>Bauministerin will Vermieter an Heizkosten beteiligen</strong>: Bundesbauministerin Hubertz erwägt, Vermieter an Kostensteigerungen durch Öl- und Gasheizungen zu beteiligen. Quellen (Belege: <a href="https://www.deutschlandfunk.de/bauministerin-hubertz-will-vermieter-an-kostenanstieg-bei-einbau-von-oel-und-gasheizungen-beteiligen-102.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>Regierungsbildung in Slowenien gescheitert</strong>: Die slowenische Präsidentin hat die Regierungsbildung durch den liberalen Ministerpräsidenten Golob für gescheitert erklärt. Quellen (Belege: <a href="https://www.deutschlandfunk.de/praesidentin-erklaert-regierungsbildung-von-liberalem-golob-fuer-gescheitert-100.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+<li><strong>Orbán verzichtet auf Parlamentsmandat nach Wahlniederlage</strong>: Der scheidende ungarische Regierungschef Orbán wird nicht im neuen Parlament sitzen. Quellen (Belege: <a href="https://www.deutschlandfunk.de/scheidender-ungarischer-regierungschef-orb-n-verzichtet-auf-sitz-im-parlament-106.html" rel="noopener noreferrer">deutschlandfunk</a>).</li>
+</ul>
+</details>
+<details>
+<summary>Gedroppte Nachrichten</summary>
+<ul>
+<li><strong>Strände bei Sydney wegen Hai-Gefahr gesperrt</strong>: Lokales Sicherheitsereignis mit geringer Relevanz für das übergeordnete Nachrichteninteresse. Quellen: <a href="https://www.deutschlandfunk.de/australien-sperrt-straende-bei-sydney-wegen-walkadaver-100.html" rel="noopener noreferrer">deutschlandfunk</a>.</li>
+<li><strong>DLRG-Bilanz: Mehr Schwimmabzeichen, aber Defizite bei Kindern</strong>: Statistisches Update ohne aktuellen politischen oder gesellschaftlichen Durchbruch. Quellen: <a href="https://www.deutschlandfunk.de/dlrg-mehr-schwimmabzeichen-vergeben-aber-zu-viele-kinder-koennen-nach-wie-vor-nicht-schwimmen-102.html" rel="noopener noreferrer">deutschlandfunk</a>.</li>
+<li><strong>DB kündigt stabile ICE-Preise für 12 Monate an</strong>: Reine Service-Information ohne strategische oder makroökonomische Bedeutung. Quellen: <a href="https://www.deutschlandfunk.de/bahn-chefin-palla-ice-ticketpreise-bleiben-zwoelf-monate-stabil-100.html" rel="noopener noreferrer">deutschlandfunk</a> + <a href="https://www.tagesschau.de/wirtschaft/unternehmen/bahn-fernverkehr-ticketpreise-100.html" rel="noopener noreferrer">tagesschau</a>.</li>
+<li><strong>Religionsfreiheitsbeauftragter reist nach Nigeria</strong>: Diplomatische Reise ohne akuten politischen Auslöser oder Konflikt, eher Routine. Quellen: <a href="https://www.deutschlandfunk.de/religionsfreiheitsbeauftrager-reist-nach-nigeria-106.html" rel="noopener noreferrer">deutschlandfunk</a>.</li>
+</ul>
+</details>
+<h2>Research-Rundown</h2>
+<h3>KI &amp; Plattformen</h3>
+<ul>
+<li><strong>KI verändert US-Startup-Ökosystem</strong>: Eine Studie zeigt, dass KI-Exposure in Startups zu Jobverlusten bei Junior-Rollen, aber zu höherer Produktivität und schnellerem Wachstum führt. Die Netto-Beschäftigungswirkung ist neutral, aber die Struktur verschiebt sich. Quellen (Belege: <a href="https://feeds.feedblitz.com/~/954549380/0/marginalrevolution~Generative-AI-and-Entrepreneurship.html" rel="noopener noreferrer">marginalrevolution</a>).</li>
+</ul>
+<h3>Makro, Maerkte &amp; Business</h3>
+<ul>
+<li><strong>Kann KI die US-Finanzlage retten?</strong>: Eine Analyse zeigt, dass bereits geringe Produktivitätsgewinne durch KI die fundamentalen Werte der US-Staatsverschuldung massiv erhöhen und die Schuldenquote stabilisieren könnten. Quellen (Belege: <a href="https://feeds.feedblitz.com/~/954538931/0/marginalrevolution~Will-AI-save-the-US-fiscal-situation.html" rel="noopener noreferrer">marginalrevolution</a>).</li>
+</ul>
+<details>
+<summary>Optionale Research-Notizen: Adam Tooze | Wissenschaftliche Leseempfehlungen</summary>
+<ul>
+<li><strong>Adam Tooze: Top Links und wirtschaftliche Analysen</strong> <em>kuratiert; optional.</em>: Sammlung von Links und Analysen von Adam Tooze, darunter Themen zur US-Inflation und syrischen Immobilien. Grund: Kuratierte Linksammlung, dient als Kontextmaterial. Quellen: <a href="https://adamtooze.substack.com/p/top-links-1084-the-new-normal-in" rel="noopener noreferrer">adam_tooze_substack</a>.</li>
+<li><strong>Wissenschaftliche Leseempfehlungen: Neurona-Akquisition und Stammzellen</strong> <em>kuratiert; optional.</em>: Wöchentliche Zusammenfassung wissenschaftlicher News, darunter die Akquisition von Neurona durch UCB und Themen zu Stammzellen. Grund: Fachspezifische Zusammenfassung für ein Nischenpublikum. Quellen: <a href="https://ipscell.com/2026/04/weekly-reads-1b-neurona-acquisition-daxx-in-germ-cells-kras/?utm_source=rss&amp;utm_medium=rss&amp;utm_campaign=weekly-reads-1b-neurona-acquisition-daxx-in-germ-cells-kras" rel="noopener noreferrer">ipscell</a>.</li>
+</ul>
+</details>
+<details>
+<summary>Gedroppte Research-Stories: Sport für gesundes Altern</summary>
+<ul>
+<li><strong>Sport für gesundes Altern</strong> <em>optional.</em>: Die Deutsche Hochschule für Prävention und Gesundheitsmanagement hebt die Bedeutung von Kraft- und Ausdauersport hervor. Grund: Gesundheitsthema ohne politischen oder wirtschaftlichen Kernfakt, eher Ratgebercharakter. Quellen: <a href="https://www.deutschlandfunk.de/kraft-und-ausdauersport-fuer-gesundes-altern-deutsche-hochschule-fuer-praevention-und-gesundheitsman-108.html" rel="noopener noreferrer">deutschlandfunk</a>.</li>
+</ul>
+</details>
+<h3>Quellenindex</h3>
+<ul>
+<li>marginalrevolution: <a href="https://feeds.feedblitz.com/~/954549380/0/marginalrevolution~Generative-AI-and-Entrepreneurship.html" rel="noopener noreferrer">KI verändert US-Startup-Ökosystem</a>, <a href="https://feeds.feedblitz.com/~/954538931/0/marginalrevolution~Will-AI-save-the-US-fiscal-situation.html" rel="noopener noreferrer">Kann KI die US-Finanzlage retten?</a></li>
+</ul>
+<h2>Report-Metadaten</h2>
+<ul>
+<li>Zeitzone: <code>Europe/Berlin</code></li>
+<li>Digest-Tag: <code>2026-04-26</code></li>
+<li>Auswahlbasis: <code>extracted_items.published_at</code></li>
+<li>Auswahlmodus: zuerst Quellenvielfalt innerhalb eines Typs, danach Zusatzitems derselben Quelle</li>
+<li>Quellen mit geeigneten Items an diesem Tag: 5</li>
+<li>Quellen in der Kandidatenauswahl: 5</li>
+<li>Vorausgewaehlte Kandidaten fuer den Daily-Digest: 46</li>
+<li>Modell: <code>Qwen3.6-35B-A3B-UD-Q6_K.gguf</code></li>
+</ul>
+  </article>
+</main>
+
+</body>
+</html>
