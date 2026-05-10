@@ -159,6 +159,83 @@ section { padding: 80px 24px; }
 }
 .fazit-card p { font-size: .88rem; color: var(--text-light); line-height: 1.65; }
 
+/* BUCHEN */
+#buchen { background: white; }
+#buchen .section-intro { max-width: 720px; }
+.priority-block {
+  background: var(--cream); border-radius: var(--radius-lg);
+  padding: 28px 32px; margin-bottom: 22px;
+  border-left: 6px solid var(--green);
+}
+.priority-block.tier-2 { border-left-color: var(--gold); }
+.priority-block.tier-3 { border-left-color: var(--teal-light); }
+.priority-block.tier-4 { border-left-color: rgba(0,0,0,.15); background: rgba(0,0,0,.025); }
+.pb-head {
+  display: flex; align-items: baseline; flex-wrap: wrap;
+  gap: 10px; margin-bottom: 6px;
+}
+.pb-pill {
+  font-size: .68rem; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
+  background: var(--green); color: white;
+}
+.priority-block.tier-2 .pb-pill { background: var(--gold); }
+.priority-block.tier-3 .pb-pill { background: var(--teal-light); }
+.priority-block.tier-4 .pb-pill { background: rgba(0,0,0,.45); }
+.priority-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem; color: var(--teal-dark); line-height: 1.2;
+}
+.pb-lead { font-size: .94rem; color: var(--text-light); margin: 8px 0 18px; line-height: 1.7; }
+.pb-items { display: grid; gap: 14px; }
+.pb-item {
+  background: white; border-radius: var(--radius);
+  padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.pb-item h4 {
+  font-weight: 700; color: var(--teal-dark);
+  font-size: .98rem; margin-bottom: 4px;
+}
+.pb-item p { font-size: .87rem; color: var(--text-light); line-height: 1.65; }
+.pb-item .pb-when {
+  display: inline-block; margin-top: 8px;
+  background: rgba(26,95,122,.08); color: var(--teal-dark);
+  font-size: .76rem; font-weight: 700; padding: 3px 9px; border-radius: 10px;
+}
+.pb-item .pb-cost {
+  display: inline-block; margin-top: 8px; margin-left: 6px;
+  background: rgba(201,168,76,.18); color: #8a6d20;
+  font-size: .76rem; font-weight: 700; padding: 3px 9px; border-radius: 10px;
+}
+.pb-checklist {
+  background: var(--teal-dark); color: white;
+  border-radius: var(--radius-lg); padding: 32px;
+  margin-top: 8px;
+}
+.pb-checklist h3 {
+  font-family: 'Playfair Display', serif; color: var(--gold);
+  font-size: 1.4rem; margin-bottom: 14px;
+}
+.pb-checklist ol {
+  list-style: none; counter-reset: step;
+  display: grid; gap: 10px;
+}
+.pb-checklist li {
+  counter-increment: step;
+  display: flex; gap: 14px; align-items: flex-start;
+  font-size: .93rem; line-height: 1.6;
+  color: rgba(255,255,255,.88);
+}
+.pb-checklist li::before {
+  content: counter(step);
+  flex-shrink: 0;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--gold); color: var(--teal-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: .85rem;
+}
+.pb-checklist li strong { color: white; }
+
 /* HOTEL */
 #hotel { background: var(--cream); }
 .hotel-card {
@@ -168,6 +245,13 @@ section { padding: 80px 24px; }
 }
 .hotel-img-wrap { position: relative; min-height: 320px; overflow: hidden; }
 .hotel-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.hotel-img-wrap iframe { width: 100%; height: 100%; min-height: 320px; border: 0; display: block; }
+.hotel-img-note {
+  position: absolute; bottom: 10px; left: 10px; right: 10px;
+  background: rgba(13,61,80,.88); color: white;
+  font-size: .72rem; padding: 6px 10px; border-radius: 6px;
+  pointer-events: none; line-height: 1.4;
+}
 .hotel-info { padding: 44px 40px; }
 .hotel-info h3 {
   font-family: 'Playfair Display', serif;
@@ -608,9 +692,16 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
   .fazit-grid { grid-template-columns: 1fr; gap: 12px; }
 
   /* Hotel */
-  .hotel-img-wrap { min-height: 200px; }
+  .hotel-img-wrap { min-height: 220px; }
+  .hotel-img-wrap iframe { min-height: 220px; }
   .hotel-info { padding: 24px 20px; }
   .hotel-info h3 { font-size: 1.35rem; }
+
+  /* Buchen */
+  .priority-block { padding: 20px 18px; }
+  .priority-block h3 { font-size: 1.15rem; }
+  .pb-checklist { padding: 22px 18px; }
+  .pb-checklist h3 { font-size: 1.2rem; }
 
   /* Transfer route: horizontal scroll */
   .transfer-route {
@@ -717,6 +808,7 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
     <a class="nav-logo" href="#">🇮🇹 Venedig '26</a>
     <div class="nav-links">
       <a href="#kurzfazit">Überblick</a>
+      <a href="#buchen">Buchen</a>
       <a href="#transfer">Transfer</a>
       <a href="#zugang">Zugangsgebühr</a>
       <a href="#tickets">Tickets</a>
@@ -737,6 +829,7 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
   <div class="mobile-menu-bg" id="menuBg"></div>
   <div class="mobile-menu-links">
     <a href="#kurzfazit" class="mmlink"><span class="mml-icon">📋</span> Überblick</a>
+    <a href="#buchen" class="mmlink"><span class="mml-icon">🎫</span> Buchen</a>
     <a href="#hotel" class="mmlink"><span class="mml-icon">🏠</span> Hotel</a>
     <a href="#transfer" class="mmlink"><span class="mml-icon">🚢</span> Transfer</a>
     <a href="#zugang" class="mmlink"><span class="mml-icon">⚡</span> Zugangsgebühr</a>
@@ -800,6 +893,123 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
   </div>
 </section>
 
+<!-- BUCHUNGSPRIORITÄT -->
+<section id="buchen">
+  <div class="section-inner">
+    <div class="section-label">Buchungspriorität</div>
+    <h2 class="section-title">Was jetzt vorab buchen — und was nicht</h2>
+    <p class="section-intro">Nicht alles braucht einen Slot. Für eure Reise gilt: drei Dinge sofort, zwei mit Vorlauf, der Rest bewusst offen. Der größte Fehler wäre nicht, zu wenig zu buchen, sondern zu viele feste Slots in die Tage zu pressen.</p>
+
+    <!-- TIER 1 -->
+    <div class="priority-block tier-1">
+      <div class="pb-head">
+        <span class="pb-pill">Sofort vorab buchen</span>
+      </div>
+      <h3>Slot-kritisch — jetzt erledigen</h3>
+      <p class="pb-lead">Diese drei Punkte haben Zeitfenster oder Nachweispflicht. Ohne Buchung kein Einlass.</p>
+      <div class="pb-items">
+        <div class="pb-item">
+          <h4>1. Markusdom — Donnerstag, 21. Mai, ca. 9:30 Uhr</h4>
+          <p>Die offizielle Ticketlogik arbeitet mit Datum und Zeitfenster (QR-/Barcode); der Einlass kann verweigert werden, wenn die Zeit nicht passt. Zeitfenster können ausverkauft sein. Empfehlung: <strong>Basilika + Museum/Loggia dei Cavalli (20 €)</strong>. Die Loggia gibt euch die Perspektive von oben — ruhiger und lohnender als nur der Basiseintritt. Das Komplettticket (30 €) nur, wenn euch die Pala d'Oro wirklich interessiert.</p>
+          <span class="pb-when">Do 21.05. · ~9:30 Uhr</span>
+          <span class="pb-cost">20 € / Person</span>
+        </div>
+        <div class="pb-item">
+          <h4>2. Zugangsgebühr — Befreiungs-QR organisieren</h4>
+          <p>Im Mai 2026 sind unter anderem <strong>22., 23. und 24. Mai</strong> Anwendungstage (8:30–16:00 Uhr). Als Übernachtungsgäste zahlt ihr die Gebühr nicht, aber ihr braucht den <strong>Befreiungs-QR-Code</strong>; die Befreiung gilt vom Anreise- bis zum Abreisetag. Nicht erst am Anreisetag erledigen: bei der Residence Poli anfragen oder über das offizielle Verfahren beziehen — QR-Code für beide Personen auf beiden Handys speichern.</p>
+          <span class="pb-when">Vor Reisebeginn</span>
+          <span class="pb-cost">Frei</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER 2 -->
+    <div class="priority-block tier-2">
+      <div class="pb-head">
+        <span class="pb-pill">Vorab sinnvoll</span>
+      </div>
+      <h3>Online kaufen, aber weniger eng getaktet</h3>
+      <p class="pb-lead">Nicht zwingend slot-kritisch, aber für euren ruhigen Stil klar besser als spontan in eine Schlange zu geraten.</p>
+      <div class="pb-items">
+        <div class="pb-item">
+          <h4>3. Peggy Guggenheim Collection — Freitag, 22. Mai, ca. 10:30/11:00 Uhr</h4>
+          <p>Die offizielle Seite empfiehlt Onlinekauf mit bevorzugtem Zeitfenster; Tickets gibt es auch an der Kasse, aber die Online-Slots sind nur solange verfügbar wie es Plätze gibt. Geöffnet 10–18 Uhr (Kasse bis 17 Uhr), dienstags geschlossen. Früh genug nach dem Frühstück, ohne den Dorsoduro-Tag in den Nachmittag zu verschieben.</p>
+          <span class="pb-when">Fr 22.05. · 10:30–11:00 Uhr</span>
+          <span class="pb-cost">17 € / Person</span>
+        </div>
+        <div class="pb-item">
+          <h4>4. Dogenpalast — Freitag, 22. Mai, gegen 19:00 Uhr</h4>
+          <p>Online vorab kaufen, aber entspannter als der Markusdom. Das <strong>St.-Mark's-Square-Museums-Ticket</strong> (Dogenpalast + Correr + Archäologisches Museum + Marciana-Monumentalräume) kostet 35 €. Die <strong>30 €-Onlineersparnis</strong> braucht 30 Tage Vorlauf — für Ende Mai jetzt nicht mehr realistisch. <strong>Hinweis:</strong> Tickets ohne spezifisches Zeitfenster sind erst ab 12:00 Uhr gültig — für euren Abend kein Problem. Vom 1. Mai bis 26. September 2026 ist Fr/Sa bis 23:00 Uhr geöffnet (letzter Einlass 22 Uhr). Standardticket reicht — <em>Secret Itineraries</em> nur, wenn euch das Thema wirklich packt.</p>
+          <span class="pb-when">Fr 22.05. · 19:00 Uhr</span>
+          <span class="pb-cost">35 € / Person</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER 3 -->
+    <div class="priority-block tier-3">
+      <div class="pb-head">
+        <span class="pb-pill">Nur bei bewusster Entscheidung</span>
+      </div>
+      <h3>Biennale & Gondel — nicht voreilig festlegen</h3>
+      <p class="pb-lead">Diese Punkte sind reizvoll, aber für euch <em>Tausch, nicht Add-on</em>.</p>
+      <div class="pb-items">
+        <div class="pb-item">
+          <h4>Biennale Arte 2026 — nur als Ersatz</h4>
+          <p>Geöffnet 9. Mai – 22. November 2026, im Mai 11:00–19:00 Uhr, montags geschlossen — euer Abreisetag (Mo, 25.05.) entfällt also. Einzelticket 30 € (Giardini + Arsenale, auch an verschiedenen Tagen). Vorabkauf möglich, aber kein Pflichttermin. <strong>Empfehlung: jetzt nicht buchen,</strong> solange ihr nicht bewusst Peggy oder einen anderen Block dafür streicht.</p>
+          <span class="pb-when">Optional · nicht Mo 25.05.</span>
+          <span class="pb-cost">30 € / Person</span>
+        </div>
+        <div class="pb-item">
+          <h4>Gondelfahrt — spontan entscheiden</h4>
+          <p>Wetter, Stimmung und Wasserverkehr entscheiden, ob es schön oder touristisch-abgefertigt wirkt. Offizielle Tarife: <strong>90 € / 30 Min. tagsüber</strong>, <strong>110 € / 35 Min. abends</strong> (je Gondel, max. 5 Personen). Für euch als Paar besser ein ruhiger Anleger ab Dorsoduro/San Tomà/San Polo als ein vorab gebuchter Paket-Slot.</p>
+          <span class="pb-when">Spontan vor Ort</span>
+          <span class="pb-cost">90–110 € / Gondel</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER 4 -->
+    <div class="priority-block tier-4">
+      <div class="pb-head">
+        <span class="pb-pill">Komfortkauf — nicht slot-kritisch</span>
+      </div>
+      <h3>Vaporetto & Alilaguna: Komfort, kein Ausverkauf</h3>
+      <p class="pb-lead">Hier gibt es keinen knappen Eintritt. Vorabkauf nur, wenn er euch Wartezeit am Anreisetag spart.</p>
+      <div class="pb-items">
+        <div class="pb-item">
+          <h4>ACTV-Vaporetto-Karte</h4>
+          <p>Aktuelle Tarife: <strong>35 € / 48h</strong>, <strong>45 € / 72h</strong>, <strong>65 € / 7 Tage</strong>. Flughafen (Alilaguna) ist <em>nicht</em> enthalten. Für euren Stil weiterhin <strong>72h</strong>. Vorab oder vor Ort kaufen — die Laufzeit startet erst ab Aktivierung.</p>
+          <span class="pb-when">Aktivierung Fr 22.05.</span>
+          <span class="pb-cost">45 € / Person</span>
+        </div>
+        <div class="pb-item">
+          <h4>Alilaguna Flughafenboot</h4>
+          <p>Flughafen ↔ Venedig <strong>18 € einfach · 32 € retour</strong>. Onlinekauf möglich, spart am Flughafen evtl. Wartezeit. Retourticket sinnvoll vorab oder direkt am Anleger holen — Komfortfrage, keine Zugangssicherung.</p>
+          <span class="pb-when">An- & Abreise</span>
+          <span class="pb-cost">32 € / Person retour</span>
+        </div>
+        <div class="pb-item">
+          <h4>Burano, Inseln, Cannaregio, Vogalonga</h4>
+          <p>Keine Eintrittskarten nötig. Nur Vaporetto + Flexibilität bei den Fahrzeiten. Für Burano am Samstag ist nicht das Ticket das Problem, sondern der Zeitpunkt — <strong>früh fahren</strong>, nicht mittags. Vogalonga ist als Zuschauer ticketfrei.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST -->
+    <div class="pb-checklist">
+      <h3>Eure Buchungs-Reihenfolge</h3>
+      <ol>
+        <li><strong>Markusdom-Slot</strong> für Do 21.05., ca. 9:30 Uhr — Basilika + Museum/Loggia (20 €).</li>
+        <li><strong>Peggy Guggenheim</strong> für Fr 22.05., ca. 10:30/11:00 Uhr (17 €).</li>
+        <li><strong>Dogenpalast-Standardticket</strong> für Fr 22.05. abend, ~19:00 Uhr (35 €). Keine Sonderführung — außer ihr wollt sie wirklich.</li>
+        <li><strong>Befreiungs-QR</strong> für die Zugangsgebühr, beide Personen, Aufenthalt 20.–25. Mai.</li>
+        <li><strong>Alilaguna-Retour</strong> & <strong>ACTV-72h</strong> könnt ihr vorab kaufen — Komfortkäufe, keine knappen Eintritte. Biennale & Gondel bewusst offen lassen.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
 <!-- HOTEL -->
 <section id="hotel">
   <div class="section-inner">
@@ -807,7 +1017,13 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
     <h2 class="section-title">Residence Poli Venezia</h2>
     <div class="hotel-card">
       <div class="hotel-img-wrap">
-        <img src="https://images.unsplash.com/photo-1549294413-26f195200c16?w=800&q=80&fit=crop&crop=center" alt="Venedig Santa Croce Kanal" loading="lazy" />
+        <iframe
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Residence Poli Venezia · Santa Croce 1490 auf Google Maps"
+          src="https://www.google.com/maps?q=Residence+Poli+Venezia+Santa+Croce+1490+Venezia&t=k&z=18&output=embed"></iframe>
+        <div class="hotel-img-note">📍 Echter Standort · Santa Croce 1490, Venedig — Satellitenansicht der Residence Poli</div>
       </div>
       <div class="hotel-info">
         <span class="hotel-badge">SANTA CROCE · HISTORISCHES ZENTRUM</span>
@@ -1290,8 +1506,8 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
             <div class="tl-body">
               <div class="tl-time">19:00–19:30 Uhr</div>
               <div class="tl-title">Dogenpalast — Abendöffnung</div>
-              <div class="tl-desc">Freitags & samstags von Mai bis September geöffnet bis 23 Uhr (letzter Einlass 22 Uhr). Ihr vermeidet das Tagespublikum komplett. Rechtzeitig Ticket kaufen — 30 € online (mind. 30 Tage vorher), 35 € normal.</div>
-              <span class="tl-tag tip">Frühzeitig buchen für 30 €</span>
+              <div class="tl-desc">Freitags & samstags vom 1. Mai bis 26. September 2026 geöffnet bis 23 Uhr (letzter Einlass 22 Uhr). Ihr vermeidet das Tagespublikum komplett. Standardticket 35 € — die 30 €-Onlineersparnis braucht 30 Tage Vorlauf und ist für Ende Mai realistisch nicht mehr drin. Tickets ohne Zeitfenster gelten erst ab 12:00 Uhr (für euren Abend kein Problem).</div>
+              <span class="tl-tag tip">Standardticket genügt · keine Sonderführung</span>
             </div>
           </div>
         </div>
@@ -1299,10 +1515,11 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
           <div class="sidebar-card">
             <h4>💰 Kosten heute</h4>
             <div class="cost-row"><span class="cr-label">Peggy Guggenheim</span><span class="cr-val">17 €</span></div>
-            <div class="cost-row"><span class="cr-label">Dogenpalast (online)</span><span class="cr-val">30 €</span></div>
-            <div class="cost-row"><span class="cr-label">Dogenpalast (normal)</span><span class="cr-val">35 €</span></div>
+            <div class="cost-row"><span class="cr-label">Dogenpalast (Standard)</span><span class="cr-val">35 €</span></div>
+            <div class="cost-row"><span class="cr-label">Dogenpalast (30 Tage vorab)</span><span class="cr-val">30 €*</span></div>
             <div class="cost-row"><span class="cr-label">ACTV 48h Karte</span><span class="cr-val">35 €</span></div>
             <div class="cost-row"><span class="cr-label">ACTV 72h Karte</span><span class="cr-val">45 €</span></div>
+            <div class="cost-row" style="border-top:1px solid var(--cream-dark); padding-top:8px; font-size:.78rem; color:var(--text-light);"><span>* 30-Tage-Frist für Ende Mai nicht mehr realistisch</span></div>
           </div>
           <div class="info-box warning" style="margin:0;">
             <span class="ib-icon">⚡</span>
@@ -1753,8 +1970,8 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
       <div class="tip-card success">
         <div class="tip-icon">🎟️</div>
         <div class="tip-text">
-          <h4>Tickets früh buchen</h4>
-          <p>Markusdom (Zeitslot), Peggy Guggenheim (Online-Ticket) und Dogenpalast (30 Tage vorher 30 € statt 35 €) alle vorab online buchen.</p>
+          <h4>Drei Tickets jetzt buchen</h4>
+          <p>Markusdom (Zeitslot Do 21.05., ~9:30 Uhr · Basilika + Loggia 20 €), Peggy Guggenheim (Fr 22.05., 10:30/11:00 Uhr · 17 €), Dogenpalast (Fr 22.05. abend · Standardticket 35 €). Die 30-Tage-Ersparnis beim Dogenpalast ist für Ende Mai nicht mehr realistisch — Standardticket genügt.</p>
         </div>
       </div>
       <div class="tip-card notice">
