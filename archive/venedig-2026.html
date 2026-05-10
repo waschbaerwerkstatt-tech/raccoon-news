@@ -236,6 +236,145 @@ section { padding: 80px 24px; }
 }
 .pb-checklist li strong { color: white; }
 
+/* ESSEN */
+#essen { background: var(--cream); }
+.eat-intro-card {
+  background: white; border-radius: var(--radius-lg);
+  padding: 24px 28px; margin-bottom: 32px;
+  box-shadow: var(--shadow); border-left: 4px solid var(--gold);
+}
+.eat-intro-card p { font-size: .95rem; color: var(--text-light); line-height: 1.7; }
+.eat-intro-card p + p { margin-top: 10px; }
+
+.eat-group-label {
+  font-size: .78rem; font-weight: 800; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--teal-dark);
+  margin: 36px 0 14px; padding-bottom: 8px;
+  border-bottom: 2px solid rgba(26,95,122,.15);
+}
+.eat-group-label:first-of-type { margin-top: 0; }
+
+.eat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
+.eat-card {
+  background: white; border-radius: var(--radius-lg);
+  padding: 22px 24px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column;
+  border-top: 4px solid var(--teal);
+  transition: transform .2s, box-shadow .2s;
+}
+.eat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.eat-card.favorite { border-top-color: var(--gold); }
+.eat-card.cicchetti { border-top-color: var(--teal-light); }
+.eat-card.notlosung { border-top-color: rgba(0,0,0,.2); }
+
+.eat-card .eat-head {
+  display: flex; align-items: baseline; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 4px;
+}
+.eat-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; color: var(--teal-dark);
+  line-height: 1.25;
+}
+.eat-badge {
+  display: inline-block;
+  font-size: .65rem; font-weight: 800; letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 2px 8px; border-radius: 10px;
+}
+.eat-badge.fav { background: var(--gold); color: white; }
+.eat-badge.cic { background: var(--teal-light); color: white; }
+.eat-badge.notfall { background: rgba(0,0,0,.4); color: white; }
+
+.eat-addr {
+  font-size: .82rem; color: var(--text-light);
+  margin: 6px 0 10px; line-height: 1.5;
+}
+.eat-addr a {
+  color: var(--teal); font-weight: 600; text-decoration: none;
+  border-bottom: 1px dotted var(--teal);
+}
+.eat-addr a:hover { color: var(--teal-dark); border-bottom-style: solid; }
+
+.eat-meta {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;
+}
+.eat-meta .em-tag {
+  font-size: .72rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 10px;
+  background: rgba(26,95,122,.08); color: var(--teal-dark);
+}
+.eat-meta .em-tag.closed { background: rgba(192,57,43,.1); color: var(--red); }
+.eat-meta .em-tag.open { background: rgba(39,174,96,.12); color: #1a7a44; }
+
+.eat-card p.eat-body {
+  font-size: .87rem; color: var(--text-light);
+  line-height: 1.65; margin-bottom: 12px; flex-grow: 1;
+}
+.eat-verdict {
+  background: var(--cream); border-radius: 8px;
+  padding: 10px 12px; margin-top: auto;
+  font-size: .82rem; color: var(--text);
+  border-left: 3px solid var(--gold);
+}
+.eat-verdict strong { color: var(--teal-dark); }
+
+.eat-days {
+  margin-top: 40px;
+  background: var(--teal-dark); color: white;
+  border-radius: var(--radius-lg); padding: 32px;
+}
+.eat-days h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold); font-size: 1.45rem; margin-bottom: 18px;
+}
+.eat-days-grid {
+  display: grid; gap: 12px;
+}
+.eat-day-row {
+  display: grid; grid-template-columns: 110px 1fr;
+  gap: 14px; align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.eat-day-row:last-child { border-bottom: none; }
+.eat-day-row .edr-when {
+  font-size: .78rem; font-weight: 700;
+  color: var(--gold); letter-spacing: .5px;
+  text-transform: uppercase;
+}
+.eat-day-row .edr-when small { display: block; font-weight: 500; color: rgba(255,255,255,.6); letter-spacing: 0; text-transform: none; font-size: .76rem; margin-top: 2px;}
+.eat-day-row .edr-rec { font-size: .89rem; line-height: 1.6; color: rgba(255,255,255,.88); }
+.eat-day-row .edr-rec strong { color: white; }
+
+.eat-avoid {
+  margin-top: 32px;
+  background: rgba(192,57,43,.06);
+  border: 1px solid rgba(192,57,43,.2);
+  border-left: 4px solid var(--red);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+}
+.eat-avoid h3 {
+  color: var(--red); margin-bottom: 10px;
+  font-size: 1.05rem; font-weight: 700;
+}
+.eat-avoid h3::before { content: '⚠️ '; }
+.eat-avoid ul {
+  list-style: none; display: grid; gap: 8px;
+}
+.eat-avoid li {
+  font-size: .87rem; color: var(--text);
+  line-height: 1.6; padding-left: 22px; position: relative;
+}
+.eat-avoid li::before {
+  content: '✗'; position: absolute; left: 0; top: 0;
+  color: var(--red); font-weight: 800;
+}
+
 /* HOTEL */
 #hotel { background: var(--cream); }
 .hotel-card {
@@ -703,6 +842,16 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
   .pb-checklist { padding: 22px 18px; }
   .pb-checklist h3 { font-size: 1.2rem; }
 
+  /* Essen */
+  .eat-grid { grid-template-columns: 1fr; }
+  .eat-card { padding: 18px 18px; }
+  .eat-card h3 { font-size: 1.1rem; }
+  .eat-days { padding: 22px 18px; }
+  .eat-days h3 { font-size: 1.2rem; }
+  .eat-day-row { grid-template-columns: 1fr; gap: 4px; padding: 10px 0; }
+  .eat-day-row .edr-when small { display: inline; margin-left: 4px; }
+  .eat-avoid { padding: 18px 20px; }
+
   /* Transfer route: horizontal scroll */
   .transfer-route {
     overflow-x: auto; -webkit-overflow-scrolling: touch;
@@ -809,6 +958,7 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
     <div class="nav-links">
       <a href="#kurzfazit">Überblick</a>
       <a href="#buchen">Buchen</a>
+      <a href="#essen">Essen</a>
       <a href="#transfer">Transfer</a>
       <a href="#zugang">Zugangsgebühr</a>
       <a href="#tickets">Tickets</a>
@@ -830,6 +980,7 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
   <div class="mobile-menu-links">
     <a href="#kurzfazit" class="mmlink"><span class="mml-icon">📋</span> Überblick</a>
     <a href="#buchen" class="mmlink"><span class="mml-icon">🎫</span> Buchen</a>
+    <a href="#essen" class="mmlink"><span class="mml-icon">🍽️</span> Essen</a>
     <a href="#hotel" class="mmlink"><span class="mml-icon">🏠</span> Hotel</a>
     <a href="#transfer" class="mmlink"><span class="mml-icon">🚢</span> Transfer</a>
     <a href="#zugang" class="mmlink"><span class="mml-icon">⚡</span> Zugangsgebühr</a>
@@ -1007,6 +1158,205 @@ footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255
         <li><strong>Alilaguna-Retour</strong> & <strong>ACTV-72h</strong> könnt ihr vorab kaufen — Komfortkäufe, keine knappen Eintritte. Biennale & Gondel bewusst offen lassen.</li>
       </ol>
     </div>
+  </div>
+</section>
+
+<!-- ESSEN / RESTAURANTS -->
+<section id="essen">
+  <div class="section-inner">
+    <div class="section-label">Essen</div>
+    <h2 class="section-title">Restaurants rund um euer Viertel</h2>
+    <p class="section-intro">Bewusst gesucht in Santa Croce, rund um San Giacomo dell'Orio und San Stae — also dort, wo man deutlich besser isst als an Markusplatz oder Rialto-Hauptachse. Bevorzugt: kleine Lokale, begrenzte Karte, Reservierungspflicht, klare Küchenidentität. Gemieden: durchgehende Öffnung, Fotospeisekarten, aggressive Ansprache draußen, Rabattplattformen.</p>
+
+    <div class="eat-intro-card">
+      <p>Touristenfallen lassen sich nie komplett ausschließen. Diese Auswahl ist deshalb keine Garantie, sondern eine bewusste Engführung: vier feste Reservierungsempfehlungen (<strong>La Zucca · Trefanti · Stappo · Antico Giardinetto</strong>), ein optionales Highlight für einen gehobeneren Fischabend (<strong>Antiche Carampane</strong>) und zwei gute Cicchetti-Stationen für den Cannaregio-Abend (<strong>Vino Vero · Cantina Aziende Agricole</strong>).</p>
+      <p>Jede Karte hat einen Google-Maps-Link zur exakten Adresse — direkt antippen, ihr landet auf dem Lokal in Maps.</p>
+    </div>
+
+    <!-- SHORTLIST -->
+    <div class="eat-group-label">Shortlist · feste Abendessen</div>
+    <div class="eat-grid">
+
+      <div class="eat-card favorite">
+        <div class="eat-head">
+          <h3>Osteria La Zucca</h3>
+          <span class="eat-badge fav">Top-Empfehlung</span>
+        </div>
+        <p class="eat-addr">📍 Santa Croce 1762, nahe Campo San Giacomo dell'Orio · <a href="https://www.google.com/maps/search/?api=1&query=Osteria+La+Zucca+Santa+Croce+1762+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Mo–Sa 12:30–14:30 · 19:00–22:30</span>
+          <span class="em-tag closed">Sonntag geschlossen</span>
+          <span class="em-tag">35 + 12 Plätze</span>
+        </div>
+        <p class="eat-body">Klein, täglich wechselnde Karte, saisonales Gemüse, Gerichte zwischen venezianischer Tradition und etwas modernerer Küche. <em>Kein</em> rein vegetarisches Restaurant, aber besonders stark bei Gemüse — Fleisch gibt es ebenfalls. Kein Geheimtipp mehr, aber kein Bauernfänger.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Mi 20.05. (wenn Ankunft sicher) oder Sa 23.05. nach dem Inseltag. Unbedingt reservieren.</div>
+      </div>
+
+      <div class="eat-card favorite">
+        <div class="eat-head">
+          <h3>Stappo</h3>
+          <span class="eat-badge fav">Top-Empfehlung</span>
+        </div>
+        <p class="eat-addr">📍 Santa Croce 2166 · <a href="https://www.google.com/maps/search/?api=1&query=Stappo+Santa+Croce+2166+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">12:00–14:30 · 18:00–22:30</span>
+          <span class="em-tag closed">Donnerstag geschlossen</span>
+          <span class="em-tag">400+ Weine</span>
+        </div>
+        <p class="eat-body">Moderne Enoteca mit Küche — saisonal, kreativ, mediterran. Naturwein-Fokus, lokale Produzenten, Fisch aus Adria/Mittelmeer, Obst &amp; Gemüse vom Rialto-Markt. Ruhige Atmosphäre, kein rustikales „Nonna"-Setting.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Fr 22.05. vor dem Dogenpalast (frühes Abendessen) oder So 24.05. nach der Vogalonga. Reservierung empfohlen.</div>
+      </div>
+
+      <div class="eat-card favorite">
+        <div class="eat-head">
+          <h3>Osteria Trefanti</h3>
+          <span class="eat-badge fav">Top-Empfehlung</span>
+        </div>
+        <p class="eat-addr">📍 Fondamenta dei Garzotti / Rio Marin · Santa Croce 888 · <a href="https://www.google.com/maps/search/?api=1&query=Osteria+Trefanti+Santa+Croce+888+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Di–Sa 19:00–22:00</span>
+          <span class="em-tag closed">So + Mo geschlossen</span>
+          <span class="em-tag">Nur 10 Tische</span>
+        </div>
+        <p class="eat-body">„Out of the touristy stream" — kleines Lokal mit nur zehn Tischen, empfohlener Reservierung, Fisch und Gemüse täglich vom Rialto-Markt. Kein Lokal für „mal eben reinschauen", sondern ein bewusst gesetzter Dinner-Abend.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Sa 23.05. als ruhiger Paarabend nach Burano/Mazzorbo. Für So 24.05. fällt es aus (geschlossen).</div>
+      </div>
+
+      <div class="eat-card favorite">
+        <div class="eat-head">
+          <h3>Osteria Antico Giardinetto</h3>
+          <span class="eat-badge fav">Top-Empfehlung</span>
+        </div>
+        <p class="eat-addr">📍 Calle dei Morti 2253, Santa Croce / San-Polo-Nähe · <a href="https://www.google.com/maps/search/?api=1&query=Osteria+Antico+Giardinetto+Calle+dei+Morti+2253+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Ab 18:30–22:00</span>
+          <span class="em-tag">Familiär · klassisch</span>
+        </div>
+        <p class="eat-body">Klein, familiär geführt, klassisch venezianisch — eher Fisch. Gute Wahl für einen ruhigen klassischen Abend. Kleine venezianische Lokale werden schnell voll — reservieren.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Fr 22.05. (wenn der Dogenpalast nicht zu spät liegt) oder So 24.05. nach der Vogalonga.</div>
+      </div>
+
+      <div class="eat-card">
+        <div class="eat-head">
+          <h3>Antiche Carampane</h3>
+          <span class="eat-badge">Optional · Highlight</span>
+        </div>
+        <p class="eat-addr">📍 Zwischen Rialto-Fischmarkt und Campo San Polo, seit 1983 · <a href="https://www.google.com/maps/search/?api=1&query=Antiche+Carampane+Rio+Tera+delle+Carampane+San+Polo+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag">Erstbelegung 19:30–21:30</span>
+          <span class="em-tag closed">No-show-Gebühr 35 €/P.</span>
+          <span class="em-tag">Fisch · gehobener</span>
+        </div>
+        <p class="eat-body">Traditionelle, fischbasierte Küche mit modernem Akzent. Kein typisches Touristenfallen-Lokal, aber auch kein unaufgeregtes Nachbarschaftsrestaurant — bekannt, teurer, geplanter Abend. Reservierungsregeln streng.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Nur als bewusster, gehobener Fischabend — nicht zusätzlich zu vielen anderen festen Programmpunkten.</div>
+      </div>
+
+      <div class="eat-card">
+        <div class="eat-head">
+          <h3>Anice Stellato</h3>
+          <span class="eat-badge">Cannaregio</span>
+        </div>
+        <p class="eat-addr">📍 Fondamenta de la Sensa, Cannaregio · <a href="https://www.google.com/maps/search/?api=1&query=Osteria+Anice+Stellato+Fondamenta+de+la+Sensa+Cannaregio+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Di–So 12:30–22:00</span>
+          <span class="em-tag closed">Montag geschlossen</span>
+        </div>
+        <p class="eat-body">Gute Alternative für den Cannaregio-Abend, wenn ihr nicht nur Cicchetti im Stehen wollt, sondern ein richtiges Abendessen. Reservieren.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Do 21.05. als sitziges Abendessen statt reiner Bacaro-Tour. Auch So 24.05. eine solide Sonntagsoption.</div>
+      </div>
+
+    </div>
+
+    <!-- CICCHETTI -->
+    <div class="eat-group-label">Cicchetti &amp; Wein · Cannaregio-Abend</div>
+    <div class="eat-grid">
+
+      <div class="eat-card cicchetti">
+        <div class="eat-head">
+          <h3>Vino Vero</h3>
+          <span class="eat-badge cic">Cicchetti · Naturwein</span>
+        </div>
+        <p class="eat-addr">📍 Fondamenta della Misericordia, Cannaregio 2497 · <a href="https://www.google.com/maps/search/?api=1&query=Vino+Vero+Fondamenta+della+Misericordia+2497+Cannaregio+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Bis Mitternacht · Fr/Sa bis 1:00</span>
+          <span class="em-tag closed">Keine Reservierungen</span>
+        </div>
+        <p class="eat-body">Starke Naturwein-Ausrichtung, genau an der Fondamenta, die ihr für den Cicchetti-Abend eingeplant habt. Gut für ein Glas Wein und Cicchetti, kein garantierter Sitzplatz.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Do 21.05. eher früh (18:00–19:00), bevor die Fondamenta voller wird.</div>
+      </div>
+
+      <div class="eat-card cicchetti">
+        <div class="eat-head">
+          <h3>Cantina Aziende Agricole</h3>
+          <span class="eat-badge cic">Bacaro</span>
+        </div>
+        <p class="eat-addr">📍 Rio Terà Farsetti 1847/A, Cannaregio · <a href="https://www.google.com/maps/search/?api=1&query=Cantina+Aziende+Agricole+Rio+Tera+Farsetti+1847+Cannaregio+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Mo–Sa 9:00–22:00</span>
+          <span class="em-tag closed">Sonntag geschlossen</span>
+        </div>
+        <p class="eat-body">Unkomplizierter Bacaro, schlicht und ehrlich. Gut als erster oder zweiter Stopp, nicht als romantisches Dinner. Mit Vino Vero kombinieren — nicht als alleinigen Abendpunkt.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Do 21.05. in Kombination mit Vino Vero (zwei kurze Stopps statt ein langer Abend).</div>
+      </div>
+
+    </div>
+
+    <!-- NOTLÖSUNG -->
+    <div class="eat-group-label">Praktische Notlösung</div>
+    <div class="eat-grid">
+      <div class="eat-card notlosung">
+        <div class="eat-head">
+          <h3>Il Refolo</h3>
+          <span class="eat-badge notfall">Reserve / Notlösung</span>
+        </div>
+        <p class="eat-addr">📍 Santa Croce, nahe Campo San Giacomo dell'Orio · <a href="https://www.google.com/maps/search/?api=1&query=Il+Refolo+Campo+San+Giacomo+dell+Orio+Santa+Croce+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Täglich 11:30–22:00</span>
+          <span class="em-tag">Terrasse am Kanal</span>
+        </div>
+        <p class="eat-body">Sinnvolle Ankunfts- oder Notfalloption, wenn ihr müde seid und keine feste Reservierung wollt. Durchgehende Öffnung und touristisch formulierte Selbstdarstellung sind kein Ausschlussgrund, aber Grund, es <em>nicht</em> über La Zucca / Stappo / Trefanti / Antico Giardinetto zu stellen.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Bewusst als Reserve, nicht als geplantes Highlight.</div>
+      </div>
+    </div>
+
+    <!-- PER-DAY RECOMMENDATIONS -->
+    <div class="eat-days">
+      <h3>🍷 Konkrete Empfehlung pro Abend</h3>
+      <div class="eat-days-grid">
+        <div class="eat-day-row">
+          <div class="edr-when">Mi 20.05.<small>Anreise</small></div>
+          <div class="edr-rec">Nur fest reservieren, wenn die Ankunftszeit sicher ist. Wenn ja: <strong>La Zucca</strong> oder <strong>Stappo</strong>. Wenn unsicher: keine harte Reservierung — <strong>Il Refolo</strong> als flexible Lösung, oder spontan schauen, ob Stappo noch Platz hat.</div>
+        </div>
+        <div class="eat-day-row">
+          <div class="edr-when">Do 21.05.<small>Cannaregio</small></div>
+          <div class="edr-rec">Kein klassischer Restaurantabend in Santa Croce. <strong>Vino Vero + Cantina Aziende Agricole</strong> als Cicchetti-Tour — oder wenn ihr sitzen wollt, <strong>Anice Stellato</strong> mit Reservierung.</div>
+        </div>
+        <div class="eat-day-row">
+          <div class="edr-when">Fr 22.05.<small>Dogenpalast</small></div>
+          <div class="edr-rec">Mein Favorit: <strong>frühes Abendessen bei Stappo</strong>, danach Dogenpalast. Entspannter, als nach 23 Uhr noch hungrig durch San Marco zu laufen. Alternative: <strong>Antico Giardinetto</strong>, wenn der Dogenpalast nicht zu spät liegt.</div>
+        </div>
+        <div class="eat-day-row">
+          <div class="edr-when">Sa 23.05.<small>Inseln</small></div>
+          <div class="edr-rec">Richtigen Tisch reservieren: <strong>Osteria Trefanti</strong> oder <strong>La Zucca</strong>. Beide passen zum ruhigen Paarabend nach Burano/Mazzorbo.</div>
+        </div>
+        <div class="eat-day-row">
+          <div class="edr-when">So 24.05.<small>Vogalonga</small></div>
+          <div class="edr-rec">Nichts Spontanes in San-Marco-/Rialto-Nähe riskieren. <strong>Stappo</strong>, <strong>Antico Giardinetto</strong> oder <strong>Anice Stellato</strong> als gute Sonntagsoptionen. La Zucca, Trefanti und Antiche Carampane sind sonntags geschlossen.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AVOID -->
+    <div class="eat-avoid">
+      <h3>Was ich eher meiden würde</h3>
+      <ul>
+        <li>An der Rialtobrücke oder auf dem Weg nach San Marco spontan in das erste Lokal gehen, das draußen aktiv Gäste anspricht.</li>
+        <li>Große Speisekarten mit Pizza, Pasta, Fisch, Fleisch, Burgern — und Fotos in mehreren Sprachen.</li>
+        <li>„Menu turistico"-Tafeln und undurchsichtige Fischpreise nach Gewicht.</li>
+        <li>Stark beworbene Rabatte über externe Plattformen.</li>
+      </ul>
+    </div>
+
   </div>
 </section>
 
