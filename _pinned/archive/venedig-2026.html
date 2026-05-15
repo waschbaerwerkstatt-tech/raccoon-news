@@ -1,0 +1,2513 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Venedig '26">
+<meta name="theme-color" content="#0d3d50">
+<meta name="format-detection" content="telephone=no">
+<title>Venedig · Mai 2026 – Euer Reiseplan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<style>
+:root {
+  --teal: #1a5f7a;
+  --teal-dark: #0d3d50;
+  --teal-light: #2a7d9e;
+  --gold: #c9a84c;
+  --gold-light: #e8c870;
+  --cream: #f5f0e8;
+  --cream-dark: #ede5d8;
+  --dark: #1c1c1c;
+  --text: #333;
+  --text-light: #666;
+  --white: #fff;
+  --red: #c0392b;
+  --green: #27ae60;
+  --orange: #e67e22;
+  --shadow: 0 4px 24px rgba(0,0,0,0.10);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.16);
+  --radius: 12px;
+  --radius-lg: 20px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+body {
+  font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text); line-height: 1.7;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+a, button { -webkit-tap-highlight-color: transparent; }
+
+/* NAV */
+nav {
+  position: sticky; top: 0; z-index: 1000;
+  background: rgba(13,61,80,0.97);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+  padding-top: env(safe-area-inset-top);
+}
+.nav-inner {
+  max-width: 1120px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 56px; padding: 0 20px; gap: 16px;
+}
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold); font-size: 1.05rem; font-weight: 700;
+  text-decoration: none; white-space: nowrap;
+}
+.nav-links { display: flex; gap: 4px; flex-wrap: wrap; justify-content: flex-end; }
+.nav-links a {
+  color: rgba(255,255,255,0.8); text-decoration: none;
+  padding: 5px 11px; border-radius: 6px; font-size: 0.8rem; font-weight: 500;
+  transition: all .2s; white-space: nowrap;
+}
+.nav-links a:hover { background: rgba(255,255,255,0.15); color: white; }
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 100vh; height: 100svh;
+  min-height: 560px; max-height: 950px;
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+}
+.hero-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+}
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,.25) 0%, rgba(13,61,80,.65) 55%, rgba(13,61,80,.9) 100%);
+}
+.hero-content {
+  position: relative; z-index: 1; text-align: center; color: white;
+  padding: 40px 24px; max-width: 820px;
+}
+.hero-eyebrow {
+  font-size: .82rem; font-weight: 600; letter-spacing: 4px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 700; line-height: 1.08; margin-bottom: 18px;
+  text-shadow: 0 2px 24px rgba(0,0,0,.4);
+}
+.hero-subtitle {
+  font-size: clamp(.95rem, 2.2vw, 1.2rem); opacity: .88;
+  margin-bottom: 40px; font-weight: 300; max-width: 580px; margin-left: auto; margin-right: auto;
+}
+.hero-badges { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-bottom: 48px; }
+.hero-badge {
+  background: rgba(255,255,255,0.13);
+  border: 1px solid rgba(255,255,255,.28);
+  backdrop-filter: blur(8px);
+  padding: 8px 20px; border-radius: 50px;
+  font-size: .85rem; font-weight: 500;
+}
+.hero-scroll {
+  position: absolute; bottom: 32px; left: 50%;
+  transform: translateX(-50%); animation: bounce 2.2s infinite;
+  font-size: 1.6rem; z-index: 1; opacity: .7;
+}
+@keyframes bounce {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* SECTIONS */
+section { padding: 80px 24px; }
+.section-inner { max-width: 1120px; margin: 0 auto; }
+.section-label {
+  font-size: .76rem; font-weight: 700; letter-spacing: 3.5px;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 8px;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.7rem, 4vw, 2.7rem);
+  color: var(--teal-dark); margin-bottom: 20px; line-height: 1.2;
+}
+.section-intro {
+  font-size: 1rem; color: var(--text-light);
+  max-width: 680px; margin-bottom: 44px; line-height: 1.85;
+}
+
+/* KURZFAZIT */
+#kurzfazit { background: white; }
+.fazit-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px;
+}
+.fazit-card {
+  background: var(--cream); border-radius: var(--radius);
+  padding: 24px; border-left: 4px solid var(--gold);
+  transition: transform .2s, box-shadow .2s;
+}
+.fazit-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.fazit-card .ficon { font-size: 2rem; margin-bottom: 10px; }
+.fazit-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem; color: var(--teal-dark); margin-bottom: 7px;
+}
+.fazit-card p { font-size: .88rem; color: var(--text-light); line-height: 1.65; }
+
+/* BUCHEN */
+#buchen { background: white; }
+#buchen .section-intro { max-width: 720px; }
+.priority-block {
+  background: var(--cream); border-radius: var(--radius-lg);
+  padding: 28px 32px; margin-bottom: 22px;
+  border-left: 6px solid var(--green);
+}
+.priority-block.tier-2 { border-left-color: var(--gold); }
+.priority-block.tier-3 { border-left-color: var(--teal-light); }
+.priority-block.tier-4 { border-left-color: rgba(0,0,0,.15); background: rgba(0,0,0,.025); }
+.pb-head {
+  display: flex; align-items: baseline; flex-wrap: wrap;
+  gap: 10px; margin-bottom: 6px;
+}
+.pb-pill {
+  font-size: .68rem; font-weight: 800; letter-spacing: 1.5px;
+  text-transform: uppercase; padding: 3px 10px; border-radius: 20px;
+  background: var(--green); color: white;
+}
+.priority-block.tier-2 .pb-pill { background: var(--gold); }
+.priority-block.tier-3 .pb-pill { background: var(--teal-light); }
+.priority-block.tier-4 .pb-pill { background: rgba(0,0,0,.45); }
+.priority-block h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem; color: var(--teal-dark); line-height: 1.2;
+}
+.pb-lead { font-size: .94rem; color: var(--text-light); margin: 8px 0 18px; line-height: 1.7; }
+.pb-items { display: grid; gap: 14px; }
+.pb-item {
+  background: white; border-radius: var(--radius);
+  padding: 16px 18px; box-shadow: 0 1px 4px rgba(0,0,0,.04);
+}
+.pb-item h4 {
+  font-weight: 700; color: var(--teal-dark);
+  font-size: .98rem; margin-bottom: 4px;
+}
+.pb-item p { font-size: .87rem; color: var(--text-light); line-height: 1.65; }
+.pb-item .pb-when {
+  display: inline-block; margin-top: 8px;
+  background: rgba(26,95,122,.08); color: var(--teal-dark);
+  font-size: .76rem; font-weight: 700; padding: 3px 9px; border-radius: 10px;
+}
+.pb-item .pb-cost {
+  display: inline-block; margin-top: 8px; margin-left: 6px;
+  background: rgba(201,168,76,.18); color: #8a6d20;
+  font-size: .76rem; font-weight: 700; padding: 3px 9px; border-radius: 10px;
+}
+.pb-checklist {
+  background: var(--teal-dark); color: white;
+  border-radius: var(--radius-lg); padding: 32px;
+  margin-top: 8px;
+}
+.pb-checklist h3 {
+  font-family: 'Playfair Display', serif; color: var(--gold);
+  font-size: 1.4rem; margin-bottom: 14px;
+}
+.pb-checklist ol {
+  list-style: none; counter-reset: step;
+  display: grid; gap: 10px;
+}
+.pb-checklist li {
+  counter-increment: step;
+  display: flex; gap: 14px; align-items: flex-start;
+  font-size: .93rem; line-height: 1.6;
+  color: rgba(255,255,255,.88);
+}
+.pb-checklist li::before {
+  content: counter(step);
+  flex-shrink: 0;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--gold); color: var(--teal-dark);
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: .85rem;
+}
+.pb-checklist li strong { color: white; }
+
+/* ESSEN */
+#essen { background: var(--cream); }
+.eat-intro-card {
+  background: white; border-radius: var(--radius-lg);
+  padding: 24px 28px; margin-bottom: 32px;
+  box-shadow: var(--shadow); border-left: 4px solid var(--gold);
+}
+.eat-intro-card p { font-size: .95rem; color: var(--text-light); line-height: 1.7; }
+.eat-intro-card p + p { margin-top: 10px; }
+
+.eat-group-label {
+  font-size: .78rem; font-weight: 800; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--teal-dark);
+  margin: 36px 0 14px; padding-bottom: 8px;
+  border-bottom: 2px solid rgba(26,95,122,.15);
+}
+.eat-group-label:first-of-type { margin-top: 0; }
+
+.eat-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 18px;
+}
+.eat-card {
+  background: white; border-radius: var(--radius-lg);
+  padding: 22px 24px; box-shadow: var(--shadow);
+  display: flex; flex-direction: column;
+  border-top: 4px solid var(--teal);
+  transition: transform .2s, box-shadow .2s;
+}
+.eat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.eat-card.favorite { border-top-color: var(--gold); }
+.eat-card.cicchetti { border-top-color: var(--teal-light); }
+.eat-card.notlosung { border-top-color: rgba(0,0,0,.2); }
+
+.eat-card .eat-head {
+  display: flex; align-items: baseline; gap: 8px;
+  flex-wrap: wrap; margin-bottom: 4px;
+}
+.eat-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.25rem; color: var(--teal-dark);
+  line-height: 1.25;
+}
+.eat-badge {
+  display: inline-block;
+  font-size: .65rem; font-weight: 800; letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 2px 8px; border-radius: 10px;
+}
+.eat-badge.fav { background: var(--gold); color: white; }
+.eat-badge.cic { background: var(--teal-light); color: white; }
+.eat-badge.notfall { background: rgba(0,0,0,.4); color: white; }
+
+.eat-addr {
+  font-size: .82rem; color: var(--text-light);
+  margin: 6px 0 10px; line-height: 1.5;
+}
+.eat-addr a {
+  color: var(--teal); font-weight: 600; text-decoration: none;
+  border-bottom: 1px dotted var(--teal);
+}
+.eat-addr a:hover { color: var(--teal-dark); border-bottom-style: solid; }
+
+.eat-meta {
+  display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px;
+}
+.eat-meta .em-tag {
+  font-size: .72rem; font-weight: 700;
+  padding: 3px 9px; border-radius: 10px;
+  background: rgba(26,95,122,.08); color: var(--teal-dark);
+}
+.eat-meta .em-tag.closed { background: rgba(192,57,43,.1); color: var(--red); }
+.eat-meta .em-tag.open { background: rgba(39,174,96,.12); color: #1a7a44; }
+
+.eat-card p.eat-body {
+  font-size: .87rem; color: var(--text-light);
+  line-height: 1.65; margin-bottom: 12px; flex-grow: 1;
+}
+.eat-verdict {
+  background: var(--cream); border-radius: 8px;
+  padding: 10px 12px; margin-top: auto;
+  font-size: .82rem; color: var(--text);
+  border-left: 3px solid var(--gold);
+}
+.eat-verdict strong { color: var(--teal-dark); }
+
+.eat-days {
+  margin-top: 40px;
+  background: var(--teal-dark); color: white;
+  border-radius: var(--radius-lg); padding: 32px;
+}
+.eat-days h3 {
+  font-family: 'Playfair Display', serif;
+  color: var(--gold); font-size: 1.45rem; margin-bottom: 18px;
+}
+.eat-days-grid {
+  display: grid; gap: 12px;
+}
+.eat-day-row {
+  display: grid; grid-template-columns: 110px 1fr;
+  gap: 14px; align-items: start;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,.1);
+}
+.eat-day-row:last-child { border-bottom: none; }
+.eat-day-row .edr-when {
+  font-size: .78rem; font-weight: 700;
+  color: var(--gold); letter-spacing: .5px;
+  text-transform: uppercase;
+}
+.eat-day-row .edr-when small { display: block; font-weight: 500; color: rgba(255,255,255,.6); letter-spacing: 0; text-transform: none; font-size: .76rem; margin-top: 2px;}
+.eat-day-row .edr-rec { font-size: .89rem; line-height: 1.6; color: rgba(255,255,255,.88); }
+.eat-day-row .edr-rec strong { color: white; }
+
+.eat-avoid {
+  margin-top: 32px;
+  background: rgba(192,57,43,.06);
+  border: 1px solid rgba(192,57,43,.2);
+  border-left: 4px solid var(--red);
+  border-radius: var(--radius);
+  padding: 22px 26px;
+}
+.eat-avoid h3 {
+  color: var(--red); margin-bottom: 10px;
+  font-size: 1.05rem; font-weight: 700;
+}
+.eat-avoid h3::before { content: '⚠️ '; }
+.eat-avoid ul {
+  list-style: none; display: grid; gap: 8px;
+}
+.eat-avoid li {
+  font-size: .87rem; color: var(--text);
+  line-height: 1.6; padding-left: 22px; position: relative;
+}
+.eat-avoid li::before {
+  content: '✗'; position: absolute; left: 0; top: 0;
+  color: var(--red); font-weight: 800;
+}
+
+/* HOTEL */
+#hotel { background: var(--cream); }
+.hotel-card {
+  background: white; border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow);
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.hotel-img-wrap { position: relative; min-height: 320px; overflow: hidden; }
+.hotel-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
+.hotel-img-wrap iframe { width: 100%; height: 100%; min-height: 320px; border: 0; display: block; }
+.hotel-img-note {
+  position: absolute; bottom: 10px; left: 10px; right: 10px;
+  background: rgba(13,61,80,.88); color: white;
+  font-size: .72rem; padding: 6px 10px; border-radius: 6px;
+  pointer-events: none; line-height: 1.4;
+}
+.hotel-info { padding: 44px 40px; }
+.hotel-info h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem; color: var(--teal-dark); margin-bottom: 6px;
+}
+.hotel-badge {
+  display: inline-block; background: var(--teal); color: white;
+  font-size: .72rem; padding: 3px 10px; border-radius: 20px;
+  margin-bottom: 20px; font-weight: 600; letter-spacing: .5px;
+}
+.hotel-detail {
+  display: flex; align-items: flex-start; gap: 12px;
+  margin-bottom: 11px; font-size: .9rem; color: var(--text-light);
+}
+.hotel-detail .di { font-size: 1.1rem; min-width: 22px; }
+.hotel-detail strong { color: var(--text); }
+
+/* TRANSFER */
+#transfer { background: white; }
+.transfer-route {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 8px;
+  background: var(--cream); border-radius: var(--radius);
+  padding: 20px 24px; margin-bottom: 36px; font-size: .9rem;
+}
+.route-stop {
+  background: white; border: 2px solid var(--teal);
+  border-radius: 8px; padding: 8px 14px; font-weight: 600;
+  color: var(--teal-dark); white-space: nowrap;
+}
+.route-stop.highlight { background: var(--teal); color: white; }
+.route-arrow { color: var(--teal); font-size: 1.2rem; }
+.transfer-steps { display: flex; flex-direction: column; gap: 0; }
+.transfer-step { display: flex; gap: 20px; position: relative; }
+.transfer-step:not(:last-child)::after {
+  content: ''; position: absolute;
+  left: 19px; top: 42px; bottom: -8px;
+  width: 2px; background: var(--teal); opacity: .25;
+}
+.step-dot {
+  width: 40px; height: 40px; background: var(--teal); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 1rem; flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(26,95,122,.35);
+}
+.step-content {
+  background: var(--cream); border-radius: var(--radius);
+  padding: 18px 22px; margin-bottom: 14px; flex: 1;
+}
+.step-content h4 { font-weight: 600; color: var(--teal-dark); margin-bottom: 4px; }
+.step-content p { font-size: .88rem; color: var(--text-light); line-height: 1.6; }
+.step-badge {
+  display: inline-block; background: var(--gold); color: white;
+  font-size: .72rem; padding: 2px 8px; border-radius: 10px;
+  margin-top: 7px; font-weight: 700; letter-spacing: .4px;
+}
+
+/* INFO BOXES */
+.info-box {
+  border-radius: var(--radius); padding: 18px 22px;
+  margin: 14px 0; display: flex; gap: 14px; align-items: flex-start;
+}
+.info-box.warning { background: rgba(192,57,43,.07); border-left: 4px solid var(--red); }
+.info-box.tip { background: rgba(39,174,96,.07); border-left: 4px solid var(--green); }
+.info-box.info { background: rgba(41,128,185,.07); border-left: 4px solid #2980b9; }
+.info-box.notice { background: rgba(230,126,34,.08); border-left: 4px solid var(--orange); }
+.info-box .ib-icon { font-size: 1.3rem; margin-top: 2px; }
+.info-box .ib-content h4 { font-weight: 600; color: var(--dark); margin-bottom: 3px; font-size: .93rem; }
+.info-box .ib-content p { font-size: .87rem; color: var(--text-light); line-height: 1.6; }
+.info-box .ib-content a { color: var(--teal); }
+
+/* CALENDAR / ZUGANG */
+#zugang { background: var(--cream); }
+.calendar-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin: 28px 0;
+}
+.cal-day {
+  background: white; border-radius: var(--radius);
+  padding: 18px 10px; text-align: center;
+  border: 2px solid transparent; transition: all .2s;
+}
+.cal-day.arrival { border-color: var(--teal); background: rgba(26,95,122,.06); }
+.cal-day.free-day { border-color: var(--green); background: rgba(39,174,96,.06); }
+.cal-day.fee-day { border-color: var(--orange); background: rgba(230,126,34,.08); }
+.cal-day.departure { border-color: var(--teal-light); background: rgba(42,125,158,.06); }
+.cal-day .d-name { font-size: .68rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-light); margin-bottom: 4px; }
+.cal-day .d-num {
+  font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; line-height: 1; margin-bottom: 5px;
+}
+.cal-day.arrival .d-num { color: var(--teal); }
+.cal-day.free-day .d-num { color: var(--green); }
+.cal-day.fee-day .d-num { color: var(--orange); }
+.cal-day.departure .d-num { color: var(--teal-light); }
+.cal-day .d-label { font-size: .67rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; }
+.cal-day.arrival .d-label { color: var(--teal); }
+.cal-day.free-day .d-label { color: var(--green); }
+.cal-day.fee-day .d-label { color: var(--orange); }
+.cal-day.departure .d-label { color: var(--teal-light); }
+.cal-legend { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 16px; }
+.cal-legend-item { display: flex; align-items: center; gap: 7px; font-size: .82rem; color: var(--text-light); }
+.cal-legend-dot { width: 12px; height: 12px; border-radius: 50%; }
+
+/* TICKETS */
+#tickets { background: var(--teal-dark); color: white; }
+#tickets .section-title { color: white; }
+#tickets .section-intro { color: rgba(255,255,255,.7); }
+.ticket-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+.ticket-card {
+  background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.13);
+  border-radius: var(--radius-lg); padding: 28px;
+  transition: all .3s; position: relative;
+}
+.ticket-card:hover { background: rgba(255,255,255,.13); transform: translateY(-4px); }
+.ticket-card.recommended { border-color: var(--gold); background: rgba(201,168,76,.1); }
+.ticket-card.recommended::before {
+  content: '★ Empfehlung';
+  position: absolute; top: -11px; left: 20px;
+  background: var(--gold); color: white;
+  font-size: .7rem; font-weight: 700; padding: 3px 10px; border-radius: 20px;
+}
+.ticket-price {
+  font-family: 'Playfair Display', serif; font-size: 2.6rem;
+  color: var(--gold); font-weight: 700; margin-bottom: 2px; line-height: 1;
+}
+.ticket-price sub { font-size: 1rem; font-weight: 400; opacity: .75; vertical-align: middle; }
+.ticket-name { font-size: 1rem; font-weight: 600; margin: 8px 0 14px; color: white; }
+.ticket-features { list-style: none; font-size: .85rem; color: rgba(255,255,255,.7); display: flex; flex-direction: column; gap: 6px; }
+.ticket-features li { display: flex; align-items: flex-start; gap: 6px; }
+.ticket-features li::before { content: '✓'; color: var(--gold); flex-shrink: 0; font-weight: 700; }
+.ticket-note { font-size: .8rem; color: rgba(255,255,255,.5); margin-top: 14px; font-style: italic; }
+
+/* ITINERARY */
+#itinerary { background: var(--cream); }
+.day-tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 30px; }
+.day-tab {
+  padding: 9px 20px; border-radius: 50px; border: 2px solid var(--teal);
+  background: transparent; color: var(--teal);
+  font-size: .84rem; font-weight: 600; cursor: pointer;
+  transition: all .2s; font-family: 'Inter', sans-serif;
+}
+.day-tab:hover { background: var(--teal); color: white; }
+.day-tab.active { background: var(--teal); color: white; }
+.day-tab.special { border-color: var(--orange); color: var(--orange); }
+.day-tab.special.active, .day-tab.special:hover { background: var(--orange); color: white; border-color: var(--orange); }
+.day-content { display: none; animation: fadeUp .35s ease; }
+.day-content.active { display: block; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+.day-header {
+  border-radius: var(--radius-lg); overflow: hidden;
+  margin-bottom: 28px; position: relative; height: 280px;
+}
+.day-header img { width: 100%; height: 100%; object-fit: cover; }
+.day-header-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to right, rgba(13,61,80,.88) 40%, transparent 100%);
+  display: flex; align-items: center; padding: 44px;
+}
+.day-header-text .d-date { color: var(--gold); font-size: .8rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 6px; }
+.day-header-text h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3.5vw, 2.2rem); color: white; margin-bottom: 6px; line-height: 1.2; }
+.day-header-text .d-theme { color: rgba(255,255,255,.8); font-size: .95rem; }
+.day-grid { display: grid; grid-template-columns: 1fr 300px; gap: 24px; }
+.timeline { display: flex; flex-direction: column; }
+.tl-item { display: flex; gap: 14px; position: relative; }
+.tl-item:not(:last-child)::after {
+  content: ''; position: absolute;
+  left: 19px; top: 42px; bottom: -8px;
+  width: 2px; background: linear-gradient(to bottom, var(--teal), transparent); opacity: .25;
+}
+.tl-dot {
+  width: 40px; height: 40px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .95rem; flex-shrink: 0;
+  background: white; border: 2px solid var(--teal); color: var(--teal);
+}
+.tl-body {
+  background: white; border-radius: var(--radius);
+  padding: 15px 18px; margin-bottom: 12px; flex: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.tl-time { font-size: .71rem; font-weight: 700; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 2px; }
+.tl-title { font-weight: 600; color: var(--teal-dark); margin-bottom: 4px; font-size: .95rem; }
+.tl-desc { font-size: .86rem; color: var(--text-light); line-height: 1.6; }
+.tl-tag {
+  display: inline-block; font-size: .7rem; font-weight: 700; padding: 2px 8px;
+  border-radius: 10px; margin-top: 6px;
+}
+.tl-tag.cost { background: rgba(201,168,76,.15); color: #8a6d20; }
+.tl-tag.tip { background: rgba(39,174,96,.12); color: #1a7a44; }
+.tl-tag.warn { background: rgba(192,57,43,.1); color: var(--red); }
+.day-sidebar { display: flex; flex-direction: column; gap: 14px; }
+.sidebar-card {
+  background: white; border-radius: var(--radius);
+  padding: 18px 20px; box-shadow: 0 2px 8px rgba(0,0,0,.06);
+}
+.sidebar-card h4 {
+  font-weight: 700; color: var(--teal-dark); margin-bottom: 12px;
+  font-size: .8rem; text-transform: uppercase; letter-spacing: 1.2px;
+  display: flex; align-items: center; gap: 7px;
+}
+.cost-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 7px 0; border-bottom: 1px solid var(--cream-dark); font-size: .86rem;
+}
+.cost-row:last-child { border-bottom: none; }
+.cost-row .cr-label { color: var(--text-light); }
+.cost-row .cr-val { font-weight: 700; color: var(--teal); }
+.pill {
+  display: inline-block; font-size: .72rem; font-weight: 700; padding: 3px 9px;
+  border-radius: 20px; text-transform: uppercase; letter-spacing: .4px;
+}
+.pill.green { background: rgba(39,174,96,.15); color: #1a7a44; }
+.pill.orange { background: rgba(230,126,34,.15); color: #b05a10; }
+.pill.red { background: rgba(192,57,43,.12); color: var(--red); }
+
+/* VOGALONGA */
+#vogalonga { background: white; }
+.vogalonga-banner {
+  background: linear-gradient(135deg, #e67e22 0%, #c0392b 100%);
+  border-radius: var(--radius-lg); padding: 44px 48px;
+  color: white; margin-bottom: 32px;
+  position: relative; overflow: hidden;
+}
+.vogalonga-banner::before {
+  content: '🚣'; position: absolute;
+  right: 44px; top: 50%; transform: translateY(-50%);
+  font-size: 7rem; opacity: .15;
+}
+.vogalonga-banner .vb-label {
+  font-size: .78rem; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: rgba(255,255,255,.75); margin-bottom: 8px;
+}
+.vogalonga-banner h2 { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 14px; }
+.vogalonga-banner p { opacity: .88; line-height: 1.75; max-width: 580px; font-size: .97rem; }
+.vogalonga-facts {
+  display: flex; gap: 24px; margin-top: 24px; flex-wrap: wrap;
+}
+.vf-item {
+  background: rgba(255,255,255,.15); border-radius: 10px;
+  padding: 12px 20px; text-align: center;
+}
+.vf-item .vf-val { font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 700; }
+.vf-item .vf-key { font-size: .75rem; opacity: .8; text-transform: uppercase; letter-spacing: 1px; }
+.alternatives-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px;
+}
+.alt-card {
+  background: var(--cream); border-radius: var(--radius);
+  padding: 22px; border-top: 3px solid var(--orange);
+}
+.alt-card .alt-num {
+  width: 28px; height: 28px; background: var(--orange); color: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-weight: 700; font-size: .85rem; margin-bottom: 10px;
+}
+.alt-card h4 { font-weight: 600; color: var(--teal-dark); margin-bottom: 7px; font-size: .95rem; }
+.alt-card p { font-size: .87rem; color: var(--text-light); line-height: 1.65; }
+
+/* MAP */
+#map-section { background: var(--teal-dark); padding: 80px 24px; }
+#map-section .section-title { color: white; }
+#map-section .section-intro { color: rgba(255,255,255,.7); }
+#main-map {
+  height: 520px; border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow-lg); margin-top: 32px;
+}
+
+/* BIENNALE */
+#biennale { background: var(--cream); }
+.biennale-card {
+  background: white; border-radius: var(--radius-lg);
+  overflow: hidden; box-shadow: var(--shadow);
+  display: grid; grid-template-columns: 1fr 1fr;
+}
+.biennale-img { position: relative; min-height: 360px; overflow: hidden; }
+.biennale-img img { width: 100%; height: 100%; object-fit: cover; }
+.biennale-img::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(26,95,122,.35);
+}
+.biennale-content { padding: 48px 42px; display: flex; flex-direction: column; justify-content: center; }
+.biennale-content h3 { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--teal-dark); margin-bottom: 4px; }
+.biennale-sub { font-style: italic; color: var(--gold); margin-bottom: 20px; font-size: 1rem; }
+.biennale-content p { font-size: .92rem; color: var(--text-light); line-height: 1.75; margin-bottom: 14px; }
+.biennale-details { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.b-detail { display: flex; align-items: center; gap: 10px; font-size: .88rem; }
+.b-detail .bd-icon { font-size: 1rem; }
+.b-detail strong { color: var(--teal-dark); }
+
+/* GONDOLA */
+.gondola-callout {
+  background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  border-radius: var(--radius-lg); padding: 48px;
+  color: white; display: grid; grid-template-columns: 1fr auto;
+  gap: 40px; align-items: center; margin-top: 40px;
+}
+.gondola-callout h3 { font-family: 'Playfair Display', serif; font-size: 1.7rem; margin-bottom: 12px; }
+.gondola-callout p { opacity: .85; line-height: 1.75; max-width: 500px; font-size: .95rem; }
+.gondola-prices { display: flex; flex-direction: column; gap: 12px; flex-shrink: 0; }
+.gp-item {
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+  border-radius: 12px; padding: 18px 28px; text-align: center; min-width: 160px;
+}
+.gp-item .gp-val { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--gold); font-weight: 700; }
+.gp-item .gp-desc { font-size: .76rem; opacity: .7; line-height: 1.5; margin-top: 3px; }
+
+/* TIPS */
+#tipps { background: white; }
+.tips-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+.tip-card {
+  border-radius: var(--radius); padding: 22px;
+  display: flex; gap: 14px;
+}
+.tip-card.danger { background: rgba(192,57,43,.06); border: 1px solid rgba(192,57,43,.18); }
+.tip-card.success { background: rgba(39,174,96,.06); border: 1px solid rgba(39,174,96,.18); }
+.tip-card.info { background: rgba(41,128,185,.06); border: 1px solid rgba(41,128,185,.18); }
+.tip-card.notice { background: rgba(230,126,34,.07); border: 1px solid rgba(230,126,34,.18); }
+.tip-icon { font-size: 1.7rem; flex-shrink: 0; margin-top: 2px; }
+.tip-text h4 { font-weight: 600; color: var(--dark); margin-bottom: 6px; font-size: .93rem; }
+.tip-text p { font-size: .86rem; color: var(--text-light); line-height: 1.65; }
+
+/* FOOTER */
+footer { background: var(--teal-dark); color: rgba(255,255,255,.65); padding: 56px 24px 40px; text-align: center; }
+footer .footer-inner { max-width: 1120px; margin: 0 auto; }
+footer h3 { font-family: 'Playfair Display', serif; color: var(--gold); font-size: 1.6rem; margin-bottom: 6px; }
+footer .f-sub { font-size: .88rem; margin-bottom: 28px; }
+.footer-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 32px; }
+.footer-links a {
+  color: rgba(255,255,255,.6); text-decoration: none;
+  font-size: .8rem; padding: 5px 13px;
+  border: 1px solid rgba(255,255,255,.18); border-radius: 20px;
+  transition: all .2s;
+}
+.footer-links a:hover { background: rgba(255,255,255,.1); color: white; }
+footer .f-copy { font-size: .77rem; opacity: .45; border-top: 1px solid rgba(255,255,255,.1); padding-top: 22px; margin-top: 4px; }
+
+/* ── HAMBURGER MENU ── */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 10px 6px;
+  background: none;
+  border: none;
+  flex-shrink: 0;
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: rgba(255,255,255,.85);
+  border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 990;
+  flex-direction: column;
+  padding-top: calc(56px + env(safe-area-inset-top));
+}
+.mobile-menu.open { display: flex; }
+.mobile-menu-bg {
+  position: absolute; inset: 0;
+  background: rgba(10,38,50,.97);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+.mobile-menu-links {
+  position: relative; z-index: 1;
+  display: flex; flex-direction: column;
+  padding: 16px 20px calc(20px + env(safe-area-inset-bottom));
+  overflow-y: auto; -webkit-overflow-scrolling: touch;
+  gap: 2px;
+}
+.mobile-menu-links a {
+  color: white; text-decoration: none;
+  font-size: 1.05rem; font-weight: 500;
+  padding: 14px 16px;
+  border-radius: 12px;
+  display: flex; align-items: center; gap: 10px;
+  transition: background .15s;
+  min-height: 52px;
+}
+.mobile-menu-links a:active { background: rgba(255,255,255,.12); }
+.mobile-menu-links a .mml-icon { font-size: 1.2rem; }
+
+/* ── DAY TABS SCROLL CONTAINER ── */
+.day-tabs-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  margin: 0 -24px;
+  padding: 0 24px 4px;
+}
+.day-tabs-wrap::-webkit-scrollbar { display: none; }
+.day-tabs { flex-wrap: nowrap; min-width: max-content; }
+
+/* ── TABLET ── */
+@media (max-width: 900px) {
+  .hotel-card, .biennale-card { grid-template-columns: 1fr; }
+  .day-grid { grid-template-columns: 1fr; }
+  .gondola-callout { grid-template-columns: 1fr; }
+  .gondola-prices { flex-direction: row; justify-content: center; }
+  .calendar-grid { grid-template-columns: repeat(3, 1fr); }
+  .day-header-overlay {
+    background: linear-gradient(to bottom, rgba(13,61,80,.85) 0%, transparent 100%);
+    padding: 24px; align-items: flex-start;
+  }
+}
+
+/* ── MOBILE (iPhone) ── */
+@media (max-width: 600px) {
+  /* Show hamburger */
+  .hamburger { display: flex; }
+  .nav-links { display: none !important; }
+
+  /* Sections */
+  section { padding: 48px 16px; }
+  #gondel { padding: 0 16px 60px; }
+  .section-intro { font-size: .92rem; margin-bottom: 32px; }
+  .section-label { font-size: .72rem; }
+
+  /* Hero */
+  .hero { height: 100svh; min-height: 520px; }
+  .hero-content { padding: 32px 20px; }
+  .hero-subtitle { font-size: .92rem; }
+  .hero-badges { gap: 8px; }
+  .hero-badge { font-size: .78rem; padding: 7px 14px; }
+
+  /* Fazit grid: 1 column */
+  .fazit-grid { grid-template-columns: 1fr; gap: 12px; }
+
+  /* Hotel */
+  .hotel-img-wrap { min-height: 220px; }
+  .hotel-img-wrap iframe { min-height: 220px; }
+  .hotel-info { padding: 24px 20px; }
+  .hotel-info h3 { font-size: 1.35rem; }
+
+  /* Buchen */
+  .priority-block { padding: 20px 18px; }
+  .priority-block h3 { font-size: 1.15rem; }
+  .pb-checklist { padding: 22px 18px; }
+  .pb-checklist h3 { font-size: 1.2rem; }
+
+  /* Essen */
+  .eat-grid { grid-template-columns: 1fr; }
+  .eat-card { padding: 18px 18px; }
+  .eat-card h3 { font-size: 1.1rem; }
+  .eat-days { padding: 22px 18px; }
+  .eat-days h3 { font-size: 1.2rem; }
+  .eat-day-row { grid-template-columns: 1fr; gap: 4px; padding: 10px 0; }
+  .eat-day-row .edr-when small { display: inline; margin-left: 4px; }
+  .eat-avoid { padding: 18px 20px; }
+
+  /* Transfer route: horizontal scroll */
+  .transfer-route {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    flex-wrap: nowrap; padding-right: 20px;
+    scrollbar-width: none; gap: 6px;
+  }
+  .transfer-route::-webkit-scrollbar { display: none; }
+  .route-stop { font-size: .82rem; padding: 7px 10px; }
+
+  /* Calendar */
+  .calendar-grid { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .cal-day { padding: 12px 6px; }
+  .cal-day .d-num { font-size: 1.5rem; }
+  .cal-day .d-label { font-size: .6rem; letter-spacing: 0; }
+  .cal-legend { gap: 12px; }
+  .cal-legend-item { font-size: .78rem; }
+
+  /* Tickets */
+  .ticket-grid { grid-template-columns: 1fr; }
+  .ticket-price { font-size: 2.2rem; }
+
+  /* Day tabs: horizontal scroll (via wrapper) */
+  .day-tabs-wrap { margin: 0 -16px; padding: 0 16px 4px; }
+  .day-tab { font-size: .82rem; padding: 9px 16px; white-space: nowrap; }
+
+  /* Day header */
+  .day-header { height: 200px; border-radius: 14px; }
+  .day-header-overlay {
+    background: linear-gradient(to bottom, rgba(13,61,80,.88) 30%, rgba(13,61,80,.2) 100%);
+    padding: 18px 20px; align-items: flex-start;
+  }
+  .day-header-text h2 { font-size: 1.25rem; }
+  .day-header-text .d-theme { font-size: .85rem; }
+
+  /* Timeline */
+  .tl-dot { width: 36px; height: 36px; font-size: .85rem; }
+  .tl-body { padding: 13px 15px; }
+  .tl-desc { font-size: .84rem; }
+  .tl-item:not(:last-child)::after { left: 17px; }
+
+  /* Sidebar: restore to flow */
+  .day-sidebar { margin-top: 8px; }
+
+  /* Info boxes */
+  .info-box { padding: 14px 16px; gap: 10px; }
+  .info-box .ib-icon { font-size: 1.2rem; }
+  .info-box .ib-content p { font-size: .84rem; }
+
+  /* Map */
+  #main-map { height: 360px; border-radius: 14px; }
+
+  /* Vogalonga banner */
+  .vogalonga-banner { padding: 24px 20px; }
+  .vogalonga-banner::before { display: none; }
+  .vogalonga-facts { gap: 8px; }
+  .vf-item { padding: 10px 12px; }
+  .vf-item .vf-val { font-size: 1.4rem; }
+
+  /* Biennale */
+  .biennale-img { min-height: 200px; }
+  .biennale-content { padding: 24px 20px; }
+  .biennale-content h3 { font-size: 1.5rem; }
+
+  /* Gondola */
+  .gondola-callout { padding: 28px 20px; gap: 24px; }
+  .gondola-callout h3 { font-size: 1.4rem; }
+  .gondola-prices { flex-direction: row; justify-content: center; gap: 10px; }
+  .gp-item { min-width: 130px; padding: 14px 16px; }
+  .gp-item .gp-val { font-size: 1.8rem; }
+
+  /* Tips grid: 1 column */
+  .tips-grid { grid-template-columns: 1fr; }
+
+  /* Step content touch links */
+  .step-content a, .sidebar-card a, .hotel-detail a { min-height: 36px; display: inline-flex; align-items: center; }
+
+  /* Footer */
+  footer { padding: 40px 16px calc(28px + env(safe-area-inset-bottom)); }
+  .footer-links a { padding: 10px 14px; font-size: .82rem; }
+  .footer-links { gap: 8px; }
+
+  /* Alternatives grid */
+  .alternatives-grid { grid-template-columns: 1fr; }
+}
+
+/* ── SMALL IPHONE (SE / 375px) ── */
+@media (max-width: 390px) {
+  .hero-title { font-size: 2.4rem; }
+  .section-title { font-size: 1.55rem; }
+  .calendar-grid { grid-template-columns: repeat(2, 1fr); }
+  .gondola-prices { flex-direction: column; align-items: center; }
+  .gp-item { width: 100%; max-width: 200px; }
+  .vogalonga-facts { flex-direction: column; align-items: flex-start; }
+  .vf-item { min-width: 140px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#">🇮🇹 Venedig '26</a>
+    <div class="nav-links">
+      <a href="#kurzfazit">Überblick</a>
+      <a href="#buchen">Buchen</a>
+      <a href="#essen">Essen</a>
+      <a href="#transfer">Transfer</a>
+      <a href="#zugang">Zugangsgebühr</a>
+      <a href="#tickets">Tickets</a>
+      <a href="#itinerary">Tagesplan</a>
+      <a href="#vogalonga">Vogalonga</a>
+      <a href="#map-section">Karte</a>
+      <a href="#biennale">Biennale</a>
+      <a href="#tipps">Tipps</a>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-bg" id="menuBg"></div>
+  <div class="mobile-menu-links">
+    <a href="#kurzfazit" class="mmlink"><span class="mml-icon">📋</span> Überblick</a>
+    <a href="#buchen" class="mmlink"><span class="mml-icon">🎫</span> Buchen</a>
+    <a href="#essen" class="mmlink"><span class="mml-icon">🍽️</span> Essen</a>
+    <a href="#hotel" class="mmlink"><span class="mml-icon">🏠</span> Hotel</a>
+    <a href="#transfer" class="mmlink"><span class="mml-icon">🚢</span> Transfer</a>
+    <a href="#zugang" class="mmlink"><span class="mml-icon">⚡</span> Zugangsgebühr</a>
+    <a href="#tickets" class="mmlink"><span class="mml-icon">🎟️</span> Tickets</a>
+    <a href="#itinerary" class="mmlink"><span class="mml-icon">📅</span> Tagesplan</a>
+    <a href="#vogalonga" class="mmlink"><span class="mml-icon">🚣</span> Vogalonga</a>
+    <a href="#map-section" class="mmlink"><span class="mml-icon">🗺️</span> Karte</a>
+    <a href="#biennale" class="mmlink"><span class="mml-icon">🎨</span> Biennale</a>
+    <a href="#tipps" class="mmlink"><span class="mml-icon">💡</span> Tipps</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-img"
+    src="https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1920&q=85&fit=crop&crop=center"
+    alt="Venedig Canal Grande" />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Persönlicher Reiseplan</div>
+    <h1 class="hero-title">Venedig<br><em>Mai 2026</em></h1>
+    <p class="hero-subtitle">Fünf Tage in der Serenissima — ruhig, bewusst und weit weg von der Checkliste.</p>
+    <div class="hero-badges">
+      <span class="hero-badge">📅 20.–25. Mai 2026</span>
+      <span class="hero-badge">🏠 Residence Poli · Santa Croce</span>
+      <span class="hero-badge">🚣 Vogalonga am 24. Mai</span>
+      <span class="hero-badge">🎨 Biennale Arte 2026</span>
+    </div>
+  </div>
+  <div class="hero-scroll">⌄</div>
+</div>
+
+<!-- KURZFAZIT -->
+<section id="kurzfazit">
+  <div class="section-inner">
+    <div class="section-label">Kurzfazit</div>
+    <h2 class="section-title">Der Plan auf einen Blick</h2>
+    <p class="section-intro">Santa Croce ist zentral, aber ruhiger als San Marco oder Rialto — eine gute Ausgangslage. Zwei klare Schwerpunktblöcke, kein Abarbeiten.</p>
+    <div class="fazit-grid">
+      <div class="fazit-card">
+        <div class="ficon">🌅</div>
+        <h3>Früh zu San Marco</h3>
+        <p>Markusdom und -platz gehören zum frühen Morgen. Gegen 7:30 Uhr ist der Platz noch atembar. Der Dogenpalast wartet auf den Freitagabend mit Verlängerung bis 23 Uhr.</p>
+      </div>
+      <div class="fazit-card">
+        <div class="ficon">🎨</div>
+        <h3>Dorsoduro in Ruhe</h3>
+        <p>Salute, Punta della Dogana und Peggy Guggenheim bilden einen runden Kunstblock — nicht hetzen, Mittagspause einplanen, Zattere genießen.</p>
+      </div>
+      <div class="fazit-card">
+        <div class="ficon">🏝️</div>
+        <h3>Burano früh & selektiv</h3>
+        <p>Burano wirkt am besten früh morgens. Danach Mazzorbo als ruhigen Gegenpol. Nicht vier Inseln an einem Tag — das sieht auf dem Papier gut aus und ist vor Ort zäh.</p>
+      </div>
+      <div class="fazit-card">
+        <div class="ficon">🚣</div>
+        <h3>Vogalonga ist kein Störfaktor</h3>
+        <p>Am 24. Mai kein Vaporetto-abhängiges Programm. Die Vogalonga ist selbst ein Ereignis — Venedig zu Fuß erleben und die Ruderregatta als Teil der Reise annehmen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUCHUNGSPRIORITÄT -->
+<section id="buchen">
+  <div class="section-inner">
+    <div class="section-label">Buchungspriorität</div>
+    <h2 class="section-title">Was jetzt vorab buchen — und was nicht</h2>
+    <p class="section-intro">Nicht alles braucht einen Slot. Für eure Reise gilt: drei Dinge sofort, zwei mit Vorlauf, der Rest bewusst offen. Der größte Fehler wäre nicht, zu wenig zu buchen, sondern zu viele feste Slots in die Tage zu pressen.</p>
+
+    <!-- TIER 1 -->
+    <div class="priority-block tier-1">
+      <div class="pb-head">
+        <span class="pb-pill">Sofort vorab buchen</span>
+      </div>
+      <h3>Slot-kritisch — jetzt erledigen</h3>
+      <p class="pb-lead">Diese drei Punkte haben Zeitfenster oder Nachweispflicht. Ohne Buchung kein Einlass.</p>
+      <div class="pb-items">
+        <div class="pb-item">
+          <h4>1. Markusdom — Donnerstag, 21. Mai, ca. 9:30 Uhr</h4>
+          <p>Die offizielle Ticketlogik arbeitet mit Datum und Zeitfenster (QR-/Barcode); der Einlass kann verweigert werden, wenn die Zeit nicht passt. Zeitfenster können ausverkauft sein. Empfehlung: <strong>Basilika + Museum/Loggia dei Cavalli (20 €)</strong>. Die Loggia gibt euch die Perspektive von oben — ruhiger und lohnender als nur der Basiseintritt. Das Komplettticket (30 €) nur, wenn euch die Pala d'Oro wirklich interessiert.</p>
+          <span class="pb-when">Do 21.05. · ~9:30 Uhr</span>
+          <span class="pb-cost">20 € / Person</span>
+        </div>
+        <div class="pb-item">
+          <h4>2. Zugangsgebühr — Befreiungs-QR organisieren</h4>
+          <p>Im Mai 2026 sind unter anderem <strong>22., 23. und 24. Mai</strong> Anwendungstage (8:30–16:00 Uhr). Als Übernachtungsgäste zahlt ihr die Gebühr nicht, aber ihr braucht den <strong>Befreiungs-QR-Code</strong>; die Befreiung gilt vom Anreise- bis zum Abreisetag. Nicht erst am Anreisetag erledigen: bei der Residence Poli anfragen oder über das offizielle Verfahren beziehen — QR-Code für beide Personen auf beiden Handys speichern.</p>
+          <span class="pb-when">Vor Reisebeginn</span>
+          <span class="pb-cost">Frei</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER 2 -->
+    <div class="priority-block tier-2">
+      <div class="pb-head">
+        <span class="pb-pill">Vorab sinnvoll</span>
+      </div>
+      <h3>Online kaufen, aber weniger eng getaktet</h3>
+      <p class="pb-lead">Nicht zwingend slot-kritisch, aber für euren ruhigen Stil klar besser als spontan in eine Schlange zu geraten.</p>
+      <div class="pb-items">
+        <div class="pb-item">
+          <h4>3. Peggy Guggenheim Collection — Freitag, 22. Mai, ca. 10:30/11:00 Uhr</h4>
+          <p>Die offizielle Seite empfiehlt Onlinekauf mit bevorzugtem Zeitfenster; Tickets gibt es auch an der Kasse, aber die Online-Slots sind nur solange verfügbar wie es Plätze gibt. Geöffnet 10–18 Uhr (Kasse bis 17 Uhr), dienstags geschlossen. Früh genug nach dem Frühstück, ohne den Dorsoduro-Tag in den Nachmittag zu verschieben.</p>
+          <span class="pb-when">Fr 22.05. · 10:30–11:00 Uhr</span>
+          <span class="pb-cost">17 € / Person</span>
+        </div>
+        <div class="pb-item">
+          <h4>4. Dogenpalast — Freitag, 22. Mai, gegen 19:00 Uhr</h4>
+          <p>Online vorab kaufen, aber entspannter als der Markusdom. Das <strong>St.-Mark's-Square-Museums-Ticket</strong> (Dogenpalast + Correr + Archäologisches Museum + Marciana-Monumentalräume) kostet 35 €. Die <strong>30 €-Onlineersparnis</strong> braucht 30 Tage Vorlauf — für Ende Mai jetzt nicht mehr realistisch. <strong>Hinweis:</strong> Tickets ohne spezifisches Zeitfenster sind erst ab 12:00 Uhr gültig — für euren Abend kein Problem. Vom 1. Mai bis 26. September 2026 ist Fr/Sa bis 23:00 Uhr geöffnet (letzter Einlass 22 Uhr). Standardticket reicht — <em>Secret Itineraries</em> nur, wenn euch das Thema wirklich packt.</p>
+          <span class="pb-when">Fr 22.05. · 19:00 Uhr</span>
+          <span class="pb-cost">35 € / Person</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER 3 -->
+    <div class="priority-block tier-3">
+      <div class="pb-head">
+        <span class="pb-pill">Nur bei bewusster Entscheidung</span>
+      </div>
+      <h3>Biennale & Gondel — nicht voreilig festlegen</h3>
+      <p class="pb-lead">Diese Punkte sind reizvoll, aber für euch <em>Tausch, nicht Add-on</em>.</p>
+      <div class="pb-items">
+        <div class="pb-item">
+          <h4>Biennale Arte 2026 — nur als Ersatz</h4>
+          <p>Geöffnet 9. Mai – 22. November 2026, im Mai 11:00–19:00 Uhr, montags geschlossen — euer Abreisetag (Mo, 25.05.) entfällt also. Einzelticket 30 € (Giardini + Arsenale, auch an verschiedenen Tagen). Vorabkauf möglich, aber kein Pflichttermin. <strong>Empfehlung: jetzt nicht buchen,</strong> solange ihr nicht bewusst Peggy oder einen anderen Block dafür streicht.</p>
+          <span class="pb-when">Optional · nicht Mo 25.05.</span>
+          <span class="pb-cost">30 € / Person</span>
+        </div>
+        <div class="pb-item">
+          <h4>Gondelfahrt — spontan entscheiden</h4>
+          <p>Wetter, Stimmung und Wasserverkehr entscheiden, ob es schön oder touristisch-abgefertigt wirkt. Offizielle Tarife: <strong>90 € / 30 Min. tagsüber</strong>, <strong>110 € / 35 Min. abends</strong> (je Gondel, max. 5 Personen). Für euch als Paar besser ein ruhiger Anleger ab Dorsoduro/San Tomà/San Polo als ein vorab gebuchter Paket-Slot.</p>
+          <span class="pb-when">Spontan vor Ort</span>
+          <span class="pb-cost">90–110 € / Gondel</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIER 4 -->
+    <div class="priority-block tier-4">
+      <div class="pb-head">
+        <span class="pb-pill">Komfortkauf — nicht slot-kritisch</span>
+      </div>
+      <h3>Vaporetto & Alilaguna: Komfort, kein Ausverkauf</h3>
+      <p class="pb-lead">Hier gibt es keinen knappen Eintritt. Vorabkauf nur, wenn er euch Wartezeit am Anreisetag spart.</p>
+      <div class="pb-items">
+        <div class="pb-item">
+          <h4>ACTV-Vaporetto-Karte</h4>
+          <p>Aktuelle Tarife: <strong>35 € / 48h</strong>, <strong>45 € / 72h</strong>, <strong>65 € / 7 Tage</strong>. Flughafen (Alilaguna) ist <em>nicht</em> enthalten. Für euren Stil weiterhin <strong>72h</strong>. Vorab oder vor Ort kaufen — die Laufzeit startet erst ab Aktivierung.</p>
+          <span class="pb-when">Aktivierung Fr 22.05.</span>
+          <span class="pb-cost">45 € / Person</span>
+        </div>
+        <div class="pb-item">
+          <h4>Alilaguna Flughafenboot</h4>
+          <p>Flughafen ↔ Venedig <strong>18 € einfach · 32 € retour</strong>. Onlinekauf möglich, spart am Flughafen evtl. Wartezeit. Retourticket sinnvoll vorab oder direkt am Anleger holen — Komfortfrage, keine Zugangssicherung.</p>
+          <span class="pb-when">An- & Abreise</span>
+          <span class="pb-cost">32 € / Person retour</span>
+        </div>
+        <div class="pb-item">
+          <h4>Burano, Inseln, Cannaregio, Vogalonga</h4>
+          <p>Keine Eintrittskarten nötig. Nur Vaporetto + Flexibilität bei den Fahrzeiten. Für Burano am Samstag ist nicht das Ticket das Problem, sondern der Zeitpunkt — <strong>früh fahren</strong>, nicht mittags. Vogalonga ist als Zuschauer ticketfrei.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHECKLIST -->
+    <div class="pb-checklist">
+      <h3>Eure Buchungs-Reihenfolge</h3>
+      <ol>
+        <li><strong>Markusdom-Slot</strong> für Do 21.05., ca. 9:30 Uhr — Basilika + Museum/Loggia (20 €).</li>
+        <li><strong>Peggy Guggenheim</strong> für Fr 22.05., ca. 10:30/11:00 Uhr (17 €).</li>
+        <li><strong>Dogenpalast-Standardticket</strong> für Fr 22.05. abend, ~19:00 Uhr (35 €). Keine Sonderführung — außer ihr wollt sie wirklich.</li>
+        <li><strong>Befreiungs-QR</strong> für die Zugangsgebühr, beide Personen, Aufenthalt 20.–25. Mai.</li>
+        <li><strong>Alilaguna-Retour</strong> & <strong>ACTV-72h</strong> könnt ihr vorab kaufen — Komfortkäufe, keine knappen Eintritte. Biennale & Gondel bewusst offen lassen.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ESSEN / RESTAURANTS -->
+<section id="essen">
+  <div class="section-inner">
+    <div class="section-label">Essen</div>
+    <h2 class="section-title">Restaurants rund um euer Viertel</h2>
+    <p class="section-intro">Bewusst gesucht in Santa Croce, rund um San Giacomo dell'Orio und San Stae — also dort, wo man deutlich besser isst als an Markusplatz oder Rialto-Hauptachse. Bevorzugt: kleine Lokale, begrenzte Karte, Reservierungspflicht, klare Küchenidentität. Gemieden: durchgehende Öffnung, Fotospeisekarten, aggressive Ansprache draußen, Rabattplattformen.</p>
+
+    <div class="eat-intro-card">
+      <p>Touristenfallen lassen sich nie komplett ausschließen. Diese Auswahl ist deshalb keine Garantie, sondern eine bewusste Engführung: vier feste Reservierungsempfehlungen (<strong>La Zucca · Trefanti · Stappo · Antico Giardinetto</strong>), ein optionales Highlight für einen gehobeneren Fischabend (<strong>Antiche Carampane</strong>) und zwei gute Cicchetti-Stationen für den Cannaregio-Abend (<strong>Vino Vero · Cantina Aziende Agricole</strong>).</p>
+      <p>Jede Karte hat einen Google-Maps-Link zur exakten Adresse — direkt antippen, ihr landet auf dem Lokal in Maps.</p>
+    </div>
+
+    <!-- SHORTLIST -->
+    <div class="eat-group-label">Shortlist · feste Abendessen</div>
+    <div class="eat-grid">
+
+      <div class="eat-card favorite">
+        <div class="eat-head">
+          <h3>Osteria La Zucca</h3>
+          <span class="eat-badge fav">Top-Empfehlung</span>
+        </div>
+        <p class="eat-addr">📍 Santa Croce 1762, nahe Campo San Giacomo dell'Orio · <a href="https://www.google.com/maps/search/?api=1&query=Osteria+La+Zucca+Santa+Croce+1762+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Mo–Sa 12:30–14:30 · 19:00–22:30</span>
+          <span class="em-tag closed">Sonntag geschlossen</span>
+          <span class="em-tag">35 + 12 Plätze</span>
+        </div>
+        <p class="eat-body">Klein, täglich wechselnde Karte, saisonales Gemüse, Gerichte zwischen venezianischer Tradition und etwas modernerer Küche. <em>Kein</em> rein vegetarisches Restaurant, aber besonders stark bei Gemüse — Fleisch gibt es ebenfalls. Kein Geheimtipp mehr, aber kein Bauernfänger.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Mi 20.05. (wenn Ankunft sicher) oder Sa 23.05. nach dem Inseltag. Unbedingt reservieren.</div>
+      </div>
+
+      <div class="eat-card favorite">
+        <div class="eat-head">
+          <h3>Stappo</h3>
+          <span class="eat-badge fav">Top-Empfehlung</span>
+        </div>
+        <p class="eat-addr">📍 Santa Croce 2166 · <a href="https://www.google.com/maps/search/?api=1&query=Stappo+Santa+Croce+2166+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">12:00–14:30 · 18:00–22:30</span>
+          <span class="em-tag closed">Donnerstag geschlossen</span>
+          <span class="em-tag">400+ Weine</span>
+        </div>
+        <p class="eat-body">Moderne Enoteca mit Küche — saisonal, kreativ, mediterran. Naturwein-Fokus, lokale Produzenten, Fisch aus Adria/Mittelmeer, Obst &amp; Gemüse vom Rialto-Markt. Ruhige Atmosphäre, kein rustikales „Nonna"-Setting.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Fr 22.05. vor dem Dogenpalast (frühes Abendessen) oder So 24.05. nach der Vogalonga. Reservierung empfohlen.</div>
+      </div>
+
+      <div class="eat-card favorite">
+        <div class="eat-head">
+          <h3>Osteria Trefanti</h3>
+          <span class="eat-badge fav">Top-Empfehlung</span>
+        </div>
+        <p class="eat-addr">📍 Fondamenta dei Garzotti / Rio Marin · Santa Croce 888 · <a href="https://www.google.com/maps/search/?api=1&query=Osteria+Trefanti+Santa+Croce+888+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Di–Sa 19:00–22:00</span>
+          <span class="em-tag closed">So + Mo geschlossen</span>
+          <span class="em-tag">Nur 10 Tische</span>
+        </div>
+        <p class="eat-body">„Out of the touristy stream" — kleines Lokal mit nur zehn Tischen, empfohlener Reservierung, Fisch und Gemüse täglich vom Rialto-Markt. Kein Lokal für „mal eben reinschauen", sondern ein bewusst gesetzter Dinner-Abend.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Sa 23.05. als ruhiger Paarabend nach Burano/Mazzorbo. Für So 24.05. fällt es aus (geschlossen).</div>
+      </div>
+
+      <div class="eat-card favorite">
+        <div class="eat-head">
+          <h3>Osteria Antico Giardinetto</h3>
+          <span class="eat-badge fav">Top-Empfehlung</span>
+        </div>
+        <p class="eat-addr">📍 Calle dei Morti 2253, Santa Croce / San-Polo-Nähe · <a href="https://www.google.com/maps/search/?api=1&query=Osteria+Antico+Giardinetto+Calle+dei+Morti+2253+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Ab 18:30–22:00</span>
+          <span class="em-tag">Familiär · klassisch</span>
+        </div>
+        <p class="eat-body">Klein, familiär geführt, klassisch venezianisch — eher Fisch. Gute Wahl für einen ruhigen klassischen Abend. Kleine venezianische Lokale werden schnell voll — reservieren.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Fr 22.05. (wenn der Dogenpalast nicht zu spät liegt) oder So 24.05. nach der Vogalonga.</div>
+      </div>
+
+      <div class="eat-card">
+        <div class="eat-head">
+          <h3>Antiche Carampane</h3>
+          <span class="eat-badge">Optional · Highlight</span>
+        </div>
+        <p class="eat-addr">📍 Zwischen Rialto-Fischmarkt und Campo San Polo, seit 1983 · <a href="https://www.google.com/maps/search/?api=1&query=Antiche+Carampane+Rio+Tera+delle+Carampane+San+Polo+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag">Erstbelegung 19:30–21:30</span>
+          <span class="em-tag closed">No-show-Gebühr 35 €/P.</span>
+          <span class="em-tag">Fisch · gehobener</span>
+        </div>
+        <p class="eat-body">Traditionelle, fischbasierte Küche mit modernem Akzent. Kein typisches Touristenfallen-Lokal, aber auch kein unaufgeregtes Nachbarschaftsrestaurant — bekannt, teurer, geplanter Abend. Reservierungsregeln streng.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Nur als bewusster, gehobener Fischabend — nicht zusätzlich zu vielen anderen festen Programmpunkten.</div>
+      </div>
+
+      <div class="eat-card">
+        <div class="eat-head">
+          <h3>Anice Stellato</h3>
+          <span class="eat-badge">Cannaregio</span>
+        </div>
+        <p class="eat-addr">📍 Fondamenta de la Sensa, Cannaregio · <a href="https://www.google.com/maps/search/?api=1&query=Osteria+Anice+Stellato+Fondamenta+de+la+Sensa+Cannaregio+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Di–So 12:30–22:00</span>
+          <span class="em-tag closed">Montag geschlossen</span>
+        </div>
+        <p class="eat-body">Gute Alternative für den Cannaregio-Abend, wenn ihr nicht nur Cicchetti im Stehen wollt, sondern ein richtiges Abendessen. Reservieren.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Do 21.05. als sitziges Abendessen statt reiner Bacaro-Tour. Auch So 24.05. eine solide Sonntagsoption.</div>
+      </div>
+
+    </div>
+
+    <!-- CICCHETTI -->
+    <div class="eat-group-label">Cicchetti &amp; Wein · Cannaregio-Abend</div>
+    <div class="eat-grid">
+
+      <div class="eat-card cicchetti">
+        <div class="eat-head">
+          <h3>Vino Vero</h3>
+          <span class="eat-badge cic">Cicchetti · Naturwein</span>
+        </div>
+        <p class="eat-addr">📍 Fondamenta della Misericordia, Cannaregio 2497 · <a href="https://www.google.com/maps/search/?api=1&query=Vino+Vero+Fondamenta+della+Misericordia+2497+Cannaregio+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Bis Mitternacht · Fr/Sa bis 1:00</span>
+          <span class="em-tag closed">Keine Reservierungen</span>
+        </div>
+        <p class="eat-body">Starke Naturwein-Ausrichtung, genau an der Fondamenta, die ihr für den Cicchetti-Abend eingeplant habt. Gut für ein Glas Wein und Cicchetti, kein garantierter Sitzplatz.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Do 21.05. eher früh (18:00–19:00), bevor die Fondamenta voller wird.</div>
+      </div>
+
+      <div class="eat-card cicchetti">
+        <div class="eat-head">
+          <h3>Cantina Aziende Agricole</h3>
+          <span class="eat-badge cic">Bacaro</span>
+        </div>
+        <p class="eat-addr">📍 Rio Terà Farsetti 1847/A, Cannaregio · <a href="https://www.google.com/maps/search/?api=1&query=Cantina+Aziende+Agricole+Rio+Tera+Farsetti+1847+Cannaregio+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Mo–Sa 9:00–22:00</span>
+          <span class="em-tag closed">Sonntag geschlossen</span>
+        </div>
+        <p class="eat-body">Unkomplizierter Bacaro, schlicht und ehrlich. Gut als erster oder zweiter Stopp, nicht als romantisches Dinner. Mit Vino Vero kombinieren — nicht als alleinigen Abendpunkt.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Do 21.05. in Kombination mit Vino Vero (zwei kurze Stopps statt ein langer Abend).</div>
+      </div>
+
+    </div>
+
+    <!-- NOTLÖSUNG -->
+    <div class="eat-group-label">Praktische Notlösung</div>
+    <div class="eat-grid">
+      <div class="eat-card notlosung">
+        <div class="eat-head">
+          <h3>Il Refolo</h3>
+          <span class="eat-badge notfall">Reserve / Notlösung</span>
+        </div>
+        <p class="eat-addr">📍 Santa Croce, nahe Campo San Giacomo dell'Orio · <a href="https://www.google.com/maps/search/?api=1&query=Il+Refolo+Campo+San+Giacomo+dell+Orio+Santa+Croce+Venezia" target="_blank" rel="noopener">Auf Google Maps öffnen</a></p>
+        <div class="eat-meta">
+          <span class="em-tag open">Täglich 11:30–22:00</span>
+          <span class="em-tag">Terrasse am Kanal</span>
+        </div>
+        <p class="eat-body">Sinnvolle Ankunfts- oder Notfalloption, wenn ihr müde seid und keine feste Reservierung wollt. Durchgehende Öffnung und touristisch formulierte Selbstdarstellung sind kein Ausschlussgrund, aber Grund, es <em>nicht</em> über La Zucca / Stappo / Trefanti / Antico Giardinetto zu stellen.</p>
+        <div class="eat-verdict"><strong>Für euch:</strong> Bewusst als Reserve, nicht als geplantes Highlight.</div>
+      </div>
+    </div>
+
+    <!-- PER-DAY RECOMMENDATIONS -->
+    <div class="eat-days">
+      <h3>🍷 Konkrete Empfehlung pro Abend</h3>
+      <div class="eat-days-grid">
+        <div class="eat-day-row">
+          <div class="edr-when">Mi 20.05.<small>Anreise</small></div>
+          <div class="edr-rec">Nur fest reservieren, wenn die Ankunftszeit sicher ist. Wenn ja: <strong>La Zucca</strong> oder <strong>Stappo</strong>. Wenn unsicher: keine harte Reservierung — <strong>Il Refolo</strong> als flexible Lösung, oder spontan schauen, ob Stappo noch Platz hat.</div>
+        </div>
+        <div class="eat-day-row">
+          <div class="edr-when">Do 21.05.<small>Cannaregio</small></div>
+          <div class="edr-rec">Kein klassischer Restaurantabend in Santa Croce. <strong>Vino Vero + Cantina Aziende Agricole</strong> als Cicchetti-Tour — oder wenn ihr sitzen wollt, <strong>Anice Stellato</strong> mit Reservierung.</div>
+        </div>
+        <div class="eat-day-row">
+          <div class="edr-when">Fr 22.05.<small>Dogenpalast</small></div>
+          <div class="edr-rec">Mein Favorit: <strong>frühes Abendessen bei Stappo</strong>, danach Dogenpalast. Entspannter, als nach 23 Uhr noch hungrig durch San Marco zu laufen. Alternative: <strong>Antico Giardinetto</strong>, wenn der Dogenpalast nicht zu spät liegt.</div>
+        </div>
+        <div class="eat-day-row">
+          <div class="edr-when">Sa 23.05.<small>Inseln</small></div>
+          <div class="edr-rec">Richtigen Tisch reservieren: <strong>Osteria Trefanti</strong> oder <strong>La Zucca</strong>. Beide passen zum ruhigen Paarabend nach Burano/Mazzorbo.</div>
+        </div>
+        <div class="eat-day-row">
+          <div class="edr-when">So 24.05.<small>Vogalonga</small></div>
+          <div class="edr-rec">Nichts Spontanes in San-Marco-/Rialto-Nähe riskieren. <strong>Stappo</strong>, <strong>Antico Giardinetto</strong> oder <strong>Anice Stellato</strong> als gute Sonntagsoptionen. La Zucca, Trefanti und Antiche Carampane sind sonntags geschlossen.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AVOID -->
+    <div class="eat-avoid">
+      <h3>Was ich eher meiden würde</h3>
+      <ul>
+        <li>An der Rialtobrücke oder auf dem Weg nach San Marco spontan in das erste Lokal gehen, das draußen aktiv Gäste anspricht.</li>
+        <li>Große Speisekarten mit Pizza, Pasta, Fisch, Fleisch, Burgern — und Fotos in mehreren Sprachen.</li>
+        <li>„Menu turistico"-Tafeln und undurchsichtige Fischpreise nach Gewicht.</li>
+        <li>Stark beworbene Rabatte über externe Plattformen.</li>
+      </ul>
+    </div>
+
+  </div>
+</section>
+
+<!-- HOTEL -->
+<section id="hotel">
+  <div class="section-inner">
+    <div class="section-label">Unterkunft</div>
+    <h2 class="section-title">Residence Poli Venezia</h2>
+    <div class="hotel-card">
+      <div class="hotel-img-wrap">
+        <iframe
+          loading="lazy"
+          allowfullscreen
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Residence Poli Venezia · Santa Croce 1490 auf Google Maps"
+          src="https://www.google.com/maps?q=Residence+Poli+Venezia+Santa+Croce+1490+Venezia&t=k&z=18&output=embed"></iframe>
+        <div class="hotel-img-note">📍 Echter Standort · Santa Croce 1490, Venedig — Satellitenansicht der Residence Poli</div>
+      </div>
+      <div class="hotel-info">
+        <span class="hotel-badge">SANTA CROCE · HISTORISCHES ZENTRUM</span>
+        <h3>Residence Poli Venezia</h3>
+        <div class="hotel-detail">
+          <span class="di">📍</span>
+          <span><strong>Santa Croce 1490, Venedig</strong><br>Lage im ruhigen Herz der Stadt — deutlich entspannter als San Marco, gut zu Fuß erreichbar.</span>
+        </div>
+        <div class="hotel-detail">
+          <span class="di">⛵</span>
+          <span><strong>Nächster Vaporetto: San Stae</strong><br>Alilaguna Linea Arancio hält direkt dort — euer wichtigster Halt für An- und Abreise.</span>
+        </div>
+        <div class="hotel-detail">
+          <span class="di">🦶</span>
+          <span><strong>Zu Fuß nach Rialto:</strong> ca. 10–12 Min.<br><strong>Zu Fuß nach San Marco:</strong> ca. 20–25 Min.</span>
+        </div>
+        <div class="hotel-detail">
+          <span class="di">🌐</span>
+          <span><a href="https://www.residencepolivenezia.it/en/contact" target="_blank" rel="noopener">residencepolivenezia.it</a></span>
+        </div>
+        <div class="info-box tip" style="margin-top:16px;">
+          <span class="ib-icon">💡</span>
+          <div class="ib-content">
+            <h4>QR-Code für Zugangsbefreiung</h4>
+            <p>Rechtzeitig von der Unterkunft die Bestätigung für die Übernachtungsbefreiung (Zugangsgebühr) anfordern und auf beiden Handys speichern.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSFER -->
+<section id="transfer">
+  <div class="section-inner">
+    <div class="section-label">Transfer</div>
+    <h2 class="section-title">Flughafen Marco Polo → Hotel</h2>
+    <p class="section-intro">Die entspannteste Variante für euren Ankunftstag: Alilaguna Linea Arancio bis San Stae — weniger Gedränge als Piazzale Roma, schönerer erster Eindruck.</p>
+
+    <div class="transfer-route">
+      <div class="route-stop">✈️ Marco Polo</div>
+      <span class="route-arrow">→</span>
+      <div class="route-stop highlight">🚢 Linea Arancio</div>
+      <span class="route-arrow">→</span>
+      <div class="route-stop highlight">⚓ San Stae</div>
+      <span class="route-arrow">→</span>
+      <div class="route-stop">🏠 Residence Poli</div>
+    </div>
+
+    <div class="transfer-steps">
+      <div class="transfer-step">
+        <div class="step-dot">1</div>
+        <div class="step-content">
+          <h4>Gepäckausgabe & Beschilderung folgen</h4>
+          <p>Im Flughafen der Beschilderung „Darsena / Water Transport" folgen. Den Alilaguna-Anleger am Flughafen findet ihr direkt am Wasserausgang.</p>
+          <span class="step-badge">Tipp: Retourticket direkt am Anleger kaufen</span>
+        </div>
+      </div>
+      <div class="transfer-step">
+        <div class="step-dot">🚢</div>
+        <div class="step-content">
+          <h4>Alilaguna Linea Arancio einsteigen</h4>
+          <p>Die Orange Line fährt ab Marco Polo Airport über San Stae, Rialto, Sant'Angelo bis Santa Maria del Giglio. Haltepunkt für euch: <strong>San Stae</strong>.</p>
+          <span class="step-badge">18 € einfach · 32 € retour pro Person</span>
+        </div>
+      </div>
+      <div class="transfer-step">
+        <div class="step-dot">⚓</div>
+        <div class="step-content">
+          <h4>Ausstieg San Stae → kurzer Fußweg</h4>
+          <p>Von San Stae zur Residence Poli nur wenige Minuten zu Fuß — ohne Gepäck-Odyssee über Piazzale Roma oder durch das Zentrum.</p>
+          <a href="https://www.alilaguna.it/en/linee/orange-line" target="_blank" rel="noopener" style="font-size:.82rem; color:var(--teal); display:inline-block; margin-top:6px;">→ Fahrplan Alilaguna (aktuell prüfen)</a>
+        </div>
+      </div>
+      <div class="transfer-step">
+        <div class="step-dot">🔄</div>
+        <div class="step-content">
+          <h4>Rücktransfer am 25. Mai (umgekehrt)</h4>
+          <p>Zu Fuß nach San Stae → Linea Arancio zum Flughafen. Großzügig planen, da Boote nicht wie eine Metro im Minutentakt fahren. Bei sehr früher Abreise: Fußweg zu Piazzale Roma, dann Bus oder Taxi.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box warning" style="margin-top:20px;">
+      <span class="ib-icon">⚠️</span>
+      <div class="ib-content">
+        <h4>Fahrplan immer kurz vor Reiseantritt prüfen</h4>
+        <p>Die Alilaguna-Abfahrtszeiten können sich ändern. Den aktuellen Fahrplan direkt auf <a href="https://www.alilaguna.it/en/linee/orange-line" target="_blank">alilaguna.it</a> prüfen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ZUGANGSGEBÜHR -->
+<section id="zugang">
+  <div class="section-inner">
+    <div class="section-label">Zugangsgebühr 2026</div>
+    <h2 class="section-title">Wann ist Venedig gebührenpflichtig?</h2>
+    <p class="section-intro">Venedig erhebt an bestimmten Tagen eine Zugangsgebühr. Als Übernachtungsgäste seid ihr befreit — aber ihr müsst den Nachweis dabei haben.</p>
+
+    <div class="calendar-grid">
+      <div class="cal-day arrival">
+        <div class="d-name">Mi.</div>
+        <div class="d-num">20</div>
+        <div class="d-label">Anreise</div>
+      </div>
+      <div class="cal-day free-day">
+        <div class="d-name">Do.</div>
+        <div class="d-num">21</div>
+        <div class="d-label">Gebührenfrei</div>
+      </div>
+      <div class="cal-day fee-day">
+        <div class="d-name">Fr.</div>
+        <div class="d-num">22</div>
+        <div class="d-label">⚡ Gebühr</div>
+      </div>
+      <div class="cal-day fee-day">
+        <div class="d-name">Sa.</div>
+        <div class="d-num">23</div>
+        <div class="d-label">⚡ Gebühr</div>
+      </div>
+      <div class="cal-day fee-day">
+        <div class="d-name">So.</div>
+        <div class="d-num">24</div>
+        <div class="d-label">⚡ Gebühr</div>
+      </div>
+      <div class="cal-day departure">
+        <div class="d-name">Mo.</div>
+        <div class="d-num">25</div>
+        <div class="d-label">Abreise</div>
+      </div>
+    </div>
+
+    <div class="cal-legend">
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--teal)"></div> Anreise/Abreise</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--green)"></div> Gebührenfrei</div>
+      <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--orange)"></div> Gebührenpflichtig (8:30–16:00 Uhr)</div>
+    </div>
+
+    <div class="info-box tip">
+      <span class="ib-icon">✅</span>
+      <div class="ib-content">
+        <h4>Ihr seid als Übernachtungsgäste befreit</h4>
+        <p>Gäste in einer Unterkunft der Gemeinde Venedig sind von der Zugangsgebühr befreit — aber ihr müsst die Befreiung nachweisen können. Die Befreiung gilt laut offizieller FAQ vom Anreisetag bis zum Abreisetag. <a href="https://cda.ve.it/en/faq" target="_blank" rel="noopener">→ cda.ve.it</a></p>
+      </div>
+    </div>
+    <div class="info-box notice">
+      <span class="ib-icon">📱</span>
+      <div class="ib-content">
+        <h4>QR-Code von der Unterkunft besorgen</h4>
+        <p>Rechtzeitig vor der Reise bei der Residence Poli die Befreiungsbestätigung / den QR-Code anfordern und auf <strong>beiden Handys</strong> speichern. Murano, Burano, Torcello und Mazzorbo sind 2026 von der Gebühr ausgenommen.</p>
+      </div>
+    </div>
+    <div class="info-box info">
+      <span class="ib-icon">ℹ️</span>
+      <div class="ib-content">
+        <h4>Buchung & weitere Infos</h4>
+        <p><a href="https://cda.veneziaunica.it/en/choose-the-date" target="_blank" rel="noopener">veneziaunica.it</a> · <a href="https://cda.ve.it/en/" target="_blank" rel="noopener">cda.ve.it</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKETS -->
+<section id="tickets">
+  <div class="section-inner">
+    <div class="section-label">ACTV Vaporetto</div>
+    <h2 class="section-title">Welches Ticket braucht ihr?</h2>
+    <p class="section-intro">Nüchterne Antwort: 48h reichen, 72h sind komfortabler. Alilaguna für Flughafen immer separat kaufen — ACTV-Karten gelten dort nicht.</p>
+
+    <div class="ticket-grid">
+      <div class="ticket-card">
+        <div class="ticket-price">9,50<sub> €</sub></div>
+        <div class="ticket-name">Einzelticket</div>
+        <ul class="ticket-features">
+          <li>75 Minuten Gültigkeit</li>
+          <li>Alle ACTV-Linien inklusive</li>
+          <li>Flexibel für wenige Fahrten</li>
+        </ul>
+        <p class="ticket-note">Nur sinnvoll, wenn ihr kaum Vaporetto fahrt</p>
+      </div>
+      <div class="ticket-card">
+        <div class="ticket-price">35<sub> €</sub></div>
+        <div class="ticket-name">48h ACTV-Karte — Variante A</div>
+        <ul class="ticket-features">
+          <li>Gilt ab erster Entwertung</li>
+          <li>Alle ACTV-Stadtlinien</li>
+          <li>Aktivieren Fr., 22. Mai</li>
+          <li>Deckt Dorsoduro, Dogenpalast-Abend, Inseln ab</li>
+        </ul>
+        <p class="ticket-note">Vernünftig und ausreichend</p>
+      </div>
+      <div class="ticket-card recommended">
+        <div class="ticket-price">45<sub> €</sub></div>
+        <div class="ticket-name">72h ACTV-Karte — Variante B</div>
+        <ul class="ticket-features">
+          <li>Fr. aktiviert → bis Mo. früh gültig</li>
+          <li>Kein Überlegen, ob sich eine Fahrt lohnt</li>
+          <li>Alle ACTV-Stadtlinien</li>
+          <li>Psychologisch angenehmer für entspannte Reise</li>
+        </ul>
+        <p class="ticket-note">10 € Aufpreis für viel mehr Entspannung</p>
+      </div>
+      <div class="ticket-card">
+        <div class="ticket-price">18<sub> €</sub></div>
+        <div class="ticket-name">Alilaguna Einfach</div>
+        <ul class="ticket-features">
+          <li>Flughafen ↔ Venedig (Linea Arancio)</li>
+          <li>Separat kaufen — nicht in ACTV enthalten</li>
+          <li>32 € Retour pro Person</li>
+          <li>Gepäck inklusive</li>
+        </ul>
+        <p class="ticket-note">Für An- und Abreise</p>
+      </div>
+    </div>
+
+    <div class="info-box warning" style="margin-top:24px; background:rgba(255,255,255,.05); border-color:rgba(255,120,80,.7);">
+      <span class="ib-icon">🚫</span>
+      <div class="ib-content" style="color:rgba(255,255,255,.8)">
+        <h4 style="color:white;">Nicht sinnvoll für euch</h4>
+        <p style="color:rgba(255,255,255,.7)">7-Tages-Karte (65 €) oder Alilaguna-Zeitkarte. Ihr bewegt euch zu viel zu Fuß und zu gezielt — das würde sich nicht rechnen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ITINERARY -->
+<section id="itinerary">
+  <div class="section-inner">
+    <div class="section-label">Tagesplan</div>
+    <h2 class="section-title">20.–25. Mai 2026</h2>
+    <p class="section-intro">Sechs Tage, klare Schwerpunkte, bewusste Pausen. Klickt auf einen Tag, um den Ablauf zu sehen.</p>
+
+    <div class="day-tabs-wrap">
+      <div class="day-tabs">
+        <button class="day-tab active" onclick="showDay('d1')">Mi 20. · Anreise</button>
+        <button class="day-tab" onclick="showDay('d2')">Do 21. · San Marco</button>
+        <button class="day-tab" onclick="showDay('d3')">Fr 22. · Dorsoduro</button>
+        <button class="day-tab" onclick="showDay('d4')">Sa 23. · Inseln</button>
+        <button class="day-tab special" onclick="showDay('d5')">So 24. · Vogalonga 🚣</button>
+        <button class="day-tab" onclick="showDay('d6')">Mo 25. · Abreise</button>
+      </div>
+    </div>
+
+    <!-- DAY 1 -->
+    <div id="d1" class="day-content active">
+      <div class="day-header">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1400&q=80&fit=crop&crop=center" alt="Canal Grande" loading="lazy" />
+        <div class="day-header-overlay">
+          <div class="day-header-text">
+            <div class="d-date">Mittwoch, 20. Mai 2026</div>
+            <h2>Anreise & Ankommen</h2>
+            <div class="d-theme">Kein Sightseeing-Modus. Erst atmen, dann Venedig.</div>
+          </div>
+        </div>
+      </div>
+      <div class="day-grid">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot">✈️</div>
+            <div class="tl-body">
+              <div class="tl-time">Ankunft</div>
+              <div class="tl-title">Flughafen Marco Polo</div>
+              <div class="tl-desc">Gepäckausgabe, dann zur Darsena / Alilaguna-Anleger. Retourticket direkt dort kaufen, wenn ihr für den Rückweg dieselbe Route plant.</div>
+              <span class="tl-tag cost">Alilaguna 32 € / Person retour</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🚢</div>
+            <div class="tl-body">
+              <div class="tl-time">Bootsfahrt</div>
+              <div class="tl-title">Alilaguna Linea Arancio → San Stae</div>
+              <div class="tl-desc">Nicht die schnellste, aber für euer Hotel die entspannteste Variante. Erster Blick auf die Lagune und die Stadt vom Wasser aus.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🏠</div>
+            <div class="tl-body">
+              <div class="tl-time">Früher Nachmittag</div>
+              <div class="tl-title">Einchecken & Pause</div>
+              <div class="tl-desc">Einchecken, auspacken, Schuhe wechseln. Heute nicht sofort in den Markusplatz-Modus verfallen. Kurz durchschnaufen.</div>
+              <span class="tl-tag tip">Kein ACTV-Ticket heute aktivieren</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🚶</div>
+            <div class="tl-body">
+              <div class="tl-time">Früher Abend</div>
+              <div class="tl-title">Spaziergang Santa Croce & San Polo</div>
+              <div class="tl-desc">Langsam durch den eigenen Stadtteil: Campo San Giacomo dell'Orio, kleine Brücken, Seitenkanäle. Vielleicht die Frari-Kirche von außen. Kein Programm — nur ankommen.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🌉</div>
+            <div class="tl-body">
+              <div class="tl-time">Abend</div>
+              <div class="tl-title">Rialtobrücke nach Einbruch der Dunkelheit</div>
+              <div class="tl-desc">Erst wenn die Tagesgruppen abgezogen sind. Rialto am Abend ist ein ganz anderer Ort als tagsüber — deutlich angenehmer.</div>
+              <span class="tl-tag tip">Nicht am späten Nachmittag zur Hauptbesuchszeit</span>
+            </div>
+          </div>
+        </div>
+        <div class="day-sidebar">
+          <div class="sidebar-card">
+            <h4>📅 Fakten</h4>
+            <div class="cost-row"><span class="cr-label">Zugangsgebühr</span><span class="pill green">Frei</span></div>
+            <div class="cost-row"><span class="cr-label">ACTV-Ticket</span><span class="cr-val">Noch nicht</span></div>
+            <div class="cost-row"><span class="cr-label">Transfer p.P.</span><span class="cr-val">18–32 €</span></div>
+          </div>
+          <div class="info-box tip" style="margin:0;">
+            <span class="ib-icon">💡</span>
+            <div class="ib-content">
+              <h4>Heute kein ACTV</h4>
+              <p>Ihr spart Laufzeit, wenn ihr die Mehrtageskarte erst morgen oder übermorgen aktiviert.</p>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <h4>🗺️ Highlights</h4>
+            <div class="cost-row"><span class="cr-label">Campo San Giacomo dell'Orio</span><span class="pill green">✓ To-do</span></div>
+            <div class="cost-row"><span class="cr-label">Rialtobrücke abends</span><span class="pill green">✓ To-do</span></div>
+            <div class="cost-row"><span class="cr-label">Basilica dei Frari (außen)</span><span class="pill green">✓ To-do</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 2 -->
+    <div id="d2" class="day-content">
+      <div class="day-header">
+        <img src="https://images.unsplash.com/photo-1514890547357-a9ee288728e0?w=1400&q=80&fit=crop&crop=center" alt="Piazza San Marco" loading="lazy" />
+        <div class="day-header-overlay">
+          <div class="day-header-text">
+            <div class="d-date">Donnerstag, 21. Mai 2026</div>
+            <h2>San Marco früh, Cannaregio abends</h2>
+            <div class="d-theme">Früh aufstehen ist die wichtigste Anti-Stress-Regel für San Marco.</div>
+          </div>
+        </div>
+      </div>
+      <div class="day-grid">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot">🌄</div>
+            <div class="tl-body">
+              <div class="tl-time">7:15–7:30 Uhr</div>
+              <div class="tl-title">Start Richtung Rialto</div>
+              <div class="tl-desc">Von Santa Croce los — die Rialtobrücke ist zu dieser Tageszeit noch deutlich angenehmer als später. Kein Gedränge, gutes Licht.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🏛️</div>
+            <div class="tl-body">
+              <div class="tl-time">Ca. 8:00 Uhr</div>
+              <div class="tl-title">Piazza San Marco — vor dem Trubel</div>
+              <div class="tl-desc">Den Markusplatz erreichen, bevor er seinen Tagesbetrieb aufnimmt. Ihr müsst nicht lange „abarbeiten" — es reicht, den Platz in Ruhe aufzunehmen.</div>
+              <span class="tl-tag tip">Campanile von außen anschauen</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">⛪</div>
+            <div class="tl-body">
+              <div class="tl-time">9:30 Uhr (Slot)</div>
+              <div class="tl-title">Markusdom — Online-Ticket</div>
+              <div class="tl-desc">Offizieller Zeitslot online buchen. Basilika + Museum/Loggia (20 €) empfohlen — ihr bekommt neben dem Innenraum auch die Perspektive von oben auf den Platz.</div>
+              <span class="tl-tag cost">Basilika 10 € · mit Loggia 20 € · Complete 30 €</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🍽️</div>
+            <div class="tl-body">
+              <div class="tl-time">Ca. 11:30 Uhr</div>
+              <div class="tl-title">Langsamer Rückweg & Pause</div>
+              <div class="tl-desc">Nicht sofort den Dogenpalast dranhängen. Kurzer Blick Richtung Molo, dann über Castello oder San Polo zurück. Ab 13 Uhr echte Mittagspause im Hotel.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🕍</div>
+            <div class="tl-body">
+              <div class="tl-time">Spätnachmittag</div>
+              <div class="tl-title">Cannaregio — Campo del Ghetto</div>
+              <div class="tl-desc">Nicht zu spät starten. Campo del Ghetto Nuovo anschauen, dann langsam weiter zur Fondamenta della Misericordia.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🥂</div>
+            <div class="tl-body">
+              <div class="tl-time">Abend</div>
+              <div class="tl-title">Cicchetti-Abend in Cannaregio</div>
+              <div class="tl-desc">Zwei oder drei Bacari verbinden, statt sich an einen Ort zu binden. Das passt perfekt zum Stadtteil und ist entspannter als ein Drei-Gänge-Menü.</div>
+              <span class="tl-tag tip">Fondamenta della Misericordia als Basis</span>
+            </div>
+          </div>
+        </div>
+        <div class="day-sidebar">
+          <div class="sidebar-card">
+            <h4>💰 Kosten heute</h4>
+            <div class="cost-row"><span class="cr-label">Markusdom (Basilika)</span><span class="cr-val">10 €</span></div>
+            <div class="cost-row"><span class="cr-label">+ Loggia/Museum</span><span class="cr-val">20 €</span></div>
+            <div class="cost-row"><span class="cr-label">+ Pala d'Oro</span><span class="cr-val">20 €</span></div>
+            <div class="cost-row"><span class="cr-label">Complete Ticket</span><span class="cr-val">30 €</span></div>
+          </div>
+          <div class="info-box tip" style="margin:0;">
+            <span class="ib-icon">🔖</span>
+            <div class="ib-content">
+              <h4>Ticket vorab buchen</h4>
+              <p>Zeitslot auf <a href="https://tickets.basilicasanmarco.it/en/support/prices" target="_blank">basilicasanmarco.it</a> reservieren. QR-Code wird beim Einlass geprüft.</p>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <h4>📅 Fakten</h4>
+            <div class="cost-row"><span class="cr-label">Zugangsgebühr</span><span class="pill green">Frei</span></div>
+            <div class="cost-row"><span class="cr-label">ACTV-Ticket</span><span class="cr-val">Optional</span></div>
+          </div>
+          <div class="sidebar-card">
+            <h4>🗺️ Route</h4>
+            <div class="cost-row"><span class="cr-label">Santa Croce → Rialto → San Marco → Cannaregio</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 3 -->
+    <div id="d3" class="day-content">
+      <div class="day-header">
+        <img src="https://images.unsplash.com/photo-1579434764619-3a4d43fe3b87?w=1400&q=80&fit=crop&crop=center" alt="Dorsoduro Venedig" loading="lazy" />
+        <div class="day-header-overlay">
+          <div class="day-header-text">
+            <div class="d-date">Freitag, 22. Mai 2026 · Zugangsgebühr-Tag</div>
+            <h2>Dorsoduro, Peggy & Dogenpalast</h2>
+            <div class="d-theme">Canal-Grande-Fahrt am Morgen · Dogenpalast am Abend bis 23 Uhr</div>
+          </div>
+        </div>
+      </div>
+      <div class="day-grid">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot">🎟️</div>
+            <div class="tl-body">
+              <div class="tl-time">Morgen</div>
+              <div class="tl-title">ACTV-Karte aktivieren</div>
+              <div class="tl-desc">Je nach Wahl: 48h oder 72h ACTV-Karte entwerten. QR-Befreiungsnachweis für Zugangsgebühr dabei haben.</div>
+              <span class="tl-tag warn">⚡ Gebührenpflichtiger Tag — QR-Code mitnehmen</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🚢</div>
+            <div class="tl-body">
+              <div class="tl-time">Vormittag</div>
+              <div class="tl-title">Vaporetto Canal Grande ab San Stae</div>
+              <div class="tl-desc">Fahrt über den Canal Grande Richtung Accademia / Salute — nicht als isolierte Touristenfahrt, sondern als sinnvollen Tagesstart eingebettet.</div>
+              <span class="tl-tag tip">Mit ACTV-Karte kostenlos</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">⛪</div>
+            <div class="tl-body">
+              <div class="tl-time">Früher Vormittag</div>
+              <div class="tl-title">Santa Maria della Salute & Punta della Dogana</div>
+              <div class="tl-desc">Beginnend bei der Salute — Blick über das Wasser Richtung San Marco. Die Punta della Dogana (Spitze) bietet einen der schönsten Ausblicke der Stadt.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🎨</div>
+            <div class="tl-body">
+              <div class="tl-time">10:30–11:00 Uhr (Slot)</div>
+              <div class="tl-title">Peggy Guggenheim Collection</div>
+              <div class="tl-desc">Online-Zeitslot buchen. Täglich außer dienstags, 10–18 Uhr (Kasse bis 17 Uhr). Genug Zeit lassen — nicht hetzen.</div>
+              <span class="tl-tag cost">17 € Erwachsene · Online-Ticket empfohlen</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">☀️</div>
+            <div class="tl-body">
+              <div class="tl-time">Früher Nachmittag</div>
+              <div class="tl-title">Zattere & Pause</div>
+              <div class="tl-desc">Kaffee oder Mittagessen in Dorsoduro, kurzer Spaziergang an den Zattere. Dann zurück zur Unterkunft — echte Pause.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">👑</div>
+            <div class="tl-body">
+              <div class="tl-time">19:00–19:30 Uhr</div>
+              <div class="tl-title">Dogenpalast — Abendöffnung</div>
+              <div class="tl-desc">Freitags & samstags vom 1. Mai bis 26. September 2026 geöffnet bis 23 Uhr (letzter Einlass 22 Uhr). Ihr vermeidet das Tagespublikum komplett. Standardticket 35 € — die 30 €-Onlineersparnis braucht 30 Tage Vorlauf und ist für Ende Mai realistisch nicht mehr drin. Tickets ohne Zeitfenster gelten erst ab 12:00 Uhr (für euren Abend kein Problem).</div>
+              <span class="tl-tag tip">Standardticket genügt · keine Sonderführung</span>
+            </div>
+          </div>
+        </div>
+        <div class="day-sidebar">
+          <div class="sidebar-card">
+            <h4>💰 Kosten heute</h4>
+            <div class="cost-row"><span class="cr-label">Peggy Guggenheim</span><span class="cr-val">17 €</span></div>
+            <div class="cost-row"><span class="cr-label">Dogenpalast (Standard)</span><span class="cr-val">35 €</span></div>
+            <div class="cost-row"><span class="cr-label">Dogenpalast (30 Tage vorab)</span><span class="cr-val">30 €*</span></div>
+            <div class="cost-row"><span class="cr-label">ACTV 48h Karte</span><span class="cr-val">35 €</span></div>
+            <div class="cost-row"><span class="cr-label">ACTV 72h Karte</span><span class="cr-val">45 €</span></div>
+            <div class="cost-row" style="border-top:1px solid var(--cream-dark); padding-top:8px; font-size:.78rem; color:var(--text-light);"><span>* 30-Tage-Frist für Ende Mai nicht mehr realistisch</span></div>
+          </div>
+          <div class="info-box warning" style="margin:0;">
+            <span class="ib-icon">⚡</span>
+            <div class="ib-content">
+              <h4>Gebührenpflichtiger Tag</h4>
+              <p>QR-Code Übernachtungsbefreiung unbedingt mitnehmen. Gilt 8:30–16:00 Uhr.</p>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <h4>🔗 Buchung</h4>
+            <div class="cost-row"><a href="https://www.guggenheim-venice.it/en/visit/" target="_blank" style="color:var(--teal); font-size:.83rem;">Peggy Guggenheim Tickets</a></div>
+            <div class="cost-row"><a href="https://palazzoducale.visitmuve.it/en/visitor-information/" target="_blank" style="color:var(--teal); font-size:.83rem;">Dogenpalast Tickets</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 4 -->
+    <div id="d4" class="day-content">
+      <div class="day-header">
+        <img src="https://images.unsplash.com/photo-1581430872221-d1cfed785922?w=1400&q=80&fit=crop&crop=center" alt="Burano bunte Häuser" loading="lazy" />
+        <div class="day-header-overlay">
+          <div class="day-header-text">
+            <div class="d-date">Samstag, 23. Mai 2026 · Zugangsgebühr-Tag</div>
+            <h2>Burano früh, Mazzorbo ruhig</h2>
+            <div class="d-theme">Früh starten, selektiv bleiben. Nicht vier Inseln an einem Tag.</div>
+          </div>
+        </div>
+      </div>
+      <div class="day-grid">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot">🌅</div>
+            <div class="tl-body">
+              <div class="tl-time">Früh morgens</div>
+              <div class="tl-title">Start Richtung Fondamente Nove</div>
+              <div class="tl-desc">Von Santa Croce zu Fuß oder per Vaporetto nach Fondamente Nove. Von dort startet die ACTV-Linie 12 Richtung Laguneninseln.</div>
+              <span class="tl-tag warn">⚡ QR-Befreiungsnachweis mitnehmen</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🚢</div>
+            <div class="tl-body">
+              <div class="tl-time">Linie 12</div>
+              <div class="tl-title">ACTV Linie 12 → Burano</div>
+              <div class="tl-desc">Linie 12 von Fondamente Nove über Murano, Mazzorbo nach Burano. Fahrplan kurz vor der Reise prüfen — Inselverbindungen reagieren sensibler auf Wetter und Veranstaltungen.</div>
+              <a href="https://actv.avmspa.it/en/content/orari-servizio-di-navigazione-0" target="_blank" style="font-size:.8rem; color:var(--teal); display:block; margin-top:5px;">→ ACTV Fahrplan prüfen</a>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🏡</div>
+            <div class="tl-body">
+              <div class="tl-time">Vormittag</div>
+              <div class="tl-title">Burano — früh, bevor es voll wird</div>
+              <div class="tl-desc">Die bunten Häuser und Kanäle sind früh am Morgen am schönsten und am ruhigsten. Durch die Gassen schlendern, keine Eile.</div>
+              <span class="tl-tag tip">Murano, Burano & Torcello nicht alle an einem Tag</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🌿</div>
+            <div class="tl-body">
+              <div class="tl-time">Später Vormittag</div>
+              <div class="tl-title">Mazzorbo — der ruhige Gegenpol</div>
+              <div class="tl-desc">Über die Holzbrücke nach Mazzorbo — weniger Fotodruck, mehr Lagunengefühl. Weinbau, Gemüsegärten, alte Kirche. Hier kommt Venedig zur Ruhe.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">⛪</div>
+            <div class="tl-body">
+              <div class="tl-time">Optional</div>
+              <div class="tl-title">Torcello — wenn noch Energie da ist</div>
+              <div class="tl-desc">Kurzes Boot von Burano. Torcello war einmal größer als Venedig — heute Stille, frühe Mosaiken in Santa Maria Assunta, nur wenige Besucher.</div>
+              <span class="tl-tag tip">Nur wenn ihr wirklich noch Lust habt</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🔮</div>
+            <div class="tl-body">
+              <div class="tl-time">Optional auf Rückweg</div>
+              <div class="tl-title">Murano — nur bei Glasinteresse</div>
+              <div class="tl-desc">Murano lohnt sich nur, wenn euch venezianisches Glas wirklich interessiert. Sonst: Rückfahrt direkt nach Venedig.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🏡</div>
+            <div class="tl-body">
+              <div class="tl-time">Früher Nachmittag</div>
+              <div class="tl-title">Rückkehr & Pause</div>
+              <div class="tl-desc">Am frühen bis mittleren Nachmittag zurück nach Venedig. Dann Pause — der Abend bleibt bewusst offen: Santa Croce, San Polo, vielleicht Rialto nach Einbruch der Dunkelheit.</div>
+            </div>
+          </div>
+        </div>
+        <div class="day-sidebar">
+          <div class="sidebar-card">
+            <h4>🏝️ Inseln-Empfehlung</h4>
+            <div class="cost-row"><span class="cr-label">Burano</span><span class="pill green">Hauptziel</span></div>
+            <div class="cost-row"><span class="cr-label">Mazzorbo</span><span class="pill green">Ruhig & schön</span></div>
+            <div class="cost-row"><span class="cr-label">Torcello</span><span class="pill orange">Optional</span></div>
+            <div class="cost-row"><span class="cr-label">Murano</span><span class="pill orange">Nur bei Interesse</span></div>
+          </div>
+          <div class="info-box warning" style="margin:0;">
+            <span class="ib-icon">⚡</span>
+            <div class="ib-content">
+              <h4>Gebührenpflichtiger Tag</h4>
+              <p>Inseln sind ausgenommen, aber als Übernachtungsgäste seid ihr sowieso befreit — QR-Code dabei.</p>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <h4>⏰ Zeitplan</h4>
+            <div class="cost-row"><span class="cr-label">Früh starten</span><span class="cr-val">Wichtig!</span></div>
+            <div class="cost-row"><span class="cr-label">Rückkehr</span><span class="cr-val">13–14 Uhr</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 5 - Vogalonga -->
+    <div id="d5" class="day-content">
+      <div class="day-header" style="border: 3px solid var(--orange);">
+        <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=1400&q=80&fit=crop&crop=center" alt="Rudern auf dem Wasser" loading="lazy" />
+        <div class="day-header-overlay" style="background: linear-gradient(to right, rgba(192,57,43,.85) 40%, transparent 100%);">
+          <div class="day-header-text">
+            <div class="d-date" style="color:#f8a95a;">Sonntag, 24. Mai 2026 · Vogalonga 🚣</div>
+            <h2>Die Stadt gehört den Ruderern</h2>
+            <div class="d-theme">Kein Vaporetto-Plan. Kein Gegensteuern. Venedig zu Fuß und als Zuschauer genießen.</div>
+          </div>
+        </div>
+      </div>
+      <div class="day-grid">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot" style="border-color:var(--orange); color:var(--orange);">⚠️</div>
+            <div class="tl-body" style="border-left:3px solid var(--orange);">
+              <div class="tl-time" style="color:var(--orange);">Ganzer Tag</div>
+              <div class="tl-title">Kein festes Vaporetto-Programm</div>
+              <div class="tl-desc">Wasserverkehr und Vaporetto-Linien sind mindestens vormittags stark eingeschränkt oder umgeleitet. Keine Inselbesuche, keine Museumsslots, keine Bootsfahrten planen. Das ist der Tag, an dem man nicht gegen die Stadtlogik arbeiten sollte.</div>
+              <span class="tl-tag warn">Nicht gegen die Vogalonga planen</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🚣</div>
+            <div class="tl-body">
+              <div class="tl-time">Ab 8:30 Uhr</div>
+              <div class="tl-title">Vogalonga — Start im Giudecca-Kanal</div>
+              <div class="tl-desc">Die Boote sammeln sich ab 8:30 Uhr, offizieller Start 9:00 Uhr. Die Route führt durch das Becken von San Marco, Murano, Rio di Cannaregio und den Canal Grande. Die 50. Ausgabe 2026!</div>
+              <span class="tl-tag tip">30 km · nicht-kompetitive Ruderregatta</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🦶</div>
+            <div class="tl-body">
+              <div class="tl-time">Option A — Ruhig</div>
+              <div class="tl-title">Cannaregio / Rio di Cannaregio</div>
+              <div class="tl-desc">Teil der Vogalonga dort anschauen und danach ohne Boot weiter zur Fondamenta della Misericordia. Entspannt, zentral, kein Gedränge.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🌊</div>
+            <div class="tl-body">
+              <div class="tl-time">Option B — Eindrucksvoll</div>
+              <div class="tl-title">Riva degli Schiavoni früh</div>
+              <div class="tl-desc">Für die Startstimmung am San-Marco-Becken — eindrucksvoll, aber voller. Früh hingehen und den Bereich verlassen, bevor es nervig wird.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">⛪</div>
+            <div class="tl-body">
+              <div class="tl-time">Option C — Visuell schön</div>
+              <div class="tl-title">Dorsoduro / Punta della Salute</div>
+              <div class="tl-desc">Im weiteren Verlauf der Regatta. Kann visuell großartig sein — aber keine engen Pläne anschließen.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">☀️</div>
+            <div class="tl-body">
+              <div class="tl-time">Nachmittag</div>
+              <div class="tl-title">Lange Pause einbauen</div>
+              <div class="tl-desc">Wenn sich der Wasserverkehr normalisiert hat und ihr noch Lust habt: optionale Gondel. Nur als spontane, ruhige Entscheidung — nicht als Pflicht.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🛶</div>
+            <div class="tl-body">
+              <div class="tl-time">Optional · Nachmittag</div>
+              <div class="tl-title">Gondel — wenn die Kanäle wieder ruhig sind</div>
+              <div class="tl-desc">Ab Dorsoduro, San Tomà oder San Polo starten — nicht mitten aus dem touristischsten San-Marco-Gewimmel. Nur buchen, wenn die Kanäle wieder ruhig wirken.</div>
+              <span class="tl-tag cost">90 € / Gondel (max. 5 Pers.) · 30 Min. tags · 110 € / 35 Min. ab 19 Uhr</span>
+            </div>
+          </div>
+        </div>
+        <div class="day-sidebar">
+          <div class="sidebar-card" style="border-top:3px solid var(--orange);">
+            <h4>🚣 Vogalonga 2026</h4>
+            <div class="cost-row"><span class="cr-label">Datum</span><span class="cr-val">24. Mai 2026</span></div>
+            <div class="cost-row"><span class="cr-label">Start</span><span class="cr-val">9:00 Uhr</span></div>
+            <div class="cost-row"><span class="cr-label">Sammeln</span><span class="cr-val">ab 8:30 Uhr</span></div>
+            <div class="cost-row"><span class="cr-label">Strecke</span><span class="cr-val">ca. 30 km</span></div>
+            <div class="cost-row"><span class="cr-label">Ausgabe</span><span class="cr-val">50. Vogalonga</span></div>
+            <a href="https://vogalonga.com/en/" target="_blank" style="display:block; font-size:.8rem; color:var(--teal); margin-top:10px;">→ vogalonga.com</a>
+          </div>
+          <div class="info-box warning" style="margin:0;">
+            <span class="ib-icon">🚫</span>
+            <div class="ib-content">
+              <h4>Was ihr vermeiden solltet</h4>
+              <p>Inselbesuch · feste Vaporetto-Routen · Museen mit engem Zeitfenster · Abreise planen</p>
+            </div>
+          </div>
+          <div class="sidebar-card">
+            <h4>🛶 Gondel-Preise</h4>
+            <div class="cost-row"><span class="cr-label">Tags (9–19 Uhr)</span><span class="cr-val">90 € / 30 Min</span></div>
+            <div class="cost-row"><span class="cr-label">Abends (19–4 Uhr)</span><span class="cr-val">110 € / 35 Min</span></div>
+            <div class="cost-row"><span class="cr-label">Max. Personen</span><span class="cr-val">5</span></div>
+            <a href="https://www.comune.venezia.it/it/content/servizio-gondola" target="_blank" style="display:block; font-size:.8rem; color:var(--teal); margin-top:8px;">→ Offizielle Tarife</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAY 6 -->
+    <div id="d6" class="day-content">
+      <div class="day-header">
+        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=1400&q=80&fit=crop&crop=center" alt="Venedig Abschied" loading="lazy" />
+        <div class="day-header-overlay">
+          <div class="day-header-text">
+            <div class="d-date">Montag, 25. Mai 2026 · Abreise</div>
+            <h2>Ruhiger Abschied</h2>
+            <div class="d-theme">Ein letzter Kaffee, ein letzter Kanal. Dann nach Hause.</div>
+          </div>
+        </div>
+      </div>
+      <div class="day-grid">
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot">☕</div>
+            <div class="tl-body">
+              <div class="tl-time">Morgen</div>
+              <div class="tl-title">Letzter Abschiedsspaziergang</div>
+              <div class="tl-desc">Campo San Giacomo dell'Orio, ein Kaffee, vielleicht ein letzter Blick auf den Canal Grande. Keine große Besichtigung mehr.</div>
+              <span class="tl-tag tip">Biennale montags geschlossen — kein Besuch möglich</span>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">🧳</div>
+            <div class="tl-body">
+              <div class="tl-time">Je nach Flugzeit</div>
+              <div class="tl-title">Auschecken & Aufbruch</div>
+              <div class="tl-desc">Gepäck packen, auschecken. Großzügig Zeit einplanen.</div>
+            </div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot">⚓</div>
+            <div class="tl-body">
+              <div class="tl-time">Rücktransfer</div>
+              <div class="tl-title">San Stae → Alilaguna → Flughafen</div>
+              <div class="tl-desc">Zu Fuß nach San Stae, dann Alilaguna Linea Arancio zum Flughafen. Großzügig planen — Boote fahren nicht im Minutentakt. Bei sehr früher Abreise: Landweg über Piazzale Roma (Bus oder Taxi).</div>
+              <span class="tl-tag warn">Bootfahrt früh genug einplanen</span>
+            </div>
+          </div>
+        </div>
+        <div class="day-sidebar">
+          <div class="sidebar-card">
+            <h4>📅 Fakten</h4>
+            <div class="cost-row"><span class="cr-label">Zugangsgebühr</span><span class="pill green">Frei</span></div>
+            <div class="cost-row"><span class="cr-label">Biennale</span><span class="pill red">Montags geschlossen</span></div>
+          </div>
+          <div class="info-box notice" style="margin:0;">
+            <span class="ib-icon">⏰</span>
+            <div class="ib-content">
+              <h4>Rücktransfer früh planen</h4>
+              <p>Ohne Flugzeiten kann die Rückfahrt nicht minutengenau festgelegt werden. Im Zweifel Landroute (Bus/Taxi ab Piazzale Roma) als Backup einplanen.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /section-inner -->
+</section>
+
+<!-- VOGALONGA SPECIAL SECTION -->
+<section id="vogalonga">
+  <div class="section-inner">
+    <div class="section-label">Besonderes Ereignis</div>
+    <h2 class="section-title">Die Vogalonga 2026</h2>
+
+    <div class="vogalonga-banner">
+      <div class="vb-label">50. Ausgabe · Venedig</div>
+      <h2>Vogalonga · 24. Mai 2026</h2>
+      <p>Eine nicht-kompetitive Ruderregatta über rund 30 Kilometer durch die gesamte Lagune. Was einst als Protest gegen Motorboote begann, ist heute eines der schönsten Wasserfeste der Welt. Die Route führt durch das Becken von San Marco, über Murano, durch den Rio di Cannaregio und den Canal Grande zurück zur Punta della Salute.</p>
+      <div class="vogalonga-facts">
+        <div class="vf-item">
+          <div class="vf-val">50.</div>
+          <div class="vf-key">Ausgabe</div>
+        </div>
+        <div class="vf-item">
+          <div class="vf-val">30 km</div>
+          <div class="vf-key">Streckenlänge</div>
+        </div>
+        <div class="vf-item">
+          <div class="vf-val">9:00</div>
+          <div class="vf-key">Startzeit</div>
+        </div>
+        <div class="vf-item">
+          <div class="vf-val">6000+</div>
+          <div class="vf-key">Ruderer</div>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-family:'Playfair Display',serif; color:var(--teal-dark); margin-bottom:20px; font-size:1.4rem;">Drei Optionen als Zuschauer</h3>
+    <div class="alternatives-grid">
+      <div class="alt-card">
+        <div class="alt-num">A</div>
+        <h4>Cannaregio · Ruhig & Nah</h4>
+        <p>Richtung Rio di Cannaregio, einem Teil der Vogalonga zusehen — danach ohne Boot weiter zur Fondamenta della Misericordia. Entspannt, zentral, keine Massen.</p>
+      </div>
+      <div class="alt-card">
+        <div class="alt-num">B</div>
+        <h4>Riva degli Schiavoni · Eindrucksvoll</h4>
+        <p>Früh zur Riva degli Schiavoni / San-Marco-Becken für die Startstimmung. Eindrucksvoll — aber frühzeitig kommen und den Bereich verlassen, bevor es eng wird.</p>
+      </div>
+      <div class="alt-card">
+        <div class="alt-num">C</div>
+        <h4>Dorsoduro / Salute · Visuell</h4>
+        <p>Punta della Dogana oder Accademia-Seite im späteren Verlauf. Kann visuell großartig sein — keine engen Pläne danach anschließen.</p>
+      </div>
+    </div>
+
+    <div class="info-box warning" style="margin-top:28px;">
+      <span class="ib-icon">🚫</span>
+      <div class="ib-content">
+        <h4>Der gravierendste Planungsfehler wäre…</h4>
+        <p>…an diesem Tag einen Inselbesuch oder vaporetto-abhängiges Programm einzuplanen. Die Vogalonga nutzt zentrale Wasserwege — Wasserverkehr ist mindestens vormittags eingeschränkt. Venedig zu Fuß erleben und die Veranstaltung als Teil der Reise annehmen.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAP -->
+<section id="map-section">
+  <div class="section-inner">
+    <div class="section-label">Orientierung</div>
+    <h2 class="section-title">Venedig — Eure wichtigsten Orte</h2>
+    <p class="section-intro">Alle relevanten Haltestellen, Sehenswürdigkeiten und Viertel auf einem Blick. Klickt auf die Marker für Details.</p>
+    <div id="main-map"></div>
+  </div>
+</section>
+
+<!-- BIENNALE -->
+<section id="biennale">
+  <div class="section-inner">
+    <div class="section-label">Kunst & Kultur</div>
+    <h2 class="section-title">Biennale Arte 2026</h2>
+
+    <div class="biennale-card">
+      <div class="biennale-img">
+        <img src="https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?w=800&q=80&fit=crop&crop=center" alt="Kunst Galerie Biennale" loading="lazy" />
+      </div>
+      <div class="biennale-content">
+        <h3>In Minor Keys</h3>
+        <p class="biennale-sub">61. Internationale Kunstausstellung</p>
+        <p>Die Biennale Arte 2026 läuft vom 9. Mai bis 22. November 2026 — während eurer gesamten Reise also geöffnet. Sie ist relevant, aber nicht als Pflichtprogramm. Ein sinnvoller Besuch braucht einen halben bis ganzen Tag.</p>
+        <p>Wenn ihr sie einbauen wollt: als <strong>Ersatz, nicht zusätzlich</strong>. Der beste Tausch wäre, Peggy Guggenheim wegzulassen und stattdessen das Arsenale am späten Freitagabend zu besuchen.</p>
+        <div class="biennale-details">
+          <div class="b-detail">
+            <span class="bd-icon">📍</span>
+            <span><strong>Giardini</strong> & <strong>Arsenale</strong> (+ weitere Orte)</span>
+          </div>
+          <div class="b-detail">
+            <span class="bd-icon">⏰</span>
+            <span>11:00–19:00 Uhr · Fr/Sa im Arsenale bis 20:00</span>
+          </div>
+          <div class="b-detail">
+            <span class="bd-icon">🎟️</span>
+            <span><strong>30 €</strong> Regulär · Giardini + Arsenale (auch an verschiedenen Tagen)</span>
+          </div>
+          <div class="b-detail">
+            <span class="bd-icon">🚫</span>
+            <span><strong>Montags geschlossen</strong> — Abreisetag 25. Mai ausgenommen</span>
+          </div>
+          <div class="b-detail">
+            <span class="bd-icon">🌐</span>
+            <span><a href="https://www.labiennale.org/en/art/2026" target="_blank" style="color:var(--teal);">labiennale.org</a></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="info-box notice" style="margin-top:24px;">
+      <span class="ib-icon">💡</span>
+      <div class="ib-content">
+        <h4>Nicht Peggy, Dorsoduro, Dogenpalast UND Biennale an einem Tag</h4>
+        <p>Das wäre kein entspannter Venedig-Stil mehr. Die Biennale nur als bewusst gewählten Kunstblock — nie als weiteres Add-on.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GONDOLA CALLOUT -->
+<section id="gondel" style="background:white;">
+  <div class="section-inner">
+    <div class="gondola-callout">
+      <div>
+        <h3>Die Gondel — wenn, dann richtig</h3>
+        <p>Für euren ruhigen Reisestil: Gondel ab Dorsoduro, San Tomà oder San Polo — nicht aus dem touristischsten San-Marco-Gewimmel. Nach der Vogalonga nur buchen, wenn die Kanäle wieder ruhig wirken. Sonst ist „keine Gondel" die bessere Entscheidung.</p>
+      </div>
+      <div class="gondola-prices">
+        <div class="gp-item">
+          <div class="gp-val">90 €</div>
+          <div class="gp-desc">30 Min. · tags<br>9:00–19:00 Uhr</div>
+        </div>
+        <div class="gp-item">
+          <div class="gp-val">110 €</div>
+          <div class="gp-desc">35 Min. · abends<br>ab 19:00 Uhr</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIPPS -->
+<section id="tipps">
+  <div class="section-inner">
+    <div class="section-label">Wichtigste Hinweise</div>
+    <h2 class="section-title">Was ihr nicht vergessen solltet</h2>
+    <div class="tips-grid">
+      <div class="tip-card danger">
+        <div class="tip-icon">🚫</div>
+        <div class="tip-text">
+          <h4>Kein Vaporetto am Vogalonga-Tag</h4>
+          <p>24. Mai: kein Inselbesuch, keine feste Bootsroute, kein San-Marco-per-Boot-Ausflug. Das ist der Tag, an dem Venedig den Ruderern gehört.</p>
+        </div>
+      </div>
+      <div class="tip-card success">
+        <div class="tip-icon">🌅</div>
+        <div class="tip-text">
+          <h4>Früh aufstehen lohnt sich</h4>
+          <p>Rialto um 7 Uhr, Markusplatz um 8 Uhr, Burano am frühen Morgen — die meisten großen Fehler in Venedig entstehen durch zu spätes Losfahren.</p>
+        </div>
+      </div>
+      <div class="tip-card danger">
+        <div class="tip-icon">📱</div>
+        <div class="tip-text">
+          <h4>QR-Code Befreiung sichern</h4>
+          <p>Vor der Reise bei der Residence Poli die Übernachtungsbefreiung für die Zugangsgebühr anfordern. Auf beiden Handys speichern — gilt 22., 23. und 24. Mai.</p>
+        </div>
+      </div>
+      <div class="tip-card success">
+        <div class="tip-icon">🎟️</div>
+        <div class="tip-text">
+          <h4>Drei Tickets jetzt buchen</h4>
+          <p>Markusdom (Zeitslot Do 21.05., ~9:30 Uhr · Basilika + Loggia 20 €), Peggy Guggenheim (Fr 22.05., 10:30/11:00 Uhr · 17 €), Dogenpalast (Fr 22.05. abend · Standardticket 35 €). Die 30-Tage-Ersparnis beim Dogenpalast ist für Ende Mai nicht mehr realistisch — Standardticket genügt.</p>
+        </div>
+      </div>
+      <div class="tip-card notice">
+        <div class="tip-icon">⚖️</div>
+        <div class="tip-text">
+          <h4>Biennale alternativ, nicht additiv</h4>
+          <p>Wenn Biennale, dann als Ersatz für einen anderen Block — nicht zusätzlich zu Peggy, Dorsoduro und Dogenpalast am selben Tag.</p>
+        </div>
+      </div>
+      <div class="tip-card info">
+        <div class="tip-icon">🗺️</div>
+        <div class="tip-text">
+          <h4>Fahrpläne kurz vor Reiseantritt prüfen</h4>
+          <p>Alilaguna und ACTV Linie 12 (Inseln) können sich ändern. Offiziellen Fahrplan jeweils kurz vor der Fahrt bestätigen — besonders für Burano/Mazzorbo.</p>
+        </div>
+      </div>
+      <div class="tip-card success">
+        <div class="tip-icon">👟</div>
+        <div class="tip-text">
+          <h4>Gute Schuhe sind entscheidend</h4>
+          <p>Venedig bedeutet Brücken, Stufen und unebenes Pflaster. Wasserdichte Schuhe empfohlen — Acqua Alta kann überraschend kommen, auch im Mai.</p>
+        </div>
+      </div>
+      <div class="tip-card info">
+        <div class="tip-icon">🏠</div>
+        <div class="tip-text">
+          <h4>Pause ist kein Luxus</h4>
+          <p>Mittagspause im Hotel einplanen. Venedig ist körperlich anspruchsvoller als man denkt — wer nachmittags frisch ist, erlebt die Stadt abends viel besser.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <h3>Venedig · Mai 2026</h3>
+    <p class="f-sub">Euer persönlicher Reiseplan · Residence Poli Venezia · 20.–25. Mai</p>
+    <div class="footer-links">
+      <a href="https://www.residencepolivenezia.it/en/contact" target="_blank">Residence Poli</a>
+      <a href="https://www.alilaguna.it/en/linee/orange-line" target="_blank">Alilaguna Orange Line</a>
+      <a href="https://actv.avmspa.it/en/content/venice-urban-services-0" target="_blank">ACTV Tickets</a>
+      <a href="https://tickets.basilicasanmarco.it" target="_blank">Markusdom Tickets</a>
+      <a href="https://www.guggenheim-venice.it/en/visit/" target="_blank">Peggy Guggenheim</a>
+      <a href="https://palazzoducale.visitmuve.it/en/visitor-information/" target="_blank">Dogenpalast</a>
+      <a href="https://cda.ve.it/en/" target="_blank">Zugangsgebühr Venedig</a>
+      <a href="https://vogalonga.com/en/" target="_blank">Vogalonga</a>
+      <a href="https://www.labiennale.org/en/art/2026" target="_blank">Biennale Arte 2026</a>
+    </div>
+    <p class="f-copy">Erstellt mit Sorgfalt für eine entspannte Reise. Alle Preise und Öffnungszeiten vor Ort prüfen — sie können sich ändern.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+// ── DAY TABS ──
+function showDay(id) {
+  document.querySelectorAll('.day-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.day-tab').forEach(el => el.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  const idx = ['d1','d2','d3','d4','d5','d6'].indexOf(id);
+  const activeTab = document.querySelectorAll('.day-tab')[idx];
+  activeTab.classList.add('active');
+  // Scroll active tab into view (mobile horizontal scroll)
+  activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+}
+
+// ── HAMBURGER MENU ──
+(function() {
+  const btn = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  const bg = document.getElementById('menuBg');
+  if (!btn || !menu) return;
+
+  function openMenu() {
+    btn.classList.add('open');
+    menu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    btn.setAttribute('aria-label', 'Menü schließen');
+  }
+  function closeMenu() {
+    btn.classList.remove('open');
+    menu.classList.remove('open');
+    document.body.style.overflow = '';
+    btn.setAttribute('aria-label', 'Menü öffnen');
+  }
+
+  btn.addEventListener('click', () => {
+    menu.classList.contains('open') ? closeMenu() : openMenu();
+  });
+
+  // Close on overlay tap
+  if (bg) bg.addEventListener('click', closeMenu);
+
+  // Close on link tap + smooth scroll
+  document.querySelectorAll('.mmlink').forEach(a => {
+    a.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+
+  // Close on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+})();
+
+// ── LEAFLET MAP ──
+document.addEventListener('DOMContentLoaded', function() {
+  const isMobile = window.innerWidth <= 600;
+  const map = L.map('main-map', {
+    center: [45.442, 12.338],
+    zoom: isMobile ? 12 : 13,
+    tap: true,
+    tapTolerance: 15,
+  });
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© <a href="https://openstreetmap.org">OpenStreetMap</a>',
+    maxZoom: 19
+  }).addTo(map);
+
+  const tealIcon = (emoji) => L.divIcon({
+    html: `<div style="background:white;border:2.5px solid #1a5f7a;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 2px 8px rgba(0,0,0,.2);">${emoji}</div>`,
+    className: '', iconSize: [36, 36], iconAnchor: [18, 18]
+  });
+  const goldIcon = (emoji) => L.divIcon({
+    html: `<div style="background:white;border:2.5px solid #c9a84c;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 2px 8px rgba(0,0,0,.2);">${emoji}</div>`,
+    className: '', iconSize: [36, 36], iconAnchor: [18, 18]
+  });
+  const orangeIcon = (emoji) => L.divIcon({
+    html: `<div style="background:white;border:2.5px solid #e67e22;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 2px 8px rgba(0,0,0,.2);">${emoji}</div>`,
+    className: '', iconSize: [36, 36], iconAnchor: [18, 18]
+  });
+
+  const points = [
+    { latlng: [45.4416, 12.3222], icon: tealIcon('🏠'), title: 'Residence Poli Venezia', desc: 'Euer Hotel · Santa Croce 1490' },
+    { latlng: [45.4413, 12.3221], icon: goldIcon('⚓'), title: 'San Stae (Vaporetto)', desc: 'Alilaguna & ACTV Haltestelle — wichtigster Anleger für euch' },
+    { latlng: [45.4341, 12.3388], icon: tealIcon('🏛️'), title: 'Piazza San Marco', desc: 'Markusdom · Campanile · Dogenpalast · früh morgens besuchen' },
+    { latlng: [45.4338, 12.3408], icon: tealIcon('👑'), title: 'Dogenpalast (Palazzo Ducale)', desc: 'Fr/Sa Abendöffnung bis 23 Uhr — beste Besuchszeit für euch' },
+    { latlng: [45.4380, 12.3358], icon: tealIcon('🌉'), title: 'Rialtobrücke', desc: 'Früh oder abends — nicht zur Hauptbesuchszeit' },
+    { latlng: [45.4311, 12.3327], icon: goldIcon('🎨'), title: 'Peggy Guggenheim Collection', desc: 'Dorsoduro · Zeitslot 10:30/11:00 Uhr · 17 €' },
+    { latlng: [45.4305, 12.3360], icon: tealIcon('⛪'), title: 'Santa Maria della Salute', desc: 'Dorsoduro · Beginn eures Freitagsmorgens' },
+    { latlng: [45.4457, 12.3387], icon: tealIcon('🚢'), title: 'Fondamente Nove', desc: 'Start für ACTV Linie 12 → Burano / Mazzorbo / Torcello / Murano' },
+    { latlng: [45.4445, 12.3318], icon: tealIcon('🕍'), title: 'Campo del Ghetto Nuovo', desc: 'Cannaregio · Donnerstagabend · ältestes jüdisches Ghetto Europas' },
+    { latlng: [45.4415, 12.3300], icon: goldIcon('🍷'), title: 'Fondamenta della Misericordia', desc: 'Cannaregio · Bacari & Cicchetti · entspannte Abendatmosphäre' },
+    { latlng: [45.4850, 12.4167], icon: goldIcon('🏡'), title: 'Burano', desc: 'Früh morgens besuchen · Linie 12 ab Fondamente Nove' },
+    { latlng: [45.4856, 12.4071], icon: tealIcon('🌿'), title: 'Mazzorbo', desc: 'Der ruhige Gegenpol zu Burano · über Holzbrücke erreichbar' },
+    { latlng: [45.4736, 12.4193], icon: tealIcon('⛪'), title: 'Torcello', desc: 'Optional · Stille und frühe byzantinische Mosaiken' },
+    { latlng: [45.4555, 12.3535], icon: tealIcon('🔮'), title: 'Murano', desc: 'Optional auf dem Rückweg · nur bei Interesse an Glaskunst' },
+    { latlng: [45.4301, 12.3395], icon: orangeIcon('🚣'), title: 'Ziel Vogalonga', desc: 'Punta della Salute · Zielbereich der Vogalonga am 24. Mai' },
+  ];
+
+  points.forEach(p => {
+    L.marker(p.latlng, { icon: p.icon })
+      .addTo(map)
+      .bindPopup(`<strong>${p.title}</strong><br><span style="color:#666;font-size:.85rem;">${p.desc}</span>`, { maxWidth: 240 });
+  });
+
+  // Vogalonga route (simplified)
+  const vogalongaRoute = [
+    [45.4275, 12.3280], // Giudecca start area
+    [45.4341, 12.3388], // San Marco basin
+    [45.4555, 12.3535], // Murano
+    [45.4457, 12.3387], // Fondamente Nove / Cannaregio
+    [45.4415, 12.3200], // Canal Grande
+    [45.4301, 12.3395], // Salute / Finish
+  ];
+  L.polyline(vogalongaRoute, { color: '#e67e22', weight: 3, dashArray: '8,6', opacity: .75 })
+    .addTo(map)
+    .bindPopup('<strong>🚣 Vogalonga Route (vereinfacht)</strong><br><span style="color:#666;font-size:.85rem;">24. Mai 2026 · ca. 30 km · Start 9:00 Uhr</span>');
+});
+
+// Scroll-based nav highlight
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+window.addEventListener('scroll', () => {
+  let cur = '';
+  sections.forEach(s => {
+    if (window.scrollY >= s.offsetTop - 80) cur = s.getAttribute('id');
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === `#${cur}`);
+  });
+});
+</script>
+</body>
+</html>
