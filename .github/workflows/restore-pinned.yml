@@ -1,0 +1,109 @@
+name: Restore pinned archive entries
+
+# Whenever a push lands on main, make sure every file listed under
+# _pinned/archive/ is present in archive/, and every entry in
+# _pinned/index-entries.html is linked from archive/index.html.
+#
+# The publisher pipeline that produces "Update feed report for ..." commits
+# regenerates archive/ from scratch, which would otherwise erase pinned files
+# (e.g. archive/venedig-2026.html). This workflow heals the state on every
+# push, so pinned files only disappear if they are removed from _pinned/.
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    # Avoid an infinite loop: skip if this push is itself the restore commit.
+    if: "!contains(github.event.head_commit.message, '[pinned-restore]')"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Use the default GITHUB_TOKEN; fine for pushing back to the same
+          # repo on the same branch.
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - name: Restore pinned files into archive/
+        id: restore_files
+        run: |
+          set -euo pipefail
+          changed=0
+          mkdir -p archive
+          if [ -d _pinned/archive ]; then
+            shopt -s nullglob
+            for src in _pinned/archive/*; do
+              [ -f "$src" ] || continue
+              name=$(basename "$src")
+              dst="archive/$name"
+              if [ ! -f "$dst" ] || ! cmp -s "$src" "$dst"; then
+                cp "$src" "$dst"
+                echo "restored: $dst"
+                changed=1
+              fi
+            done
+          fi
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+
+      - name: Re-insert pinned entries into archive/index.html
+        id: restore_index
+        run: |
+          set -euo pipefail
+          changed=0
+          index="archive/index.html"
+          entries="_pinned/index-entries.html"
+          if [ -f "$index" ] && [ -f "$entries" ]; then
+            # Read entries in reverse so the first line in the file ends up at
+            # the top of the <ol>. Iterating top-to-bottom and inserting at
+            # the same anchor would reverse them.
+            mapfile -t lines < "$entries"
+            for (( i=${#lines[@]}-1; i>=0; i-- )); do
+              line="${lines[$i]}"
+              # Skip blank lines and comments
+              case "$line" in
+                ""|"#"*) continue ;;
+              esac
+              href=$(printf '%s' "$line" | sed -nE 's/.*href="([^"]+)".*/\1/p')
+              if [ -z "$href" ]; then
+                echo "warn: no href in entry: $line"
+                continue
+              fi
+              if grep -qF "href=\"$href\"" "$index"; then
+                continue
+              fi
+              # Insert just after the <ol class="archive-list"> opening tag.
+              # Use awk for a robust, single-pass insert (no sed escaping issues).
+              tmp=$(mktemp)
+              awk -v insert="    $line" '
+                BEGIN { done = 0 }
+                {
+                  print
+                  if (!done && $0 ~ /<ol[^>]*class="archive-list"[^>]*>/) {
+                    print insert
+                    done = 1
+                  }
+                }
+              ' "$index" > "$tmp"
+              mv "$tmp" "$index"
+              echo "re-inserted index entry: $href"
+              changed=1
+            done
+          fi
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
+
+      - name: Commit and push restored state
+        if: steps.restore_files.outputs.changed == '1' || steps.restore_index.outputs.changed == '1'
+        run: |
+          set -euo pipefail
+          git config user.name  "raccoon-pinned-bot"
+          git config user.email "raccoon-pinned-bot@users.noreply.github.com"
+          git add archive/
+          git commit -m "Restore pinned archive entries [pinned-restore]"
+          git push origin HEAD:main
